@@ -1,0 +1,8 @@
+## Interface: 11200
+## Title: AutoMarker |cff7fff7fSuper-WoW|r
+## Notes: Automatically mark raid mobs
+## Author: Weird Vibes
+## SavedVariables: npcsToMark
+
+NPCList.lua
+AutoMarker.lua
