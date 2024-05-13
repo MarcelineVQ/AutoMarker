@@ -8,12 +8,12 @@ local CIRCLE   = 2
 local STAR     = 1
 local UNMARKED = 0
 
-npcsToMark = {};
-npcsToMark["Naxxramas"] = {}
+defaultNpcsToMark = {};
+defaultNpcsToMark["Naxxramas"] = {}
 
 --/////////////// SPIDER ///////////////
 
-npcsToMark["Naxxramas"]["spider_entrance_patrol"] = {
+defaultNpcsToMark["Naxxramas"]["spider_entrance_patrol"] = {
 	["0xF130003E69049DD3"]  = STAR; -- Infectious Skitterer
 	["0xF130003E69049DCE"]  = UNMARKED; -- Infectious Skitterer
 	["0xF130003E69049DCD"]  = UNMARKED; -- Infectious Skitterer
@@ -26,7 +26,7 @@ npcsToMark["Naxxramas"]["spider_entrance_patrol"] = {
 	["0xF130003E69049DA9"]  = UNMARKED; -- Infectious Skitterer
 }
 
-npcsToMark["Naxxramas"]["spider_entrance_right"] = {
+defaultNpcsToMark["Naxxramas"]["spider_entrance_right"] = {
 	["0xF130003E680158F6"]  = SKULL; -- Venom Stalker
 	["0xF130003E6601590E"]  = CROSS; -- Dread Creeper
 	["0xF130003E6601590F"]  = SQUARE; -- Dread Creeper
@@ -35,7 +35,7 @@ npcsToMark["Naxxramas"]["spider_entrance_right"] = {
 	["0xF130003E670158F3"]  = DIAMOND; -- Carrion Spinner
 }
 
-npcsToMark["Naxxramas"]["spider_entrance_left"] = {
+defaultNpcsToMark["Naxxramas"]["spider_entrance_left"] = {
 	["0xF130003E680158F7"]  = SKULL; -- Venom Stalker
 	["0xF130003E66015911"]  = CROSS; -- Dread Creeper
 	["0xF130003E66015910"]  = SQUARE; -- Dread Creeper
@@ -44,7 +44,7 @@ npcsToMark["Naxxramas"]["spider_entrance_left"] = {
 	["0xF130003E670158F8"]  = DIAMOND; -- Carrion Spinner
 }
 
-npcsToMark["Naxxramas"]["spider_anubrekhan_hallway"] = {
+defaultNpcsToMark["Naxxramas"]["spider_anubrekhan_hallway"] = {
 	["0xF130003E68015917"]  = SKULL; -- Venom Stalker
 	["0xF130003E66015912"]  = CROSS; -- Dread Creeper
 	["0xF130003E66015913"]  = SQUARE; -- Dread Creeper
@@ -53,13 +53,13 @@ npcsToMark["Naxxramas"]["spider_anubrekhan_hallway"] = {
 	["0xF130003E67015916"]  = DIAMOND; -- Carrion Spinner
 }
 
-npcsToMark["Naxxramas"]["spider_anubrekhan"] = {
+defaultNpcsToMark["Naxxramas"]["spider_anubrekhan"] = {
 	["0xF130003E5401591A"]  = SKULL; -- Anub'Rekhan
 	["0xF1300040BD04B2DF"]  = CROSS; -- Crypt Guard
 	["0xF1300040BD04B2DE"]  = SQUARE; -- Crypt Guard
 }
 
-npcsToMark["Naxxramas"]["spider_central_right"] = {
+defaultNpcsToMark["Naxxramas"]["spider_central_right"] = {
 	["0xF130003E6A0159DF"]  = SKULL; -- Crypt Reaver
 	["0xF130003E67049DC4"]  = CROSS; -- Carrion Spinner
 	["0xF130003E67049DC5"]  = SQUARE; -- Carrion Spinner
@@ -69,7 +69,7 @@ npcsToMark["Naxxramas"]["spider_central_right"] = {
 	["0xF130003E670159F4"]  = CIRCLE; -- Carrion Spinner
 }
 
-npcsToMark["Naxxramas"]["spider_central_patrol"] = {
+defaultNpcsToMark["Naxxramas"]["spider_central_patrol"] = {
 	["0xF130003E69049DAD"]  = STAR; -- Infectious Skitterer
 	["0xF130003E69049DAC"]  = UNMARKED; -- Infectious Skitterer
 	["0xF130003E69049DAB"]  = UNMARKED; -- Infectious Skitterer
@@ -80,17 +80,17 @@ npcsToMark["Naxxramas"]["spider_central_patrol"] = {
 	["0xF130003E69049DA5"]  = UNMARKED; -- Infectious Skitterer
 }
 
-npcsToMark["Naxxramas"]["spider_necro_1"] = {
+defaultNpcsToMark["Naxxramas"]["spider_necro_1"] = {
 	["0xF130004045015A20"]  = SKULL; -- Necro Stalker
 	["0xF130004045015A1F"]  = CROSS; -- Necro Stalker
 }
 
-npcsToMark["Naxxramas"]["spider_necro_2"] = {
+defaultNpcsToMark["Naxxramas"]["spider_necro_2"] = {
 	["0xF130004045049DBE"]  = SKULL; -- Necro Stalker
 	["0xF130004045049DBF"]  = CROSS; -- Necro Stalker
 }
 
-npcsToMark["Naxxramas"]["spider_faerlina_patrol"] = {
+defaultNpcsToMark["Naxxramas"]["spider_faerlina_patrol"] = {
 	["0xF130003E69049D6A"]  = STAR; -- Infectious Skitterer
 	["0xF130003E69049D6B"]  = UNMARKED; -- Infectious Skitterer
 	["0xF130003E69049D6C"]  = UNMARKED; -- Infectious Skitterer
@@ -101,7 +101,7 @@ npcsToMark["Naxxramas"]["spider_faerlina_patrol"] = {
 	["0xF130003E69049D65"]  = UNMARKED; -- Infectious Skitterer
 }
 
-npcsToMark["Naxxramas"]["spider_faerlina_left_1"] = {
+defaultNpcsToMark["Naxxramas"]["spider_faerlina_left_1"] = {
 	["0xF130003E6D049D6E"]  = SKULL; -- Naxxramas Acolyte
 	["0xF130003E6D049D6F"]  = CROSS; -- Naxxramas Acolyte
 	["0xF130003E6D049D71"]  = SQUARE; -- Naxxramas Acolyte
@@ -112,7 +112,7 @@ npcsToMark["Naxxramas"]["spider_faerlina_left_1"] = {
 	["0xF130003E6C049D74"]  = STAR; -- Naxxramas Cultist
 }
 
-npcsToMark["Naxxramas"]["spider_faerlina_left_2"] = {
+defaultNpcsToMark["Naxxramas"]["spider_faerlina_left_2"] = {
 	["0xF130003E6D049D99"]  = SKULL; -- Naxxramas Acolyte
 	["0xF130003E6D049D97"]  = CROSS; -- Naxxramas Acolyte
 	["0xF130003E6D049D95"]  = SQUARE; -- Naxxramas Acolyte
@@ -123,7 +123,7 @@ npcsToMark["Naxxramas"]["spider_faerlina_left_2"] = {
 	["0xF130003E6C049D9A"]  = STAR; -- Naxxramas Cultist
 }
 
-npcsToMark["Naxxramas"]["spider_faerlina_left_3"] = {
+defaultNpcsToMark["Naxxramas"]["spider_faerlina_left_3"] = {
 	["0xF130003E6D049D90"]  = SKULL; -- Naxxramas Acolyte
 	["0xF130003E6D049D92"]  = CROSS; -- Naxxramas Acolyte
 	["0xF130003E6D049D94"]  = SQUARE; -- Naxxramas Acolyte
@@ -134,7 +134,7 @@ npcsToMark["Naxxramas"]["spider_faerlina_left_3"] = {
 	["0xF130003E6C049D91"]  = STAR; -- Naxxramas Cultist
 }
 
-npcsToMark["Naxxramas"]["spider_faerlina_right_1"] = {
+defaultNpcsToMark["Naxxramas"]["spider_faerlina_right_1"] = {
 	["0xF130003E6D049D75"]  = SKULL; -- Naxxramas Acolyte
 	["0xF130003E6D049D78"]  = CROSS; -- Naxxramas Acolyte
 	["0xF130003E6D049D7C"]  = SQUARE; -- Naxxramas Acolyte
@@ -145,7 +145,7 @@ npcsToMark["Naxxramas"]["spider_faerlina_right_1"] = {
 	["0xF130003E6C049D79"]  = STAR; -- Naxxramas Cultist
 }
 
-npcsToMark["Naxxramas"]["spider_faerlina_right_2"] = {
+defaultNpcsToMark["Naxxramas"]["spider_faerlina_right_2"] = {
 	["0xF130003E6D049D7E"]  = SKULL; -- Naxxramas Acolyte
 	["0xF130003E6D049D84"]  = CROSS; -- Naxxramas Acolyte
 	["0xF130003E6D049D82"]  = SQUARE; -- Naxxramas Acolyte
@@ -156,7 +156,7 @@ npcsToMark["Naxxramas"]["spider_faerlina_right_2"] = {
 	["0xF130003E6C049D81"]  = STAR; -- Naxxramas Cultist
 }
 
-npcsToMark["Naxxramas"]["spider_faerlina_right_3"] = {
+defaultNpcsToMark["Naxxramas"]["spider_faerlina_right_3"] = {
 	["0xF130003E6D049D85"]  = SKULL; -- Naxxramas Acolyte
 	["0xF130003E6D049D87"]  = CROSS; -- Naxxramas Acolyte
 	["0xF130003E6D049D89"]  = SQUARE; -- Naxxramas Acolyte
@@ -167,7 +167,7 @@ npcsToMark["Naxxramas"]["spider_faerlina_right_3"] = {
 	["0xF130003E6C049D8C"]  = STAR; -- Naxxramas Cultist
 }
 
-npcsToMark["Naxxramas"]["spider_faerlina"] = {
+defaultNpcsToMark["Naxxramas"]["spider_faerlina"] = {
 	["0xF13000407904A654"]  = SKULL; -- Naxxramas Follower
 	["0xF13000407904A653"]  = CROSS; -- Naxxramas Follower
 	["0xF13000407A04A658"]  = SQUARE; -- Naxxramas Worshipper
@@ -177,7 +177,7 @@ npcsToMark["Naxxramas"]["spider_faerlina"] = {
 	["0xF13000407A04A656"]  = STAR; -- Naxxramas Worshipper
 }
 
-npcsToMark["Naxxramas"]["spider_final"] = {
+defaultNpcsToMark["Naxxramas"]["spider_final"] = {
 	["0xF130003E6B01F3EE"]  = SKULL; -- Tomb Horror
 	["0xF130003E66049DB2"]  = CROSS; -- Dread Creeper
 	["0xF130003E66049DB3"]  = SQUARE; -- Dread Creeper
@@ -185,7 +185,7 @@ npcsToMark["Naxxramas"]["spider_final"] = {
 	["0xF130003E66015A2F"]  = MOON; -- Dread Creeper
 }
 
-npcsToMark["Naxxramas"]["spider_ring_3"] = {
+defaultNpcsToMark["Naxxramas"]["spider_ring_3"] = {
 	["0xF130003FF0015AD4"]  = SKULL; -- Necropolis Acolyte
 	["0xF130003FF0015AD3"]  = CROSS; -- Necropolis Acolyte
 }
@@ -193,47 +193,47 @@ npcsToMark["Naxxramas"]["spider_ring_3"] = {
 
 ----/////////////// CONSTRUCT ///////////////
 
-npcsToMark["Naxxramas"]["construct_entrance"] = {
+defaultNpcsToMark["Naxxramas"]["construct_entrance"] = {
 	["0xF130003E910158C7"]  = SKULL; -- Patchwork Golem
 	["0xF130003E910158C6"]  = CROSS; -- Patchwork Golem
 	["0xF130003E910158C5"]  = SQUARE; -- Patchwork Golem
 	["0xF130003E910158C8"]  = MOON; -- Patchwork Golem
 }
 
-npcsToMark["Naxxramas"]["construct_entrance_patrol"] = {
+defaultNpcsToMark["Naxxramas"]["construct_entrance_patrol"] = {
 	["0xF130003E920158CD"]  = TRIANGLE; -- Bile Retcher
 	["0xF130003E920158CE"]  = DIAMOND; -- Bile Retcher
 	["0xF130003E9D015A90"]  = CIRCLE; -- Sludge Belcher
 	["0xF130003E9D015A91"]  = STAR; -- Sludge Belcher
 }
 
-npcsToMark["Naxxramas"]["construct_central_left"] = {
+defaultNpcsToMark["Naxxramas"]["construct_central_left"] = {
 	["0xF130003E920158CF"]  = SKULL; -- Bile Retcher
 	["0xF130003E910158CA"]  = CROSS; -- Patchwork Golem
 	["0xF130003E910158C9"]  = SQUARE; -- Patchwork Golem
 }
 
-npcsToMark["Naxxramas"]["construct_central_right"] = {
+defaultNpcsToMark["Naxxramas"]["construct_central_right"] = {
 	["0xF130003E920158D0"]  = SKULL; -- Bile Retcher
 	["0xF130003E910158CB"]  = CROSS; -- Patchwork Golem
 	["0xF130003E910158CC"]  = SQUARE; -- Patchwork Golem
 }
 
-npcsToMark["Naxxramas"]["construct_central"] = {
+defaultNpcsToMark["Naxxramas"]["construct_central"] = {
 	["0xF130003E910158D8"]  = SKULL; -- Patchwork Golem
 	["0xF130003E910158D7"]  = CROSS; -- Patchwork Golem
 	["0xF130003E910158D6"]  = SQUARE; -- Patchwork Golem
 	["0xF130003E910158D9"]  = MOON; -- Patchwork Golem
 }
 
-npcsToMark["Naxxramas"]["construct_patchwerk_patrol"] = {
+defaultNpcsToMark["Naxxramas"]["construct_patchwerk_patrol"] = {
 	["0xF130003E92015A93"]  = SKULL; -- Bile Retcher
 	["0xF130003E92015A8E"]  = TRIANGLE; -- Bile Retcher
 	["0xF130003E9D015A92"]  = CIRCLE; -- Sludge Belcher
 	["0xF130003E92015A8F"]  = STAR; -- Bile Retcher
 }
 
-npcsToMark["Naxxramas"]["construct_scientist_1"] = {
+defaultNpcsToMark["Naxxramas"]["construct_scientist_1"] = {
 	["0xF130003E95049DE0"]  = SKULL; -- Living Monstrosity
 	["0xF130003E94049DE6"]  = MOON; -- Mad Scientist
 	["0xF130003E94049DE5"]  = SQUARE; -- Mad Scientist
@@ -241,7 +241,7 @@ npcsToMark["Naxxramas"]["construct_scientist_1"] = {
 	["0xF130003E94049DE8"]  = DIAMOND; -- Mad Scientist
 }
 
-npcsToMark["Naxxramas"]["construct_scientist_2"] = {
+defaultNpcsToMark["Naxxramas"]["construct_scientist_2"] = {
 	["0xF130003E95049DE9"]  = SKULL; -- Living Monstrosity
 	["0xF130003E94015AA1"]  = MOON; -- Mad Scientist
 	["0xF130003E94015AA0"]  = SQUARE; -- Mad Scientist
@@ -249,14 +249,14 @@ npcsToMark["Naxxramas"]["construct_scientist_2"] = {
 	["0xF130003E94015A9E"]  = DIAMOND; -- Mad Scientist
 }
 
-npcsToMark["Naxxramas"]["construct_patchwerk"] = {
+defaultNpcsToMark["Naxxramas"]["construct_patchwerk"] = {
 	["0xF130003E91015A96"]  = SKULL; -- Patchwork Golem
 	["0xF130003E91015A94"]  = CROSS; -- Patchwork Golem
 	["0xF130003E91015A97"]  = SQUARE; -- Patchwork Golem
 	["0xF130003E91015A95"]  = MOON; -- Patchwork Golem
 }
 
-npcsToMark["Naxxramas"]["construct_scientist_3"] = {
+defaultNpcsToMark["Naxxramas"]["construct_scientist_3"] = {
 	["0xF130003E95049DF5"]  = SKULL; -- Living Monstrosity
 	["0xF130003E94049DF6"]  = MOON; -- Mad Scientist
 	["0xF130003E94049DF5"]  = SQUARE; -- Mad Scientist
@@ -264,7 +264,7 @@ npcsToMark["Naxxramas"]["construct_scientist_3"] = {
 	["0xF130003E94049DF4"]  = DIAMOND; -- Mad Scientist
 }
 
-npcsToMark["Naxxramas"]["construct_scientist_4"] = {
+defaultNpcsToMark["Naxxramas"]["construct_scientist_4"] = {
 	["0xF130003E95049DF7"]  = SKULL; -- Living Monstrosity
 	["0xF130003E94049DFB"]  = MOON; -- Mad Scientist
 	["0xF130003E94049DFA"]  = SQUARE; -- Mad Scientist
@@ -272,7 +272,7 @@ npcsToMark["Naxxramas"]["construct_scientist_4"] = {
 	["0xF130003E94049DF8"]  = DIAMOND; -- Mad Scientist
 }
 
-npcsToMark["Naxxramas"]["construct_scientist_5"] = {
+defaultNpcsToMark["Naxxramas"]["construct_scientist_5"] = {
 	["0xF130003E95049E00"]  = SKULL; -- Living Monstrosity
 	["0xF130003E94015A85"]  = MOON; -- Mad Scientist
 	["0xF130003E94015A86"]  = SQUARE; -- Mad Scientist
@@ -280,17 +280,17 @@ npcsToMark["Naxxramas"]["construct_scientist_5"] = {
 	["0xF130003E94015A88"]  = DIAMOND; -- Mad Scientist
 }
 
-npcsToMark["Naxxramas"]["construct_grobb_entrance"] = {
+defaultNpcsToMark["Naxxramas"]["construct_grobb_entrance"] = {
 	["0xF130003E990158F2"]  = SKULL; -- Stitched Spewer
 	["0xF130003E990158F1"]  = CROSS; -- Stitched Spewer
 }
 
-npcsToMark["Naxxramas"]["construct_grobb_left"] = {
+defaultNpcsToMark["Naxxramas"]["construct_grobb_left"] = {
 	["0xF130003E990158EC"]  = SKULL; -- Stitched Spewer
 	["0xF130003E990158EB"]  = CROSS; -- Stitched Spewer
 }
 
-npcsToMark["Naxxramas"]["construct_grobb_far"] = {
+defaultNpcsToMark["Naxxramas"]["construct_grobb_far"] = {
 	["0xF130003E990158ED"]  = SKULL; -- Stitched Spewer
 	["0xF130003E99049E6B"]  = CROSS; -- Stitched Spewer
 	["0xF130003E990158EE"]  = SQUARE; -- Stitched Spewer
@@ -298,52 +298,52 @@ npcsToMark["Naxxramas"]["construct_grobb_far"] = {
 
 ----/////////////// MILITARY ///////////////
 
-npcsToMark["Naxxramas"]["military_entrance_middle"] = {
+defaultNpcsToMark["Naxxramas"]["military_entrance_middle"] = {
 	["0xF130003F1101594B"]  = SKULL; -- Deathknight Captain
 	["0xF130003F1101594C"]  = CROSS; -- Deathknight Captain
 }
 
-npcsToMark["Naxxramas"]["military_entrance_left"] = {
+defaultNpcsToMark["Naxxramas"]["military_entrance_left"] = {
 	["0xF130003F1201594A"]  = SKULL; -- Deathknight
 	["0xF130003F1A015950"]  = CROSS; -- Risen Deathknight
 	["0xF130003F1A015951"]  = SQUARE; -- Risen Deathknight
 }
 
-npcsToMark["Naxxramas"]["military_entrance_right"] = {
+defaultNpcsToMark["Naxxramas"]["military_entrance_right"] = {
 	["0xF130003F12015949"]  = SKULL; -- Deathknight
 	["0xF130003F1A015953"]  = CROSS; -- Risen Deathknight
 	["0xF130003F1A015952"]  = SQUARE; -- Risen Deathknight
 }
 
-npcsToMark["Naxxramas"]["military_entrance_patrol"] = {
+defaultNpcsToMark["Naxxramas"]["military_entrance_patrol"] = {
 	["0xF130003F2401594D"]  = SKULL; -- Shade of Naxxramas
 	["0xF130003F2501594F"]  = CROSS; -- Necro Knight
 	["0xF130003F2501594E"]  = SQUARE; -- Necro Knight
 }
 
-npcsToMark["Naxxramas"]["military_static_1"] = {
+defaultNpcsToMark["Naxxramas"]["military_static_1"] = {
 	["0xF130003F12015967"]  = SKULL; -- Deathknight
 	["0xF130003F1C015956"]  = CROSS; -- Dark Touched Warrior
 	["0xF130003F1E015955"]  = SQUARE; -- Death Touched Warrior
 	["0xF130003F11015954"]  = MOON; -- Deathknight Captain
 }
 
-npcsToMark["Naxxramas"]["military_forge_captains"] = {
+defaultNpcsToMark["Naxxramas"]["military_forge_captains"] = {
 	["0xF130003F11015968"]  = SKULL; -- Deathknight Captain
 	["0xF130003F11015969"]  = CROSS; -- Deathknight Captain
 }
 
-npcsToMark["Naxxramas"]["military_forge_shade_patrol"] = {
+defaultNpcsToMark["Naxxramas"]["military_forge_shade_patrol"] = {
 	["0xF130003F24015957"]  = STAR; -- Shade of Naxxramas
 }
 
-npcsToMark["Naxxramas"]["military_forge_shades"] = {
+defaultNpcsToMark["Naxxramas"]["military_forge_shades"] = {
 	["0xF130003F24015961"]  = SKULL; -- Shade of Naxxramas
 	["0xF130003F24015960"]  = CROSS; -- Shade of Naxxramas
 	["0xF130003F2501596A"]  = SQUARE; -- Necro Knight
 }
 
-npcsToMark["Naxxramas"]["military_forge_constructs"] = {
+defaultNpcsToMark["Naxxramas"]["military_forge_constructs"] = {
 	["0xF130003F27015962"]  = SKULL; -- Bony Construct
 	["0xF130003F27015963"]  = CROSS; -- Bony Construct
 	["0xF130003F27015964"]  = SQUARE; -- Bony Construct
@@ -351,98 +351,98 @@ npcsToMark["Naxxramas"]["military_forge_constructs"] = {
 	["0xF130003F27015966"]  = TRIANGLE; -- Bony Construct
 }
 
-npcsToMark["Naxxramas"]["military_forge_smiths"] = {
+defaultNpcsToMark["Naxxramas"]["military_forge_smiths"] = {
 	["0xF130003F4101595A"]  = SKULL; -- Skeletal Smith
 	["0xF130003F41015958"]  = CROSS; -- Skeletal Smith
 	["0xF130003F41015959"]  = SQUARE; -- Skeletal Smith
 	["0xF130003F4101595B"]  = MOON; -- Skeletal Smith
 }
 
-npcsToMark["Naxxramas"]["military_static_2"] = {
+defaultNpcsToMark["Naxxramas"]["military_static_2"] = {
 	["0xF130003F1201595E"]  = SKULL; -- Deathknight
 	["0xF130003F1201595D"]  = CROSS; -- Deathknight
 	["0xF130003F1101595C"]  = SQUARE; -- Deathknight Captain
 	["0xF130003F1101595F"]  = MOON; -- Deathknight Captain
 }
 
-npcsToMark["Naxxramas"]["military_static_3"] = {
+defaultNpcsToMark["Naxxramas"]["military_static_3"] = {
 	["0xF130003F1201596E"]  = SKULL; -- Deathknight
 	["0xF130003F1C01596B"]  = CROSS; -- Dark Touched Warrior
 	["0xF130003F1D01596C"]  = SQUARE; -- Doom Touched Warrior
 	["0xF130003F1101596D"]  = MOON; -- Deathknight Captain
 }
 
-npcsToMark["Naxxramas"]["military_upper_patrol"] = {
+defaultNpcsToMark["Naxxramas"]["military_upper_patrol"] = {
 	["0xF130003F12015978"]  = SKULL; -- Deathknight
 	["0xF130003F1E01597A"]  = CROSS; -- Death Touched Warrior
 	["0xF130003F1E015979"]  = SQUARE; -- Death Touched Warrior
 }
 
-npcsToMark["Naxxramas"]["military_static_4"] = {
+defaultNpcsToMark["Naxxramas"]["military_static_4"] = {
 	["0xF130003F12015973"]  = SKULL; -- Deathknight
 	["0xF130003F12015972"]  = CROSS; -- Deathknight
 	["0xF130003F1101596F"]  = SQUARE; -- Deathknight Captain
 }
 
-npcsToMark["Naxxramas"]["military_static_5"] = {
+defaultNpcsToMark["Naxxramas"]["military_static_5"] = {
 	["0xF130003F12015975"]  = SKULL; -- Deathknight
 	["0xF130003F12015974"]  = CROSS; -- Deathknight
 	["0xF130003F11015970"]  = SQUARE; -- Deathknight Captain
 }
 
-npcsToMark["Naxxramas"]["military_static_6"] = {
+defaultNpcsToMark["Naxxramas"]["military_static_6"] = {
 	["0xF130003F12015977"]  = SKULL; -- Deathknight
 	["0xF130003F12015976"]  = CROSS; -- Deathknight
 	["0xF130003F11015971"]  = SQUARE; -- Deathknight Captain
 }
 
-npcsToMark["Naxxramas"]["military_static_7"] = {
+defaultNpcsToMark["Naxxramas"]["military_static_7"] = {
 	["0xF130003F1201597C"]  = SKULL; -- Deathknight
 	["0xF130003F1E01597B"]  = CROSS; -- Death Touched Warrior
 	["0xF130003F1D01597E"]  = SQUARE; -- Doom Touched Warrior
 	["0xF130003F1101597D"]  = MOON; -- Deathknight Captain
 }
 
-npcsToMark["Naxxramas"]["military_horse_duo"] = {
+defaultNpcsToMark["Naxxramas"]["military_horse_duo"] = {
 	["0xF130003F23049E07"]  = SKULL; -- Deathknight Cavalier
 	["0xF130003F23049E08"]  = CROSS; -- Deathknight Cavalier
 }
 
-npcsToMark["Naxxramas"]["military_horse_1"] = {
+defaultNpcsToMark["Naxxramas"]["military_horse_1"] = {
 	["0xF130003F2301597F"]  = SKULL; -- Deathknight Cavalier
 	["0xF130003F1E015982"]  = CROSS; -- Death Touched Warrior
 	["0xF130003F1E015981"]  = SQUARE; -- Death Touched Warrior
 	["0xF130003F1E015989"]  = MOON; -- Death Touched Warrior
 }
 
-npcsToMark["Naxxramas"]["military_horse_2"] = {
+defaultNpcsToMark["Naxxramas"]["military_horse_2"] = {
 	["0xF130003F23015980"]  = SKULL; -- Deathknight Cavalier
 	["0xF130003F1C015983"]  = CROSS; -- Dark Touched Warrior
 	["0xF130003F1C015984"]  = SQUARE; -- Dark Touched Warrior
 	["0xF130003F1D015985"]  = MOON; -- Doom Touched Warrior
 }
 
-npcsToMark["Naxxramas"]["military_horse_3"] = {
+defaultNpcsToMark["Naxxramas"]["military_horse_3"] = {
 	["0xF130003F23049E06"]  = SKULL; -- Deathknight Cavalier
 	["0xF130003F1C015988"]  = CROSS; -- Dark Touched Warrior
 	["0xF130003F1A015987"]  = SQUARE; -- Risen Deathknight
 	["0xF130003F1A015986"]  = MOON; -- Risen Deathknight
 }
 
-npcsToMark["Naxxramas"]["military_horse_trio"] = {
+defaultNpcsToMark["Naxxramas"]["military_horse_trio"] = {
 	["0xF1300041DD049549"]  = SKULL; -- Death Lord
 	["0xF130003F23015992"]  = CROSS; -- Deathknight Cavalier
 	["0xF130003F23015991"]  = SQUARE; -- Deathknight Cavalier
 }
 
-npcsToMark["Naxxramas"]["military_horse_4"] = {
+defaultNpcsToMark["Naxxramas"]["military_horse_4"] = {
 	["0xF130003F23015993"]  = SKULL; -- Deathknight Cavalier
 	["0xF130003F1C01598A"]  = CROSS; -- Dark Touched Warrior
 	["0xF130003F1C01598B"]  = SQUARE; -- Dark Touched Warrior
 	["0xF130003F1D01598C"]  = MOON; -- Doom Touched Warrior
 }
 
-npcsToMark["Naxxramas"]["military_razuvious"] = {
+defaultNpcsToMark["Naxxramas"]["military_razuvious"] = {
 	["0xF1300041A304A65F"]  = DIAMOND; -- Deathknight Understudy, left far
 	["0xF1300041A304A660"]  = STAR; -- Deathknight Understudy, right far
 	["0xF1300041A304A661"]  = TRIANGLE; -- Deathknight Understudy, left close
@@ -450,71 +450,60 @@ npcsToMark["Naxxramas"]["military_razuvious"] = {
 	["0xF130003EBD01598C"]  = SKULL; -- Instructor Razuvious  
 }
 
-npcsToMark["Naxxramas"]["military_weps_1"] = {
+defaultNpcsToMark["Naxxramas"]["military_weps_1"] = {
 	["0xF130003F4201F334"]  = SKULL; -- Unholy Axe
 	["0xF130003F4201F335"]  = CROSS; -- Unholy Axe
 }
 
-npcsToMark["Naxxramas"]["military_weps_2"] = {
+defaultNpcsToMark["Naxxramas"]["military_weps_2"] = {
 	["0xF130003F5801F350"]  = SKULL; -- Unholy Swords
 	["0xF130003F4201F336"]  = CROSS; -- Unholy Axe
 }
 
-npcsToMark["Naxxramas"]["military_weps_3"] = {
+defaultNpcsToMark["Naxxramas"]["military_weps_3"] = {
 	["0xF130003F5801F34F"]  = SKULL; -- Unholy Swords
 	["0xF130003F4201F337"]  = CROSS; -- Unholy Axe
 }
 
-npcsToMark["Naxxramas"]["military_weps_4"] = {
+defaultNpcsToMark["Naxxramas"]["military_weps_4"] = {
 	["0xF130003F5701F34A"]  = SKULL; -- Unholy Staff
 	["0xF130003F4201F333"]  = CROSS; -- Unholy Axe
 }
 
-npcsToMark["Naxxramas"]["military_weps_5"] = {
+defaultNpcsToMark["Naxxramas"]["military_weps_5"] = {
 	["0xF130003F5701F34B"]  = SKULL; -- Unholy Staff
 	["0xF130003F57049E02"]  = CROSS; -- Unholy Staff
 }
 
-npcsToMark["Naxxramas"]["military_gothik_horses"] = {
+defaultNpcsToMark["Naxxramas"]["military_gothik_horses"] = {
 	["0xF130003F2301599A"]  = SKULL; -- Deathknight Cavalier
 	["0xF130003F23015999"]  = CROSS; -- Deathknight Cavalier
 }
 
-npcsToMark["Naxxramas"]["military_gothik_shade"] = {
+defaultNpcsToMark["Naxxramas"]["military_gothik_shade"] = {
 	["0xF130003F24015996"]  = SKULL; -- Shade of Naxxramas
 	["0xF130003F25015998"]  = CROSS; -- Necro Knight
 	["0xF130003F25015997"]  = SQUARE; -- Necro Knight
 }
 
-npcsToMark["Naxxramas"]["military_ring_acoltye_1"] = {
+defaultNpcsToMark["Naxxramas"]["military_ring_acoltye_1"] = {
 	["0xF130003FF0015AD9"]  = SKULL; -- Necropolis Acolyte
 	["0xF130003FF0015ADA"]  = CROSS; -- Necropolis Acolyte
 }
 
-npcsToMark["Naxxramas"]["military_ring_acoltye_2"] = {
+defaultNpcsToMark["Naxxramas"]["military_ring_acoltye_2"] = {
 	["0xF130003FF0015ADE"]  = SKULL; -- Necropolis Acolyte
 	["0xF130003FF0015ADF"]  = CROSS; -- Necropolis Acolyte
 }
 
-npcsToMark["Naxxramas"]["military_ring_acoltye_3"] = {
+defaultNpcsToMark["Naxxramas"]["military_ring_acoltye_3"] = {
 	["0xF130003FF0015AE0"]  = SKULL; -- Necropolis Acolyte
 	["0xF130003FF0015AE1"]  = CROSS; -- Necropolis Acolyte
 }
 
-npcsToMark["Naxxramas"]["military_ring_four_horsemen"] = {
+defaultNpcsToMark["Naxxramas"]["military_ring_four_horsemen"] = {
 	["0xF130003EBE015AB3"]  = SKULL; -- Highlord Mograine
 	["0xF130003EC0015AB0"]  = CROSS; -- Thane Korth'azz
 	["0xF130003EBF015AB2"]  = SQUARE; -- Sir Zeliak
 	["0xF130003EC1015AB1"]  = MOON; -- Lady Blaumeux
 }
-
-function npcsToMark:guidToPack(id,zone)
-	if not self[zone] then return end
-	for packName, packInfo in pairs(self[zone]) do
-		for guid, _ in pairs(packInfo) do
-			if guid == id then
-				return self[zone][packName]
-			end
-		end
-	end
-end
