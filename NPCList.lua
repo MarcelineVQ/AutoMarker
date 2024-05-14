@@ -507,3 +507,157 @@ defaultNpcsToMark["Naxxramas"]["military_ring_four_horsemen"] = {
 	["0xF130003EBF015AB2"]  = SQUARE; -- Sir Zeliak
 	["0xF130003EC1015AB1"]  = MOON; -- Lady Blaumeux
 }
+
+--/////////////// AQ40 ///////////////
+
+defaultNpcsToMark["Ahn'Qiraj"] = {}
+
+defaultNpcsToMark["Ahn'Qiraj"]["entrance_1"] = {
+	["0xF130003BA0015613"]  = SKULL; -- Anubisath Sentinel
+	["0xF130003BA0015610"]  = MOON; -- Anubisath Sentinel
+	["0xF130003BA0015611"]  = SQUARE; -- Anubisath Sentinel
+	["0xF130003BA0015612"]  = CROSS; -- Anubisath Sentinel
+}
+
+defaultNpcsToMark["Ahn'Qiraj"]["entrance_2"] = {
+	["0xF130003BA001560C"]  = SKULL; -- Anubisath Sentinel
+	["0xF130003BA001560D"]  = CROSS; -- Anubisath Sentinel
+	["0xF130003BA001560F"]  = MOON; -- Anubisath Sentinel
+	["0xF130003BA001560E"]  = SQUARE; -- Anubisath Sentinel
+}
+
+defaultNpcsToMark["Ahn'Qiraj"]["entrance_patrols"] = {
+	["0xF130003B9E049C9F"]  = CIRCLE; -- Obsidian Eradicator
+	["0xF130003B9E01580A"]  = TRIANGLE; -- Obsidian Eradicator
+	["0xF130003B9E049CA0"]  = DIAMOND -- Obsidian Eradicator
+}
+
+defaultNpcsToMark["Ahn'Qiraj"]["brainwasher_1"] = {
+	["0xF130003B8F01562D"] = SKULL; -- Qiraji Brainwasher
+	["0xF130003B8101562C"] = SQUARE; -- Vekniss Guardian
+	["0xF130003B8101562B"] = CROSS; -- Vekniss Guardian
+}
+
+defaultNpcsToMark["Ahn'Qiraj"]["warrior_1"] = {
+	["0xF130003B7E01567A"] = TRIANGLE; -- Vekniss Warrior
+	["0xF130003B7E015679"] = UNMARKED; -- Vekniss Warrior
+	["0xF130003B7E015678"] = UNMARKED -- Vekniss Warrior
+}
+
+defaultNpcsToMark["Ahn'Qiraj"]["brainwasher_2"] = {
+	["0xF130003B81015630"]  = MOON; -- Vekniss Guardian
+	["0xF130003B8101562F"]  = SQUARE; -- Vekniss Guardian
+	["0xF130003B81015677"]  = CROSS; -- Vekniss Guardian
+	["0xF130003B8F01562E"]  = SKULL; -- Qiraji Brainwasher
+}
+
+defaultNpcsToMark["Ahn'Qiraj"]["brainwasher_left"] = {
+	["0xF130003B8101563A"]  = SQUARE; -- Vekniss Guardian
+	["0xF130003B8F015636"]  = CROSS; -- Qiraji Brainwasher
+	["0xF130003B81015639"]  = MOON; -- Vekniss Guardian
+	["0xF130003B81015638"]  = TRIANGLE; -- Vekniss Guardian
+	["0xF130003B8F015637"]  = SKULL; -- Qiraji Brainwasher
+}
+
+defaultNpcsToMark["Ahn'Qiraj"]["brainwasher_right"] = {
+	["0xF130003B8101563C"]  = MOON; -- Vekniss Guardian
+	["0xF130003B8F015634"]  = SKULL; -- Qiraji Brainwasher
+	["0xF130003B8101563D"]  = TRIANGLE; -- Vekniss Guardian
+	["0xF130003B8101563B"]  = SQUARE; -- Vekniss Guardian
+	["0xF130003B8F015635"]  = CROSS; -- Qiraji Brainwasher
+}
+
+defaultNpcsToMark["Ahn'Qiraj"]["warrior_2"] = {
+	["0xF130003B7E049CA2"]  = STAR; -- Vekniss Warrior
+	["0xF130003B7E049CA4"]  = UNMARKED; -- Vekniss Warrior
+	["0xF130003B7E049CA3"]  = UNMARKED; -- Vekniss Warrior
+}
+
+defaultNpcsToMark["Ahn'Qiraj"]["guardian_1"] = {
+	["0xF130003B81015644"]  = SQUARE; -- Vekniss Guardian
+	["0xF130003B81015645"]  = DIAMOND; -- Vekniss Guardian
+	["0xF130003B81049CA1"]  = CROSS; -- Vekniss Guardian
+	["0xF130003B81015642"]  = SKULL; -- Vekniss Guardian
+	["0xF130003B81015643"]  = MOON; -- Vekniss Guardian
+	["0xF130003B81015641"]  = TRIANGLE; -- Vekniss Guardian
+}
+
+defaultNpcsToMark["Ahn'Qiraj"]["guardian_2"] = {
+	["0xF130003B81015648"]  = CROSS; -- Vekniss Guardian
+	["0xF130003B81015649"]  = TRIANGLE; -- Vekniss Guardian
+	["0xF130003B81015647"]  = SQUARE; -- Vekniss Guardian
+	["0xF130003B8101564A"]  = MOON; -- Vekniss Guardian
+	["0xF130003B81015646"]  = DIAMOND; -- Vekniss Guardian
+	["0xF130003B8101564B"]  = SKULL; -- Vekniss Guardian
+}
+
+defaultNpcsToMark["Ahn'Qiraj"]["guardian_3"] = {
+	["0xF130003B8101564E"]  = SQUARE; -- Vekniss Guardian
+	["0xF130003B8101564F"]  = SKULL; -- Vekniss Guardian
+	["0xF130003B8101564C"]  = CROSS; -- Vekniss Guardian
+	["0xF130003B81015650"]  = DIAMOND; -- Vekniss Guardian
+	["0xF130003B8101564D"]  = TRIANGLE; -- Vekniss Guardian
+	["0xF130003B81015651"]  = MOON; -- Vekniss Guardian
+}
+
+defaultNpcsToMark["Ahn'Qiraj"]["guardian_4"] = {
+	["0xF130003B8101565B"]  = TRIANGLE; -- Vekniss Guardian
+	["0xF130003B81015657"]  = CROSS; -- Vekniss Guardian
+	["0xF130003B8101565A"]  = DIAMOND; -- Vekniss Guardian
+	["0xF130003B81015658"]  = SQUARE; -- Vekniss Guardian
+	["0xF130003B8101565C"]  = MOON; -- Vekniss Guardian
+	["0xF130003B81015659"]  = SKULL; -- Vekniss Guardian
+}
+
+defaultNpcsToMark["Ahn'Qiraj"]["sartura"] = {
+	["0xF130003E70015662"]  = CROSS; -- Sartura's Royal Guard
+	["0xF130003E70015661"]  = SQUARE; -- Sartura's Royal Guard
+	["0xF130003E70015663"]  = MOON; -- Sartura's Royal Guard
+	["0xF130003C9C015660"]  = SKULL; -- Battleguard Sartura
+}
+
+defaultNpcsToMark["Ahn'Qiraj"]["soldiers"] = {
+	["0xF130003B7D015762"]  = SKULL; -- Vekniss Soldier
+	["0xF130003B7D01575D"]  = TRIANGLE; -- Vekniss Soldier
+	["0xF130003B7D01575F"]  = SQUARE; -- Vekniss Soldier
+	["0xF130003B7D015760"]  = CROSS; -- Vekniss Soldier
+	["0xF130003B7D01575E"]  = MOON; -- Vekniss Soldier
+}
+
+defaultNpcsToMark["Ahn'Qiraj"]["scorpions"] = {
+	["0xF130003B88015798"]  = SKULL; -- Vekniss Hive Crawler
+	["0xF130003B88049CA5"]  = MOON; -- Vekniss Hive Crawler
+	["0xF130003B8801578E"]  = TRIANGLE; -- Vekniss Hive Crawler
+	["0xF130003B88049CA6"]  = SQUARE; -- Vekniss Hive Crawler
+	["0xF130003B88015799"]  = CROSS; -- Vekniss Hive Crawler
+	["0xF130003B8801578F"]  = DIAMOND; -- Vekniss Hive Crawler
+	}
+
+defaultNpcsToMark["Ahn'Qiraj"]["lashers"] = {
+	["0xF130003B830157CD"]  = CIRCLE; -- Vekniss Stinger
+	["0xF130003B910157BF"]  = MOON; -- Qiraji Lasher
+	["0xF130003B910157C3"]  = CROSS; -- Qiraji Lasher
+	["0xF130003B910157C2"]  = SQUARE; -- Qiraji Lasher
+	["0xF130003B910157C8"]  = SKULL; -- Qiraji Lasher
+	["0xF130003B910157BC"]  = TRIANGLE; -- Qiraji Lasher
+	["0xF130003B830157B6"]  = DIAMOND; -- Vekniss Stinger
+}
+
+defaultNpcsToMark["Ahn'Qiraj"]["defenders"] = {
+	["0xF130003BAD0157CF"] = SKULL; -- Anubisath Defender
+	["0xF130003BAD0157D1"] = CROSS; -- Anubisath Defender
+	["0xF130003BAD0157D2"] = SQUARE; -- Anubisath Defender
+	["0xF130003BAD0157D0"] = MOON; -- Anubisath Defender
+	["0xF130003BAD0157D3"] = TRIANGLE -- Anubisath Defender
+}
+
+defaultNpcsToMark["Ahn'Qiraj"]["champions"] = {
+	["0xF130003B940157E7"] = SQUARE; -- Qiraji Champion
+	["0xF130003B940157E5"] = DIAMOND; -- Qiraji Champion
+	["0xF130003B940157E6"] = CIRCLE; -- Qiraji Champion
+	["0xF130003B940157F9"] = CROSS; -- Qiraji Champion
+	["0xF130003B940157E4"] = MOON; -- Qiraji Champion
+	["0xF130003B940157FA"] = TRIANGLE; -- Qiraji Champion
+	["0xF130003B940157E3"] = SKULL; -- Qiraji Champion
+	["0xF130003B940157DE"] = STAR; -- Qiraji Champion
+}
