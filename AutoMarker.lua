@@ -195,7 +195,6 @@ autoMarkerFrame:SetScript("OnEvent", function()
 end)
 
 local currentPackName = nil
-
 local function handleCommands(msg, editbox)
   local args = {}
   for word in string.gfind(msg, '%S+') do
@@ -228,8 +227,8 @@ local function handleCommands(msg, editbox)
       auto_print("Mob " .. UnitName(guid) .. " is in pack: " .. (packName or "not in any pack."))
     end
   elseif command == "clear" or command == "c" then
-    if npcsToMark[currentZoneName] then
-      npcsToMark[currentZoneName][currentPackName] = nil
+    if npcsToMark[zoneName] then
+      npcsToMark[zoneName][currentPackName] = nil
     end
     auto_print("Mobs in " .. currentPackName .. " have been cleared.")
   elseif command == "remove" or command == "r" then
@@ -244,7 +243,7 @@ local function handleCommands(msg, editbox)
       return
     end
     auto_print("Removing mob " .. UnitName(guid) .. " from pack: " .. packName)
-    npcsToMark[currentZoneName][packName][guid] = nil
+    npcsToMark[zoneName][packName][guid] = nil
   elseif command == "add" or command == "a" or force_add then
     if not currentPackName then
       auto_print("Must set packname before adding to pack.")
@@ -263,9 +262,9 @@ local function handleCommands(msg, editbox)
     local raidMarks = {"Unmarked", "Star", "Circle", "Diamond", "Triangle", "Moon", "Square", "Cross", "Skull"}
     local unitName, raidmark = UnitName(guid), GetRaidTargetIndex(guid) or 0
     auto_print("Adding " .. unitName .. "(" .. guid .. ") to pack: " .. currentPackName .. " with mark: " .. raidMarks[raidmark + 1] .. " in zone: " .. zoneName)
-    npcsToMark[currentZoneName] = npcsToMark[currentZoneName] or {}
-    npcsToMark[currentZoneName][currentPackName] = npcsToMark[currentZoneName][currentPackName] or {}
-    npcsToMark[currentZoneName][currentPackName][guid] = raidmark
+    npcsToMark[zoneName] = npcsToMark[zoneName] or {}
+    npcsToMark[zoneName][currentPackName] = npcsToMark[zoneName][currentPackName] or {}
+    npcsToMark[zoneName][currentPackName][guid] = raidmark
   else
     auto_print("Commands: /am set <packname>, /am get, /am clear, /am add, /am remove. Can also do first letter of each command like /am s or /am g.")
   end
