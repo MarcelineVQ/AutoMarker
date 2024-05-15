@@ -296,6 +296,7 @@ local function handleCommands(msg, editbox)
     auto_print("Debug mode set to: " .. (settings["debug"] and "on" or "off"))
   elseif command == "clearcache" then
     npcsToMark = {}
+    auto_print("Player-made groups have been cleared.")
   else
     auto_print("Commands:")
     auto_print("/am "..c("s",color.green).."et <packname>")
