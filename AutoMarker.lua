@@ -295,7 +295,7 @@ local function handleCommands(msg, editbox)
     settings["debug"] = not settings["debug"]
     auto_print("Debug mode set to: " .. (settings["debug"] and "on" or "off"))
   elseif command == "clearcache" then
-    npcsToMark = {}
+    npcsToMark = defaultNpcsToMark
     auto_print("Player-made groups have been cleared.")
   else
     auto_print("Commands:")
