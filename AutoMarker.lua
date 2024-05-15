@@ -2,20 +2,24 @@
 
 -- Utility -------------------
 
-local COLOR_WHITE = "|cffffffff"
-local COLOR_RED = "|cffff0000"
-local COLOR_GREEN = "|cff00ff00"
-local COLOR_BLUE = "|cff0000ff"
-local COLOR_YELLOW = "|cffffff00"
-local COLOR_CYAN = "|cff00ffff"
-local COLOR_MAGENTA = "|cffff00ff"
-local COLOR_GREY = "|cff808080"
-local COLOR_ORANGE = "|cffff8000"
-local COLOR_PURPLE = "|cffff00ff"
-local COLOR_END = "|r"
+local color = {
+  white = "|cffffffff",
+  red = "|cffff0000",
+  green = "|cff00ff00",
+  blue = "|cff0000ff",
+  yellow = "|cffffff00",
+  cyan = "|cff00ffff",
+  magenta = "|cffff00ff",
+  grey = "|cff808080",
+  orange = "|cffff8000",
+  purple = "|cffff00ff"}
+
+local function c(text, color)
+  return color..text.."|r"
+end
 
 if not SetAutoloot then
-  DEFAULT_CHAT_FRAME:AddMessage(COLOR_YELLOW .. "AutoMarker" .. COLOR_RED .. " requires SuperWoW to operate.");
+  DEFAULT_CHAT_FRAME:AddMessage(c("AutoMarker",color.yellow)..c(" requires SuperWoW to operate.",color.red))
   return
 end
 
@@ -198,7 +202,7 @@ autoMarkerFrame:SetScript("OnEvent", function()
         settings[k] = settings[k] and settings[k] or v
       end
     end
-    auto_print(COLOR_YELLOW.."AutoMarker loaded!"..COLOR_END.." Type "..COLOR_GREEN.."/am"..COLOR_END.." to see commands.")
+    auto_print(c("AutoMarker loaded!",color.yellow).." Type "..c("/am",color.green).." to see commands.")
   elseif event=="UPDATE_MOUSEOVER_UNIT" then
     OnMouseover()
     if settings["debug"] then
@@ -293,7 +297,14 @@ local function handleCommands(msg, editbox)
   elseif command == "clearcache" then
     npcsToMark = {}
   else
-    auto_print("Commands: /am set <packname>, /am get, /am clear, /am add, /am remove. Can also do first letter of each command like /am s or /am g.")
+    auto_print("Commands:")
+    auto_print("/am "..c("s",color.green).."et <packname>")
+    auto_print("/am "..c("g",color.green).."et")
+    auto_print("/am "..c("c",color.green).."lear")
+    auto_print("/am "..c("a",color.green).."dd")
+    auto_print("/am "..c("r",color.green).."emove")
+    auto_print("/am debug")
+    auto_print("/am clearcache")
   end
 end
 
