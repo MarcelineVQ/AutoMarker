@@ -11,19 +11,21 @@ local UNMARKED = 0
 defaultNpcsToMark = {};
 defaultNpcsToMark["Naxxramas"] = {}
 
+--/////////////// Naxxramas ///////////////
+
 --/////////////// SPIDER ///////////////
 
 defaultNpcsToMark["Naxxramas"]["spider_entrance_patrol"] = {
-	["0xF130003E69049DD3"]  = STAR; -- Infectious Skitterer
-	["0xF130003E69049DCE"]  = UNMARKED; -- Infectious Skitterer
-	["0xF130003E69049DCD"]  = UNMARKED; -- Infectious Skitterer
-	["0xF130003E69049DD0"]  = UNMARKED; -- Infectious Skitterer
-	["0xF130003E69049DD1"]  = UNMARKED; -- Infectious Skitterer
-	["0xF130003E69049DD2"]  = UNMARKED; -- Infectious Skitterer
-	["0xF130003E69049DCC"]  = UNMARKED; -- Infectious Skitterer
-	["0xF130003E69049DCF"]  = UNMARKED; -- Infectious Skitterer
-	["0xF130003E69049D9F"]  = UNMARKED; -- Infectious Skitterer
-	["0xF130003E69049DA9"]  = UNMARKED; -- Infectious Skitterer
+	["0xF130003E69269C39"] = UNMARKED; -- Infectious Skitterer
+	["0xF130003E69269C38"] = UNMARKED; -- Infectious Skitterer
+	["0xF130003E69269C37"] = UNMARKED; -- Infectious Skitterer
+	["0xF130003E69269C36"] = UNMARKED; -- Infectious Skitterer
+	["0xF130003E69269C35"] = UNMARKED; -- Infectious Skitterer
+	["0xF130003E69269C34"] = UNMARKED; -- Infectious Skitterer
+	["0xF130003E69269C33"] = UNMARKED; -- Infectious Skitterer
+	["0xF130003E69269C32"] = UNMARKED; -- Infectious Skitterer
+	["0xF130003E69269C05"] = UNMARKED; -- Infectious Skitterer
+	["0xF130003E69269C0F"] = STAR; -- Infectious Skitterer
 }
 
 defaultNpcsToMark["Naxxramas"]["spider_entrance_right"] = {
@@ -61,23 +63,23 @@ defaultNpcsToMark["Naxxramas"]["spider_anubrekhan"] = {
 
 defaultNpcsToMark["Naxxramas"]["spider_central_right"] = {
 	["0xF130003E6A0159DF"]  = SKULL; -- Crypt Reaver
-	["0xF130003E67049DC4"]  = CROSS; -- Carrion Spinner
-	["0xF130003E67049DC5"]  = SQUARE; -- Carrion Spinner
+	["0xF130003E67269C2D"]  = CROSS; -- Carrion Spinner
+	["0xF130003E67269C2C"]  = SQUARE; -- Carrion Spinner
+	["0xF130003E67269C2B"]  = TRIANGLE; -- Carrion Spinner
+	["0xF130003E67269C2A"]  = DIAMOND; -- Carrion Spinner
 	["0xF130003E670159F3"]  = MOON; -- Carrion Spinner
-	["0xF130003E67049DC7"]  = TRIANGLE; -- Carrion Spinner
-	["0xF130003E67049DC6"]  = DIAMOND; -- Carrion Spinner
 	["0xF130003E670159F4"]  = CIRCLE; -- Carrion Spinner
 }
 
 defaultNpcsToMark["Naxxramas"]["spider_central_patrol"] = {
-	["0xF130003E69049DAD"]  = STAR; -- Infectious Skitterer
-	["0xF130003E69049DAC"]  = UNMARKED; -- Infectious Skitterer
-	["0xF130003E69049DAB"]  = UNMARKED; -- Infectious Skitterer
-	["0xF130003E69049DAA"]  = UNMARKED; -- Infectious Skitterer
-	["0xF130003E69049DA8"]  = UNMARKED; -- Infectious Skitterer
-	["0xF130003E69049DA7"]  = UNMARKED; -- Infectious Skitterer
-	["0xF130003E69049DA6"]  = UNMARKED; -- Infectious Skitterer
-	["0xF130003E69049DA5"]  = UNMARKED; -- Infectious Skitterer
+	["0xF130003E69269C0B"]  = STAR; -- Infectious Skitterer
+	["0xF130003E69269C0C"]  = UNMARKED; -- Infectious Skitterer
+	["0xF130003E69269C13"]  = UNMARKED; -- Infectious Skitterer
+	["0xF130003E69269C12"]  = UNMARKED; -- Infectious Skitterer
+	["0xF130003E69269C11"]  = UNMARKED; -- Infectious Skitterer
+	["0xF130003E69269C10"]  = UNMARKED; -- Infectious Skitterer
+	["0xF130003E69269C0E"]  = UNMARKED; -- Infectious Skitterer
+	["0xF130003E69269C0D"]  = UNMARKED; -- Infectious Skitterer
 }
 
 defaultNpcsToMark["Naxxramas"]["spider_necro_1"] = {
@@ -234,19 +236,19 @@ defaultNpcsToMark["Naxxramas"]["construct_patchwerk_patrol"] = {
 }
 
 defaultNpcsToMark["Naxxramas"]["construct_scientist_1"] = {
-	["0xF130003E95049DE0"]  = SKULL; -- Living Monstrosity
-	["0xF130003E94049DE6"]  = MOON; -- Mad Scientist
-	["0xF130003E94049DE5"]  = SQUARE; -- Mad Scientist
-	["0xF130003E94049DE7"]  = CROSS; -- Mad Scientist
-	["0xF130003E94049DE8"]  = DIAMOND; -- Mad Scientist
+	["0xF130003E95269C46"] = SKULL; -- Living Monstrosity
+	["0xF130003E94269C4B"] = MOON; -- Mad Scientist
+	["0xF130003E94269C4C"] = SQUARE; -- Mad Scientist
+	["0xF130003E94269C4D"] = CROSS; -- Mad Scientist
+	["0xF130003E94269C4E"] = DIAMOND; -- Mad Scientist
 }
 
 defaultNpcsToMark["Naxxramas"]["construct_scientist_2"] = {
-	["0xF130003E95049DE9"]  = SKULL; -- Living Monstrosity
-	["0xF130003E94015AA1"]  = MOON; -- Mad Scientist
-	["0xF130003E94015AA0"]  = SQUARE; -- Mad Scientist
-	["0xF130003E94015A9F"]  = CROSS; -- Mad Scientist
-	["0xF130003E94015A9E"]  = DIAMOND; -- Mad Scientist
+	["0xF130003E95269C4F"] = SKULL; -- Living Monstrosity
+	["0xF130003E94015AA1"] = MOON; -- Mad Scientist
+	["0xF130003E94015AA0"] = SQUARE; -- Mad Scientist
+	["0xF130003E94015A9F"] = CROSS; -- Mad Scientist
+	["0xF130003E94015A9E"] = DIAMOND; -- Mad Scientist
 }
 
 defaultNpcsToMark["Naxxramas"]["construct_patchwerk"] = {
@@ -257,27 +259,27 @@ defaultNpcsToMark["Naxxramas"]["construct_patchwerk"] = {
 }
 
 defaultNpcsToMark["Naxxramas"]["construct_scientist_3"] = {
-	["0xF130003E95049DF5"]  = SKULL; -- Living Monstrosity
-	["0xF130003E94049DF6"]  = MOON; -- Mad Scientist
-	["0xF130003E94049DF5"]  = SQUARE; -- Mad Scientist
-	["0xF130003E94049DF3"]  = CROSS; -- Mad Scientist
-	["0xF130003E94049DF4"]  = DIAMOND; -- Mad Scientist
+	["0xF130003E95269C54"] = SKULL; -- Living Monstrosity
+	["0xF130003E94269C5C"] = MOON; -- Mad Scientist
+	["0xF130003E94269C5B"] = SQUARE; -- Mad Scientist
+	["0xF130003E94269C59"] = CROSS; -- Mad Scientist
+	["0xF130003E94269C5A"] = DIAMOND; -- Mad Scientist
 }
 
 defaultNpcsToMark["Naxxramas"]["construct_scientist_4"] = {
-	["0xF130003E95049DF7"]  = SKULL; -- Living Monstrosity
-	["0xF130003E94049DFB"]  = MOON; -- Mad Scientist
-	["0xF130003E94049DFA"]  = SQUARE; -- Mad Scientist
-	["0xF130003E94049DF9"]  = CROSS; -- Mad Scientist
-	["0xF130003E94049DF8"]  = DIAMOND; -- Mad Scientist
+	["0xF130003E95269C5D"]  = SKULL; -- Living Monstrosity
+	["0xF130003E94269C61"]  = MOON; -- Mad Scientist
+	["0xF130003E94269C60"]  = SQUARE; -- Mad Scientist
+	["0xF130003E94269C5F"]  = CROSS; -- Mad Scientist
+	["0xF130003E94269C5E"]  = DIAMOND; -- Mad Scientist
 }
 
 defaultNpcsToMark["Naxxramas"]["construct_scientist_5"] = {
-	["0xF130003E95049E00"]  = SKULL; -- Living Monstrosity
-	["0xF130003E94015A85"]  = MOON; -- Mad Scientist
-	["0xF130003E94015A86"]  = SQUARE; -- Mad Scientist
-	["0xF130003E94015A87"]  = CROSS; -- Mad Scientist
-	["0xF130003E94015A88"]  = DIAMOND; -- Mad Scientist
+	["0xF130003E95269C66"] = SKULL; -- Living Monstrosity
+	["0xF130003E94015A85"] = MOON; -- Mad Scientist
+	["0xF130003E94015A86"] = SQUARE; -- Mad Scientist
+	["0xF130003E94015A87"] = CROSS; -- Mad Scientist
+	["0xF130003E94015A88"] = DIAMOND; -- Mad Scientist
 }
 
 defaultNpcsToMark["Naxxramas"]["construct_grobb_entrance"] = {
@@ -404,8 +406,8 @@ defaultNpcsToMark["Naxxramas"]["military_static_7"] = {
 }
 
 defaultNpcsToMark["Naxxramas"]["military_horse_duo"] = {
-	["0xF130003F23049E07"]  = SKULL; -- Deathknight Cavalier
-	["0xF130003F23049E08"]  = CROSS; -- Deathknight Cavalier
+	["0xF130003F23269C6E"]  = SKULL; -- Deathknight Cavalier
+	["0xF130003F23269C6D"]  = CROSS; -- Deathknight Cavalier
 }
 
 defaultNpcsToMark["Naxxramas"]["military_horse_1"] = {
@@ -423,14 +425,14 @@ defaultNpcsToMark["Naxxramas"]["military_horse_2"] = {
 }
 
 defaultNpcsToMark["Naxxramas"]["military_horse_3"] = {
-	["0xF130003F23049E06"]  = SKULL; -- Deathknight Cavalier
+	["0xF130003F23269C6C"]  = SKULL; -- Deathknight Cavalier
 	["0xF130003F1C015988"]  = CROSS; -- Dark Touched Warrior
 	["0xF130003F1A015987"]  = SQUARE; -- Risen Deathknight
 	["0xF130003F1A015986"]  = MOON; -- Risen Deathknight
 }
 
 defaultNpcsToMark["Naxxramas"]["military_horse_trio"] = {
-	["0xF1300041DD049549"]  = SKULL; -- Death Lord
+	["0xF1300041DD082208"]  = SKULL; -- Death Lord
 	["0xF130003F23015992"]  = CROSS; -- Deathknight Cavalier
 	["0xF130003F23015991"]  = SQUARE; -- Deathknight Cavalier
 }
@@ -472,7 +474,7 @@ defaultNpcsToMark["Naxxramas"]["military_weps_4"] = {
 
 defaultNpcsToMark["Naxxramas"]["military_weps_5"] = {
 	["0xF130003F5701F34B"]  = SKULL; -- Unholy Staff
-	["0xF130003F57049E02"]  = CROSS; -- Unholy Staff
+	["0xF130003F57269C68"]  = CROSS; -- Unholy Staff
 }
 
 defaultNpcsToMark["Naxxramas"]["military_gothik_horses"] = {

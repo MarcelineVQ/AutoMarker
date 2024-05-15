@@ -1,3 +1,4 @@
+local DEBUG = false
 
 -- Utility -------------------
 
@@ -181,9 +182,13 @@ autoMarkerFrame:SetScript("OnEvent", function()
         end
       end
     end
-    auto_print(COLOR_YELLOW.."AutoMarker loaded."..COLOR_END.." Type /am to see commands.")
+    auto_print(COLOR_YELLOW.."AutoMarker loaded!"..COLOR_END.." Type "..COLOR_GREEN.."/am"..COLOR_END.." to see commands.")
   elseif event=="UPDATE_MOUSEOVER_UNIT" then
     OnMouseover()
+    if DEBUG then
+      local _,guid = UnitExists("mouseover")
+      auto_print(guid .. " " .. UnitName(guid))
+    end
   elseif event=="UNIT_MODEL_CHANGED" then
     -- Certain mobs in Naxx are script spawned so their IDs need to be fetched
     local name = UnitName(arg1)
@@ -220,11 +225,11 @@ local function handleCommands(msg, editbox)
     currentPackName = packName
     auto_print("Packname set to: " .. currentPackName)
   elseif command == "get" or command == "g" then
-    auto_print("Packname set to: " .. tostring(currentPackName))
+    auto_print("Curent packname set to: " .. (currentPackName or "none"))
     local guid = getGuid()
     if guid then
       local packName = guidToPack(guid, zoneName)
-      auto_print("Mob " .. UnitName(guid) .. " is in pack: " .. (packName or "not in any pack."))
+      auto_print(format("Mob %s (%s) is %s",guid,UnitName(guid), (packName and ("in pack: "..packName) or "not in any pack.")))
     end
   elseif command == "clear" or command == "c" then
     if npcsToMark[zoneName] then
