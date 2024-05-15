@@ -2,7 +2,7 @@
 ## Title: AutoMarker |cff7fff7fSuper-WoW|r
 ## Notes: Automatically mark raid mobs
 ## Author: Weird Vibes
-## SavedVariables: npcsToMark
+## SavedVariables: npcsToMark,settings
 
 NPCList.lua
 AutoMarker.lua

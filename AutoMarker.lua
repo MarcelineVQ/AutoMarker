@@ -1,4 +1,4 @@
-local DEBUG = false
+-- || Made by and for Weird Vibes of Turtle WoW || --
 
 -- Utility -------------------
 
@@ -93,6 +93,10 @@ end
 
 -- Addon ---------------------
 
+local defaultSettings = {
+  debug = false,
+}
+
 local autoMarkerFrame = CreateFrame("Frame")
 autoMarkerFrame:RegisterEvent("ADDON_LOADED")
 autoMarkerFrame:RegisterEvent("UPDATE_MOUSEOVER_UNIT")
@@ -127,7 +131,10 @@ local function OnMouseover()
     if targetGuid and not UnitIsDead(targetGuid) and PlayerCanMark() then
       local _, packMobs = guidToPack(targetGuid, GetRealZoneText())
       for mob, mark in pairs(packMobs or {}) do
-        SetRaidTarget(mob, mark)
+        -- might be out of range, e.g. a patrol
+        if UnitExists(mob) then
+          SetRaidTarget(mob, mark)
+        end
       end
     end
   end
@@ -182,10 +189,17 @@ autoMarkerFrame:SetScript("OnEvent", function()
         end
       end
     end
+    if not settings then
+      settings = defaultSettings
+    else -- update any missing settings
+      for k,v in defaultSettings do
+        settings[k] = settings[k] and settings[k] or v
+      end
+    end
     auto_print(COLOR_YELLOW.."AutoMarker loaded!"..COLOR_END.." Type "..COLOR_GREEN.."/am"..COLOR_END.." to see commands.")
   elseif event=="UPDATE_MOUSEOVER_UNIT" then
     OnMouseover()
-    if DEBUG then
+    if settings["debug"] then
       local _,guid = UnitExists("mouseover")
       auto_print(guid .. " " .. UnitName(guid))
     end
@@ -210,10 +224,7 @@ local function handleCommands(msg, editbox)
   local force_add = command == "forceadd"
   local zoneName = GetRealZoneText()
   local function getGuid()
-    local _, guid = UnitExists("mouseover")
-    if not guid then
-      _, guid = UnitExists("target")
-    end
+    local _, guid = UnitExists("target")
     return guid
   end
 
@@ -239,7 +250,7 @@ local function handleCommands(msg, editbox)
   elseif command == "remove" or command == "r" then
     local guid = getGuid()
     if not guid then
-      auto_print("Must mouseover a mob or target a mob to remove it from its pack.")
+      auto_print("Must target a mob to remove it from its pack.")
       return
     end
     local packName = guidToPack(guid, zoneName)
@@ -256,7 +267,7 @@ local function handleCommands(msg, editbox)
     end
     local guid = getGuid()
     if not guid then
-      auto_print("Must mouseover a mob or target a mob to add to current pack.")
+      auto_print("Must target a mob to add to current pack.")
       return
     end
     local packName = guidToPack(guid, zoneName)
@@ -270,6 +281,11 @@ local function handleCommands(msg, editbox)
     npcsToMark[zoneName] = npcsToMark[zoneName] or {}
     npcsToMark[zoneName][currentPackName] = npcsToMark[zoneName][currentPackName] or {}
     npcsToMark[zoneName][currentPackName][guid] = raidmark
+  elseif command == "debug" then
+    settings["debug"] = not settings["debug"]
+    auto_print("Debug mode set to: " .. (settings["debug"] and "on" or "off"))
+  elseif command == "clearcache" then
+    npcsToMark = {}
   else
     auto_print("Commands: /am set <packname>, /am get, /am clear, /am add, /am remove. Can also do first letter of each command like /am s or /am g.")
   end

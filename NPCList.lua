@@ -663,3 +663,281 @@ defaultNpcsToMark["Ahn'Qiraj"]["champions"] = {
 	["0xF130003B940157E3"] = SKULL; -- Qiraji Champion
 	["0xF130003B940157DE"] = STAR; -- Qiraji Champion
 }
+
+--/////////////// ZG ///////////////
+
+defaultNpcsToMark["Zul'Gurub"] = {}
+
+--/////////////// Entrance to Jindo ///////////////
+
+defaultNpcsToMark["Zul'Gurub"]["entrance_snakes_left_1"] = {
+	["0xF130002C6C00BFC2"] = 8,
+	["0xF130002C6B00BFC3"] = 7,
+}
+defaultNpcsToMark["Zul'Gurub"]["entrance_priest_left"] = {
+	["0xF130002E3600BFDB"] = 8,
+	["0xF130002C5600BFDA"] = 5,
+}
+defaultNpcsToMark["Zul'Gurub"]["jindo_entrance_patrols"] = {
+	["0xF1300039E911E65A"] = 0,
+	["0xF130002E36016542"] = 3,
+	["0xF1300039E911E65D"] = 1,
+	["0xF130002C5800CAEC"] = 8,
+	["0xF1300039E911E65C"] = 0,
+	["0xF1300039E911E65B"] = 0,
+	["0xF130002C57016541"] = 4,
+}
+defaultNpcsToMark["Zul'Gurub"]["jindo_misress_1_patrol"] = {
+	["0xF1300039E911E657"] = 1,
+	["0xF1300039E900C0F6"] = 0,
+	["0xF1300039E900C0F5"] = 0,
+	["0xF1300039E911E658"] = 0,
+	["0xF1300039E911E659"] = 0,
+	["0xF130003A2200C0F7"] = 0,
+	["0xF1300039E911E656"] = 0,
+	["0xF130003A2200C0F8"] = 0,
+}
+defaultNpcsToMark["Zul'Gurub"]["jindo_mistress_2"] = {
+	["0xF130003A2300C0DB"] = 5,
+	["0xF1300039E900C0D5"] = 0,
+	["0xF1300039E900C0D6"] = 0,
+	["0xF130003A2300C0DA"] = 8,
+	["0xF130003A2200C0D8"] = 0,
+	["0xF130003A2200C0D9"] = 0,
+	["0xF130003A2300C0DC"] = 6,
+	["0xF1300039E900C0D3"] = 0,
+	["0xF130003A2200C0D7"] = 0,
+}
+defaultNpcsToMark["Zul'Gurub"]["jindo_boss_pack"] = {
+	["0xF1300039E900C1A5"] = 0,
+	["0xF1300039E900C0FA"] = 0,
+	["0xF130003A2200C1A7"] = 0,
+	["0xF130002C7400C1F7"] = 8,
+	["0xF1300039E900C0FB"] = 0,
+	["0xF130003A2200C1A8"] = 0,
+	["0xF130003A2200C1A9"] = 2,
+	["0xF1300039E900C10D"] = 0,
+	["0xF130003A2300C1F2"] = 6,
+	["0xF130003A2200C1A6"] = 0,
+	["0xF130003A2300C1C9"] = 5,
+}
+
+--/////////////// Marli(Bat) ///////////////
+
+defaultNpcsToMark["Zul'Gurub"]["entrance_right_priest"] = {
+	["0xF130002C6B00BFC9"] = 0,
+	["0xF130002C6C00BFC8"] = 0,
+	["0xF130002E3600C25A"] = 8,
+	["0xF130002C5800C261"] = 1,
+	["0xF130002C5600C259"] = 7,
+}
+defaultNpcsToMark["Zul'Gurub"]["bat_one_rider_1"] = {
+	["0xF13000399E00BFFB"] = 8,
+	["0xF130002C6800BFF7"] = 0,
+	["0xF130002C6800BFF9"] = 0,
+	["0xF130002C6800BFF8"] = 0,
+	["0xF130002C6800BFFA"] = 0,
+}
+defaultNpcsToMark["Zul'Gurub"]["bat_one_rider_2"] = {
+	["0xF130002C6800C024"] = 0,
+	["0xF130002C6800C023"] = 0,
+	["0xF130002C6800BFFF"] = 0,
+	["0xF130002C6800C001"] = 0,
+	["0xF13000399E00C025"] = 8,
+}
+defaultNpcsToMark["Zul'Gurub"]["bat_two_rider_1"] = {
+	["0xF130002C6800C004"] = 0,
+	["0xF130002C6800C009"] = 0,
+	["0xF13000399E00C003"] = 7, -- rider
+	["0xF130002C6800C007"] = 0,
+	["0xF130002C6800BFFE"] = 0,
+	["0xF13000399E00C002"] = 8, -- rider
+}
+defaultNpcsToMark["Zul'Gurub"]["bat_two_rider_rtv"] = {
+	["0xF130002C6800BFF2"] = 0,
+	["0xF130002C6800BFF3"] = 0,
+	["0xF13000399E00BFF5"] = 7,
+	["0xF13000399E00BFF6"] = 8,
+	["0xF130002C6800BFF1"] = 0,
+}
+defaultNpcsToMark["Zul'Gurub"]["bat_headhunter_1"] = {
+	["0xF130002E3700BFF0"] = 8,
+	["0xF130002C5700BFEE"] = 7,
+	["0xF130002C5700BFEF"] = 0,
+}
+defaultNpcsToMark["Zul'Gurub"]["bat_two_rider_2"] = {
+	["0xF130002C6800BFE8"] = 0,
+	["0xF130002C6800BFE7"] = 0,
+	["0xF130002C6800BFE3"] = 0,
+	["0xF130002C6800BFE5"] = 0,
+	["0xF130002C6800BFE4"] = 0,
+	["0xF13000399E00BFEA"] = 7,
+	["0xF13000399E00BFE9"] = 8,
+}
+defaultNpcsToMark["Zul'Gurub"]["bat_two_rider_3"] = {
+	["0xF130002C6800BFF4"] = 0,
+	["0xF130002C6800C022"] = 0,
+	["0xF13000399E00C021"] = 7,
+	["0xF130002C6800C006"] = 0,
+	["0xF13000399E00C00F"] = 8,
+	["0xF130002C6800C005"] = 0,
+}
+defaultNpcsToMark["Zul'Gurub"]["bat_headhunter_2"] = {
+	["0xF130002C5700BFED"] = 7,
+	["0xF130002E3700BFEB"] = 0,
+	["0xF130002E3700BFEC"] = 8,
+}
+
+--/////////////// Venoxis ///////////////
+
+defaultNpcsToMark["Zul'Gurub"]["venoxis_two_axethrower"] = {
+	["0xF130002C5600BFD1"] = 5,
+	["0xF130002C5600BFD0"] = 8,
+}
+defaultNpcsToMark["Zul'Gurub"]["venoxis_priest_pat"] = {
+	["0xF130002C6C00C8FB"] = 0,
+	["0xF130002E3600C258"] = 8, -- priest
+	["0xF130002C6B00C8FC"] = 0,
+	["0xF130002C5600C257"] = 5, -- axethrower
+}
+defaultNpcsToMark["Zul'Gurub"]["venoxis_room"] = {
+	["0xF130002C5600C248"] = 5,
+	["0xF130002C6C00BFCB"] = 0,
+	["0xF130002C6C00BFD3"] = 0,
+	["0xF130002E3600C249"] = 8,
+	["0xF130002C6C00BFCC"] = 0,
+	["0xF130002C6B00BFD7"] = 0,
+	["0xF130002C6B00BFD9"] = 0,
+	["0xF130002C6C00BFD2"] = 0,
+	["0xF130002C6C00BFD6"] = 0,
+	["0xF130002C6B00BFCD"] = 0,
+	["0xF130002C7B00C24A"] = 0,
+	["0xF130002C6B00BFD8"] = 0,
+	["0xF130002C6C00BFCA"] = 0,
+}
+defaultNpcsToMark["Zul'Gurub"]["venoxis_exit_snake_1"] = {
+	["0xF130002C6B00C250"] = 0,
+	["0xF130002C6B00C251"] = 0,
+	["0xF130002C6C00C252"] = 8,
+	["0xF130002C6B00C24F"] = 0,
+}
+defaultNpcsToMark["Zul'Gurub"]["venoxis_exit_snake_2"] = {
+	["0xF130002C6C00BFC7"] = 8, -- adder
+	["0xF130002C6B00BFC6"] = 0,
+	["0xF130002C6B00BFC5"] = 0,
+	["0xF130002C6B00BFC4"] = 0,
+}
+
+--/////////////// Mandokir //////////////
+
+defaultNpcsToMark["Zul'Gurub"]["mandokir_entrance_and_zerk"] = {
+	["0xF130002E3600C278"] = 8,
+	["0xF130002C5900C280"] = 0,
+	["0xF130002C5900C27F"] = 6,
+	["0xF130002C5900C271"] = 0,
+	["0xF130002E3600C279"] = 7,
+	["0xF130002C5900C270"] = 5,
+	["0xF130002C5800C229"] = 1,
+}
+defaultNpcsToMark["Zul'Gurub"]["mandokir_room"] = {
+	["0xF130002C5C00C283"] = 0,
+	["0xF130002C5C00C282"] = 1,
+	["0xF130002C5C00C281"] = 0,
+	["0xF130002E3600C287"] = 8,
+	["0xF130002C5C00CB5B"] = 0,
+	["0xF130002C5900C285"] = 7,
+	["0xF130002C5C00C284"] = 0,
+	["0xF130002C5C00CB88"] = 0,
+}
+defaultNpcsToMark["Zul'Gurub"]["zanza_tower_zerks"] = {
+	["0xF130002C5800CAFA"] = 4,
+	["0xF130002C5800CAEB"] = 3,
+	["0xF130002C58016565"] = 2,
+	["0xF130002C5800C222"] = 1,
+}
+defaultNpcsToMark["Zul'Gurub"]["zanaz_witchdoctor_rtv"] = {
+	["0xF130002C6100CAF2"] = 0,
+	["0xF130002E37016557"] = 8,
+	["0xF130002C6100CAF1"] = 0,
+	["0xF130002C56016556"] = 5,
+}
+
+--/////////////// Thekal //////////////
+
+defaultNpcsToMark["Zul'Gurub"]["thekal_pack"] = {
+	["0xF13000390700C09E"] = 8,
+	["0xF130002C5300C0A2"] = 6,
+	["0xF130002C5400C0A1"] = 4,
+}
+
+defaultNpcsToMark["Zul'Gurub"]["gaz_fish"] = {
+	["0xF130002C6E00C242"] = 4,
+	["0xF130002C6E00BFAD"] = 2,
+	["0xF130002C6E00C8F4"] = 3,
+	["0xF130002C6E00C23E"] = 1,
+	["0xF130002C6E00BFAF"] = 7,
+}
+--/////////////// Arlok ///////////////
+
+defaultNpcsToMark["Zul'Gurub"]["arlok_1"] = {
+	["0xF130002C4B00C899"] = 0,
+	["0xF130002C4B00C8A4"] = 8,
+	["0xF130002C4B00C89A"] = 7, 
+	["0xF130002C4B00C8A3"] = 0,
+}
+defaultNpcsToMark["Zul'Gurub"]["arlok_2"] = {
+	["0xF130002C6500C0C2"] = 0,
+	["0xF130002C6500C0C1"] = 0,
+	["0xF130002C5900C98B"] = 8,
+	["0xF130002C5900C98A"] = 7,
+	["0xF130002C6500C0C0"] = 0,
+	["0xF130002C6500C0BF"] = 0,
+}
+defaultNpcsToMark["Zul'Gurub"]["arlok_3"] = {
+	["0xF130002C6500C0BD"] = 0, -- panther
+	["0xF130002C6500C0BE"] = 0, -- panther
+	["0xF130002C4B00C0B1"] = 8, -- headhunter
+	["0xF130002C6500C0BB"] = 0, -- panther
+	["0xF130002C6500C0BC"] = 0, -- panther
+}
+defaultNpcsToMark["Zul'Gurub"]["arlok_4"] = {
+	["0xF130002C6500C8B7"] = 0,
+	["0xF130002C6500C8B5"] = 0,
+	["0xF130002C6500C8AF"] = 0,
+	["0xF130002C4B00C8A5"] = 7,
+	["0xF130002C6500C8B6"] = 0,
+	["0xF130002C4B00C8A6"] = 8,
+}
+
+--/////////////// Hakkar ///////////////
+
+defaultNpcsToMark["Zul'Gurub"]["hakkar_sons"] = {
+	["0xF130002C5D00BF8A"] = 3,
+	["0xF130002C5D00BF89"] = 2,
+}
+defaultNpcsToMark["Zul'Gurub"]["hakkar_soulflayer_1"] = {
+	["0xF130002C5F00C8E0"] = 5, -- son
+	["0xF130002C5D00C8E2"] = 8, -- flayer
+	["0xF130002C5D00C8E1"] = 7, -- son
+}
+defaultNpcsToMark["Zul'Gurub"]["hakkar_soulflayer_2"] = {
+	["0xF130002C5D00C8E4"] = 7, -- son
+	["0xF130002C5D00C8E5"] = 8, -- flayer
+	["0xF130002C5F00C8E3"] = 5, -- son
+}
+defaultNpcsToMark["Zul'Gurub"]["hakkar_large_1"] = {
+	["0xF130002C5F00C8D7"] = 5, -- soulflayer
+	["0xF130002C5800C204"] = 0,
+	["0xF130002E3600C8D6"] = 8, -- priest
+	["0xF130002C5C00C8D8"] = 0,
+	["0xF130002E3600C8D9"] = 7, -- priest
+	["0xF130002C5F11E679"] = 6, -- soulflayer
+}
+defaultNpcsToMark["Zul'Gurub"]["hakkar_large_2"] = {
+	["0xF130002C5F11F381"] = 6, -- soulflayer
+	["0xF130002E3611F383"] = 8, -- priest
+	["0xF130002E3611F384"] = 7, -- priest
+	["0xF130002C5F11F380"] = 5, -- soulflayer
+	["0xF130002C4C11F37E"] = 0,
+	["0xF130002C5C11F382"] = 0,
+}
