@@ -93,6 +93,8 @@ end
 
 -- Addon ---------------------
 
+local raidMarks = {"Unmarked", "Star", "Circle", "Diamond", "Triangle", "Moon", "Square", "Cross", "Skull"}
+
 local defaultSettings = {
   debug = false,
 }
@@ -239,8 +241,13 @@ local function handleCommands(msg, editbox)
     auto_print("Curent packname set to: " .. (currentPackName or "none"))
     local guid = getGuid()
     if guid then
-      local packName = guidToPack(guid, zoneName)
-      auto_print(format("Mob %s (%s) is %s",guid,UnitName(guid), (packName and ("in pack: "..packName) or "not in any pack.")))
+      local packName,pack = guidToPack(guid, zoneName)
+      if packName then
+        local mark = pack[guid]
+        auto_print(format("Mob %s (%s) is %s in pack: %s",guid,UnitName(guid),raidMarks[mark],packName))
+      else
+        auto_print(format("Mob %s (%s) is not in any pack.",guid,UnitName(guid)))
+      end
     end
   elseif command == "clear" or command == "c" then
     if npcsToMark[zoneName] then
@@ -275,7 +282,6 @@ local function handleCommands(msg, editbox)
       auto_print("Mob already added to pack " .. packName .. ". use /am forceadd")
       return
     end
-    local raidMarks = {"Unmarked", "Star", "Circle", "Diamond", "Triangle", "Moon", "Square", "Cross", "Skull"}
     local unitName, raidmark = UnitName(guid), GetRaidTargetIndex(guid) or 0
     auto_print("Adding " .. unitName .. "(" .. guid .. ") to pack: " .. currentPackName .. " with mark: " .. raidMarks[raidmark + 1] .. " in zone: " .. zoneName)
     npcsToMark[zoneName] = npcsToMark[zoneName] or {}
