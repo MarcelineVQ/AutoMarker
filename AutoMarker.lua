@@ -103,19 +103,21 @@ local defaultSettings = {
   debug = false,
 }
 
+local currentNpcsToMark = {}
+
 local autoMarkerFrame = CreateFrame("Frame")
 autoMarkerFrame:RegisterEvent("ADDON_LOADED")
 autoMarkerFrame:RegisterEvent("UPDATE_MOUSEOVER_UNIT")
 autoMarkerFrame:RegisterEvent("UNIT_MODEL_CHANGED") -- mob respawn
 
 local function guidToPack(id, zone)
-  if not npcsToMark or not npcsToMark[zone] then
+  if not currentNpcsToMark or not currentNpcsToMark[zone] then
     return
   end
-  for packName, packInfo in pairs(npcsToMark[zone]) do
+  for packName, packInfo in pairs(currentNpcsToMark[zone]) do
     for guid, _ in pairs(packInfo) do
       if guid==id then
-        return packName, npcsToMark[zone][packName]
+        return packName, currentNpcsToMark[zone][packName]
       end
     end
   end
@@ -169,7 +171,7 @@ function UpdateRespawns()
     elapsed = 0
     for mob, config in pairs(temporary_mobs) do
       if tsize(config.queue) >= config.minCount then
-        npcsToMark[config.raid][config.pack] = 
+        currentNpcsToMark[config.raid][config.pack] =
           sortAndReplaceKeys(defaultNpcsToMark[config.raid][config.pack], config.queue)
         config.queue = {}
         autoMarkerFrame:SetScript("OnUpdate", nil)
@@ -181,25 +183,34 @@ end
 -- Event handler
 autoMarkerFrame:SetScript("OnEvent", function()
   if event=="ADDON_LOADED" and arg1=="AutoMarker" then
-    if not npcsToMark then
-      npcsToMark = defaultNpcsToMark
-    else
-      -- add any new mobs from the default
-      for raid_name,packs in pairs(defaultNpcsToMark) do
-        if not npcsToMark[raid_name] then npcsToMark[raid_name] = {} end
-        for pack_name,pack in pairs(packs) do
-          if not npcsToMark[raid_name][pack_name] then
-            npcsToMark[raid_name][pack_name] = defaultNpcsToMark[raid_name][pack_name]
-            -- don't go deeper, you'll overwrite people's groups
-          end
+    -- init settings
+    if not settings then
+      settings = defaultSettings
+    else -- update/clean settings
+      local s = {}
+      for k,v in defaultSettings do
+        s[k] = settings[k] and settings[k] or v
+      end
+      settings = s
+    end
+
+    -- init vars
+    if not customNpcsToMark then customNpcsToMark = {} end
+
+    -- load defaults
+    for raid_name,packs in pairs(defaultNpcsToMark) do
+      if not currentNpcsToMark[raid_name] then currentNpcsToMark[raid_name] = {} end
+      for pack_name,pack in pairs(packs) do
+        if not currentNpcsToMark[raid_name][pack_name] then
+          currentNpcsToMark[raid_name][pack_name] = defaultNpcsToMark[raid_name][pack_name]
         end
       end
     end
-    if not settings then
-      settings = defaultSettings
-    else -- update any missing settings
-      for k,v in defaultSettings do
-        settings[k] = settings[k] and settings[k] or v
+    -- over-write with customs
+    for raid_name,packs in pairs(customNpcsToMark) do
+      if not currentNpcsToMark[raid_name] then currentNpcsToMark[raid_name] = {} end
+      for pack_name,pack in pairs(packs) do
+        currentNpcsToMark[raid_name][pack_name] = customNpcsToMark[raid_name][pack_name]
       end
     end
     auto_print(c("AutoMarker loaded!",color.yellow).." Type "..c("/am",color.green).." to see commands.")
@@ -256,8 +267,8 @@ local function handleCommands(msg, editbox)
       end
     end
   elseif command == "clear" or command == "c" then
-    if npcsToMark[zoneName] then
-      npcsToMark[zoneName][currentPackName] = nil
+    if customNpcsToMark[zoneName] then
+      customNpcsToMark[zoneName][currentPackName] = nil
     end
     auto_print("Mobs in " .. currentPackName .. " have been cleared.")
   elseif command == "remove" or command == "r" then
@@ -272,7 +283,7 @@ local function handleCommands(msg, editbox)
       return
     end
     auto_print("Removing mob " .. UnitName(guid) .. " from pack: " .. packName)
-    npcsToMark[zoneName][packName][guid] = nil
+    customNpcsToMark[zoneName][packName][guid] = nil
   elseif command == "add" or command == "a" or force_add then
     if not currentPackName then
       auto_print("Must set packname before adding to pack.")
@@ -290,15 +301,12 @@ local function handleCommands(msg, editbox)
     end
     local unitName, raidmark = UnitName(guid), GetRaidTargetIndex(guid) or 0
     auto_print("Adding " .. unitName .. "(" .. guid .. ") to pack: " .. currentPackName .. " with mark: " .. raidMarks[raidmark + 1] .. " in zone: " .. zoneName)
-    npcsToMark[zoneName] = npcsToMark[zoneName] or {}
-    npcsToMark[zoneName][currentPackName] = npcsToMark[zoneName][currentPackName] or {}
-    npcsToMark[zoneName][currentPackName][guid] = raidmark
+    customNpcsToMark[zoneName] = customNpcsToMark[zoneName] or {}
+    customNpcsToMark[zoneName][currentPackName] = customNpcsToMark[zoneName][currentPackName] or {}
+    customNpcsToMark[zoneName][currentPackName][guid] = raidmark
   elseif command == "debug" then
     settings["debug"] = not settings["debug"]
     auto_print("Debug mode set to: " .. (settings["debug"] and "on" or "off"))
-  elseif command == "clearcache" then
-    npcsToMark = defaultNpcsToMark
-    auto_print("Player-made groups have been cleared.")
   else
     auto_print("Commands:")
     auto_print("/am "..c("s",color.green).."et <packname>")
