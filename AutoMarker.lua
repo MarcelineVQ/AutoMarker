@@ -223,7 +223,9 @@ local currentPackName = nil
 local function handleCommands(msg, editbox)
   local args = {}
   for word in string.gfind(msg, '%S+') do
-    table.insert(args, word)
+    if word ~= "" then
+      table.insert(args, word)
+    end
   end
 
   local command, packName = args[1], args[2]
@@ -247,7 +249,7 @@ local function handleCommands(msg, editbox)
     if guid then
       local packName,pack = guidToPack(guid, zoneName)
       if packName then
-        local mark = pack[guid]
+        local mark = pack[guid]+1
         auto_print(format("Mob %s (%s) is %s in pack: %s",guid,UnitName(guid),raidMarks[mark],packName))
       else
         auto_print(format("Mob %s (%s) is not in any pack.",guid,UnitName(guid)))
