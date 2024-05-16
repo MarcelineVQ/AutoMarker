@@ -14,7 +14,7 @@ Many pre-defined groups exists already in the addon but can be customized with t
 - `/am remove` or `/am r` - Remove target or mouseover from the current pack name
 - `/am debug` - Activater debug features such as reporting unit guid on mouseover
 - `/am clearcache` - Clear custom mark groups and start from the default List again.
-- - **This will delete all changes you've made.**
+- - **This will delete all changes you've made. Reload ui twice after doing this.**
 
 ___
 * Made by and for Weird Vibes of Turtle Wow  
