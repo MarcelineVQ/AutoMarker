@@ -109,6 +109,7 @@ local autoMarkerFrame = CreateFrame("Frame")
 autoMarkerFrame:RegisterEvent("ADDON_LOADED")
 autoMarkerFrame:RegisterEvent("UPDATE_MOUSEOVER_UNIT")
 autoMarkerFrame:RegisterEvent("UNIT_MODEL_CHANGED") -- mob respawn
+autoMarkerFrame:RegisterEvent("PLAYER_REGEN_DISABLED") -- mob respawn
 
 local function guidToPack(id, zone)
   if not currentNpcsToMark or not currentNpcsToMark[zone] then
@@ -161,8 +162,18 @@ local temporary_mobs = {
       pack = "spider_anubrekhan",
       raid = "Naxxramas",
       queue = {},
-  }
+  },
+    ["The Prophet Skeram"] = {
+        minCount = 3,
+        pack = "skeram",
+        raid = "Ahn'Qiraj",
+        live_mark = true, -- do the mobs change in combat
+        queue = {},
+    },
 }
+
+-- talk to ferro about burnout
+
 -- so we'll order them and assigned them ordered source marks
 local elapsed = 0
 function UpdateRespawns()
@@ -172,9 +183,17 @@ function UpdateRespawns()
     for mob, config in pairs(temporary_mobs) do
       if tsize(config.queue) >= config.minCount then
         currentNpcsToMark[config.raid][config.pack] =
+          -- the purpose of the default pack despite being regenerated is for consitent marks
           sortAndReplaceKeys(defaultNpcsToMark[config.raid][config.pack], config.queue)
         config.queue = {}
         autoMarkerFrame:SetScript("OnUpdate", nil)
+        if config.live_mark then
+          for guid,mark in pairs(currentNpcsToMark[config.raid][config.pack]) do
+            if UnitExists(guid) then
+              SetRaidTarget(guid, mark)
+            end
+          end
+        end
       end
     end
   end
@@ -221,11 +240,16 @@ autoMarkerFrame:SetScript("OnEvent", function()
       auto_print(guid .. " " .. UnitName(guid))
     end
   elseif event=="UNIT_MODEL_CHANGED" then
-    -- Certain mobs in Naxx are script spawned so their IDs need to be fetched
+    -- Certain mobs are script spawned so their IDs need to be fetched
     local name = UnitName(arg1)
     if temporary_mobs[name] then
       table.insert(temporary_mobs[name].queue, arg1)
       autoMarkerFrame:SetScript("OnUpdate", UpdateRespawns)
+    end
+  elseif event=="PLAYER_REGEN_DISABLED" then
+    -- combat started, reset model queues in case of incomplete loads
+    for _,config in pairs(temporary_mobs) do
+      config.queue = {}
     end
   end
 end)
@@ -246,6 +270,8 @@ local function handleCommands(msg, editbox)
     local _, guid = UnitExists("target")
     return guid
   end
+
+  -- skeram, 2nd war pat, extra mark in big bug pat room
 
   if command == "set" or command == "s" then
     if not packName then
