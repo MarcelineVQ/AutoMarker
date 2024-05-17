@@ -108,6 +108,9 @@ local defaultSettings = {
   debug = false,
 }
 
+local sweep_on = false
+local sweep_mobs = {}
+local currentPackName = nil
 local currentNpcsToMark = {}
 
 local autoMarkerFrame = CreateFrame("Frame","AutoMarkerFrame")
@@ -154,6 +157,27 @@ function AutoMark_MarkGroup()
   end
 end
 
+local function AddToPack(guid,force_add)
+  if not currentPackName then
+    auto_print("Must set packname before adding to pack.")
+    return
+  end
+  auto_print(guid)
+
+  local packName = guidToPack(guid, zoneName)
+  if packName and not force_add then
+    auto_print("Mob already added to pack " .. packName .. ". use /am forceadd")
+    return
+  end
+
+  local unitName, raidmark = UnitName(guid), GetRaidTargetIndex(guid) or 0
+  local zoneName = GetRealZoneText()
+  auto_print("Adding " .. unitName .. "(" .. guid .. ") to pack: " .. currentPackName .. " with mark: " .. raidMarks[raidmark + 1] .. " in zone: " .. zoneName)
+  customNpcsToMark[zoneName] = customNpcsToMark[zoneName] or {}
+  customNpcsToMark[zoneName][currentPackName] = customNpcsToMark[zoneName][currentPackName] or {}
+  customNpcsToMark[zoneName][currentPackName][guid] = raidmark
+end
+
 local function OnMouseover()
   if IsShiftKeyDown() and (IsControlKeyDown() or IsAltKeyDown()) then
     AutoMark_MarkGroup()
@@ -182,8 +206,6 @@ local temporary_mobs = {
         queue = {},
     },
 }
-
--- talk to ferro about burnout
 
 -- so we'll order them and assigned them ordered source marks
 local elapsed = 0
@@ -246,9 +268,12 @@ autoMarkerFrame:SetScript("OnEvent", function()
     auto_print(c("AutoMarker loaded!",color.yellow).." Type "..c("/am",color.green).." to see commands.")
   elseif event=="UPDATE_MOUSEOVER_UNIT" then
     OnMouseover()
+    local _,guid = UnitExists("mouseover")
     if settings["debug"] then
-      local _,guid = UnitExists("mouseover")
       auto_print(guid .. " " .. UnitName(guid))
+    end
+    if sweep_on then
+      AddToPack(guid,true)
     end
   elseif event=="UNIT_MODEL_CHANGED" then
     -- Certain mobs are script spawned so their IDs need to be fetched
@@ -265,7 +290,6 @@ autoMarkerFrame:SetScript("OnEvent", function()
   end
 end)
 
-local currentPackName = nil
 local function handleCommands(msg, editbox)
   local args = {}
   for word in string.gfind(msg, '%S+') do
@@ -281,8 +305,6 @@ local function handleCommands(msg, editbox)
     local _, guid = UnitExists("target")
     return guid
   end
-
-  -- skeram, 2nd war pat, extra mark in big bug pat room
 
   if command == "set" or command == "s" then
     if not packName then
@@ -322,25 +344,19 @@ local function handleCommands(msg, editbox)
     auto_print("Removing mob " .. UnitName(guid) .. " from pack: " .. packName)
     customNpcsToMark[zoneName][packName][guid] = nil
   elseif command == "add" or command == "a" or force_add then
-    if not currentPackName then
-      auto_print("Must set packname before adding to pack.")
-      return
-    end
     local guid = getGuid()
     if not guid then
       auto_print("Must target a mob to add to current pack.")
       return
     end
-    local packName = guidToPack(guid, zoneName)
-    if packName and not force_add then
-      auto_print("Mob already added to pack " .. packName .. ". use /am forceadd")
-      return
+    AddToPack(guid,force_add)
+  elseif command == "sweep" or command == "s" then
+    sweep_on = not sweep_on
+    if sweep_on then
+      auto_print("Sweep mode [ on ] sweep your mouse over enemeis to add them to a group.")
+    else
+      auto_print("Sweep mode [ off ]")
     end
-    local unitName, raidmark = UnitName(guid), GetRaidTargetIndex(guid) or 0
-    auto_print("Adding " .. unitName .. "(" .. guid .. ") to pack: " .. currentPackName .. " with mark: " .. raidMarks[raidmark + 1] .. " in zone: " .. zoneName)
-    customNpcsToMark[zoneName] = customNpcsToMark[zoneName] or {}
-    customNpcsToMark[zoneName][currentPackName] = customNpcsToMark[zoneName][currentPackName] or {}
-    customNpcsToMark[zoneName][currentPackName][guid] = raidmark
   elseif command == "debug" then
     settings["debug"] = not settings["debug"]
     auto_print("Debug mode set to: " .. (settings["debug"] and "on" or "off"))
@@ -349,6 +365,7 @@ local function handleCommands(msg, editbox)
     auto_print("/am "..c("s",color.green).."et <packname>")
     auto_print("/am "..c("g",color.green).."et")
     auto_print("/am "..c("c",color.green).."lear")
+    auto_print("/am "..c("s",color.green).."weep")
     auto_print("/am "..c("a",color.green).."dd")
     auto_print("/am "..c("r",color.green).."emove")
     auto_print("/am debug")
