@@ -1,0 +1,4 @@
+<Bindings>
+  <!-- <Binding name="MOUSEOVERKEY" header="AUTOMARK">function () end</Binding> -->
+	<Binding name="RUNKEY" header="AUTOMARK">AutoMark_MarkGroup();</Binding>
+</Bindings>

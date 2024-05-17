@@ -1,5 +1,10 @@
 -- || Made by and for Weird Vibes of Turtle WoW || --
 
+BINDING_HEADER_AUTOMARK = "|cff22CC00 - AutoMark Bindings -";
+BINDING_NAME_MOUSEOVERKEY = "Keys to hold to activate mouseover mark";
+BINDING_NAME_RUNKEY = "Mark mouseover or target";
+
+
 -- Utility -------------------
 
 local color = {
@@ -105,7 +110,7 @@ local defaultSettings = {
 
 local currentNpcsToMark = {}
 
-local autoMarkerFrame = CreateFrame("Frame")
+local autoMarkerFrame = CreateFrame("Frame","AutoMarkerFrame")
 autoMarkerFrame:RegisterEvent("ADDON_LOADED")
 autoMarkerFrame:RegisterEvent("UPDATE_MOUSEOVER_UNIT")
 autoMarkerFrame:RegisterEvent("UNIT_MODEL_CHANGED") -- mob respawn
@@ -134,18 +139,24 @@ local function PlayerCanMark()
   return UnitIsPartyLeader("player") or false
 end
 
-local function OnMouseover()
-  if IsShiftKeyDown() and (IsControlKeyDown() or IsAltKeyDown()) then
-    local _, targetGuid = UnitExists("mouseover")
-    if targetGuid and not UnitIsDead(targetGuid) and PlayerCanMark() then
-      local _, packMobs = guidToPack(targetGuid, GetRealZoneText())
-      for mob, mark in pairs(packMobs or {}) do
-        -- might be out of range, e.g. a patrol
-        if UnitExists(mob) then
-          SetRaidTarget(mob, mark)
-        end
+function AutoMark_MarkGroup()
+  local _, mouseoverGuid = UnitExists("mouseover")
+  local _, targetGuid = UnitExists("target")
+  targetGuid = mouseoverGuid and mouseoverGuid or targetGuid
+  if targetGuid and not UnitIsDead(targetGuid) and PlayerCanMark() then
+    local _, packMobs = guidToPack(targetGuid, GetRealZoneText())
+    for mob, mark in pairs(packMobs or {}) do
+      -- might be out of range, e.g. a patrol
+      if UnitExists(mob) then
+        SetRaidTarget(mob, mark)
       end
     end
+  end
+end
+
+local function OnMouseover()
+  if IsShiftKeyDown() and (IsControlKeyDown() or IsAltKeyDown()) then
+    AutoMark_MarkGroup()
   end
 end
 

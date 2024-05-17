@@ -1,5 +1,5 @@
 ## Interface: 11200
-## Title: AutoMarker 1.2.3 |cff7fff7fSuper-WoW|r
+## Title: AutoMarker 1.4.3 |cff7fff7fSuper-WoW|r
 ## Notes: Automatically mark raid mobs
 ## Author: Weird Vibes
 ## SavedVariables: customNpcsToMark,settings
