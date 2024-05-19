@@ -154,6 +154,7 @@ end
 local raidMarks = {"Unmarked", "Star", "Circle", "Diamond", "Triangle", "Moon", "Square", "Cross", "Skull"}
 
 local defaultSettings = {
+  enabled = true,
   debug = false,
 }
 
@@ -189,7 +190,7 @@ local function PlayerCanMark()
       return rank>0
     end
   end
-  return UnitIsPartyLeader("player") or false
+  return UnitIsPartyLeader("player") or (GetNumPartyMembers() == 0)
 end
 
 function AutoMark_MarkGroup()
@@ -201,7 +202,7 @@ function AutoMark_MarkGroup()
     for mob, mark in pairs(packMobs or {}) do
       -- might be out of range, e.g. a patrol
       if UnitExists(mob) then
-        SetMarker(mob, mark, 1)
+        SetRaidTarget(mob, mark, 1)
       end
     end
   end
@@ -232,16 +233,15 @@ local function AddToPack(guid,force_add,pack)
   local existing_mark = customNpcsToMark[zoneName][the_pack][guid]
   local same = existing_mark and (existing_mark == raidmark)
   if not same then
-      auto_print((existing_mark and "Updating " or "Adding ")
-        .. unitName .. "(" .. guid .. ") in pack: " .. the_pack .. " with new mark: " .. raidMarks[raidmark + 1] .. " in zone: " .. zoneName)
-    end
+    auto_print((existing_mark and "Updating " or "Adding ")
+      .. unitName .. "(" .. guid .. ") in pack: " .. the_pack .. " with new mark: " .. raidMarks[raidmark + 1] .. " in zone: " .. zoneName)
     customNpcsToMark[zoneName][the_pack][guid] = raidmark
   end
   return true, nil
 end
 
 local function OnMouseover()
-  if IsShiftKeyDown() and (IsControlKeyDown() or IsAltKeyDown()) then
+  if settings.enabled and IsShiftKeyDown() and (IsControlKeyDown() or IsAltKeyDown()) then
     AutoMark_MarkGroup()
   end
 end
@@ -287,7 +287,7 @@ function UpdateRespawns()
         if config.live_mark then
           for guid,mark in pairs(currentNpcsToMark[config.raid][config.pack]) do
             if UnitExists(guid) then
-              SetMarker(guid, mark, 1)
+              SetRaidTarget(guid, mark, 1)
             end
           end
         end
@@ -330,26 +330,29 @@ autoMarkerFrame:SetScript("OnEvent", function()
       end
     end
     auto_print(c("AutoMarker loaded!",color.yellow).." Type "..c("/am",color.green).." to see commands.")
-  elseif event=="UPDATE_MOUSEOVER_UNIT" then
-    OnMouseover()
-    local _,guid = UnitExists("mouseover")
-    if settings["debug"] then
-      auto_print(guid .. " " .. UnitName(guid))
-    end
-    if sweep_on then
-        AddToPack(guid,true,sweepPackName)
-    end
-  elseif event=="UNIT_MODEL_CHANGED" then
-    -- Certain mobs are script spawned so their IDs need to be fetched
-    local name = UnitName(arg1)
-    if temporary_mobs[name] then
-      table.insert(temporary_mobs[name].queue, arg1)
-      autoMarkerFrame:SetScript("OnUpdate", UpdateRespawns)
-    end
-  elseif event=="PLAYER_REGEN_DISABLED" then
-    -- combat started, reset model queues in case of incomplete loads
-    for _,config in pairs(temporary_mobs) do
-      config.queue = {}
+  end
+  if settings.enabled then
+    if event=="UPDATE_MOUSEOVER_UNIT" then
+      OnMouseover()
+      local _,guid = UnitExists("mouseover")
+      if settings.debug then
+        auto_print(guid .. " " .. UnitName(guid))
+      end
+      if sweep_on then
+          AddToPack(guid,true,sweepPackName)
+      end
+    elseif event=="UNIT_MODEL_CHANGED" then
+      -- Certain mobs are script spawned so their IDs need to be fetched
+      local name = UnitName(arg1)
+      if temporary_mobs[name] then
+        table.insert(temporary_mobs[name].queue, arg1)
+        autoMarkerFrame:SetScript("OnUpdate", UpdateRespawns)
+      end
+    elseif event=="PLAYER_REGEN_DISABLED" then
+      -- combat started, reset model queues in case of incomplete loads
+      for _,config in pairs(temporary_mobs) do
+        config.queue = {}
+      end
     end
   end
 end)
@@ -376,7 +379,10 @@ local function handleCommands(msg, editbox)
     auto_print("Sweep mode [ off ]")
   end
 
-  if command == "set" or command == "s" then
+  if command == "enabled" then
+    settings.enabled = not settings.enabled
+    auto_print("AutoMarker is now [".. (settings.enabled and "enabled" or "disabled") .. "]")
+  elseif command == "set" or command == "s" then
     if not packName then
       auto_print("You must provide a pack name as well when using set.")
       return
@@ -439,10 +445,11 @@ local function handleCommands(msg, editbox)
       auto_print("Sweep mode [ off ]")
     end
   elseif command == "debug" then
-    settings["debug"] = not settings["debug"]
-    auto_print("Debug mode set to: " .. (settings["debug"] and "on" or "off"))
+    settings.debug = not settings.debug
+    auto_print("Debug mode set to: " .. (settings.debug and "on" or "off"))
   else
     auto_print("Commands:")
+    auto_print("/am " .. c("e", color.green) .. "nable - enabled or disable addon.")
     auto_print("/am " .. c("s", color.green) .. "et <packname> - Set the current pack name.")
     auto_print("/am " .. c("g", color.green) .. "et - Get the current pack name and information about the targeted mob.")
     auto_print("/am " .. c("c", color.green) .. "lear - Clear all mobs in the current pack.")
