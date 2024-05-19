@@ -102,12 +102,67 @@ end
 
 -- Addon ---------------------
 
+-- /// Allow marking solo as well /// --
+
+-- local original_UnitPopup_ShowMenu = UnitPopup_ShowMenu
+local original_UnitPopup_HideButtons = UnitPopup_HideButtons
+local original_UnitPopup_OnClick = UnitPopup_OnClick
+
+local function AM_UnitPopup_HideButtons()
+  local dropdownMenu = getglobal(UIDROPDOWNMENU_INIT_MENU);
+
+  for index, value in UnitPopupMenus[dropdownMenu.which] do
+    if ( strsub(value, 1, 12)  == "RAID_TARGET_" ) then
+      UnitPopupShown[index] = 1;
+      if ( not (dropdownMenu.which == "SELF") ) then
+        if ( UnitExists("target") and not UnitPlayerOrPetInParty("target") and not UnitPlayerOrPetInRaid("target") ) then
+          if ( UnitIsPlayer("target") and (not UnitCanCooperate("player", "target") and not UnitIsUnit("target", "player")) ) then
+            UnitPopupShown[index] = 0;
+          end
+        end
+      end
+    end
+  end
+end
+
+function AM_UnitPopup_OnClick()
+  local dropdownFrame = getglobal(UIDROPDOWNMENU_INIT_MENU);
+  local button = this.value;
+  local unit = dropdownFrame.unit;
+
+  if ( strsub(button, 1, 12) == "RAID_TARGET_" and button ~= "RAID_TARGET_ICON" ) then
+    local raidTargetIndex = strsub(button, 13);
+    if ( raidTargetIndex == "NONE" ) then
+      raidTargetIndex = 0;
+    end
+    SetRaidTarget(unit, tonumber(raidTargetIndex),1);
+  end
+  PlaySound("UChatScrollButton");
+end
+
+UnitPopup_HideButtons = function ()
+  original_UnitPopup_HideButtons()
+  AM_UnitPopup_HideButtons()
+end
+
+-- UnitPopup_ShowMenu = function (dropdownMenu, which, unit, name, userData)
+--   original_popup(dropdownMenu,which,unit,name,userData)
+-- end
+
+UnitPopup_OnClick = function ()
+  original_UnitPopup_OnClick()
+  AM_UnitPopup_OnClick()
+end
+------------------------------
+
+
 local raidMarks = {"Unmarked", "Star", "Circle", "Diamond", "Triangle", "Moon", "Square", "Cross", "Skull"}
 
 local defaultSettings = {
   debug = false,
 }
 
+-- the sweep_mobs should, in sweep mode, store what's grabbed and inform if the mark's changed
 local sweep_on = false
 local sweep_mobs = {}
 local currentPackName = nil
@@ -151,18 +206,47 @@ function AutoMark_MarkGroup()
     for mob, mark in pairs(packMobs or {}) do
       -- might be out of range, e.g. a patrol
       if UnitExists(mob) then
-        SetRaidTarget(mob, mark)
+        SetMarker(mob, mark, 1)
       end
     end
   end
 end
 
+-- this should not spit out the result, only true or false whether it suceeded, maybe a 2nd return value of what the error was
+local function AddToPack2(guid,force_add,pack)
+  local the_pack = pack or currentPackName
+  local force = force_add or false
+  if not the_pack then
+    return false,"no_pack_name"
+  end
+
+  local unitName, raidmark = UnitName(guid), GetRaidTargetIndex(guid) or 0
+  local zoneName = GetRealZoneText()
+
+  local mob_pack_name = guidToPack(guid, zoneName)
+  if mob_pack_name and not force then
+    return false,"mob_in_pack"
+  end
+
+  auto_print("Adding " .. unitName .. "(" .. guid .. ") to pack: " .. the_pack .. " with mark: " .. raidMarks[raidmark + 1] .. " in zone: " .. zoneName)
+  customNpcsToMark[zoneName] = customNpcsToMark[zoneName] or {}
+  customNpcsToMark[zoneName][the_pack] = customNpcsToMark[zoneName][the_pack] or {}
+
+  local not_fresh = customNpcsToMark[zoneName][the_pack][guid] and (customNpcsToMark[zoneName][the_pack][guid] == raidmark)
+  if not not_fresh then
+    auto_print("Adding " .. unitName .. "(" .. guid .. ") to pack: " .. the_pack .. " with mark: " .. raidMarks[raidmark + 1] .. " in zone: " .. zoneName)
+    customNpcsToMark[zoneName][the_pack][guid] = raidmark
+  end
+  return true,nil
+end
+
+-- this should accept the pack to add to as well, in prep for making add/sweep able to skip /set
 local function AddToPack(guid,force_add)
   if not currentPackName then
     auto_print("Must set packname before adding to pack.")
     return
   end
-  auto_print(guid)
+  -- auto_print(guid)
 
   local packName = guidToPack(guid, zoneName)
   if packName and not force_add then
@@ -172,10 +256,16 @@ local function AddToPack(guid,force_add)
 
   local unitName, raidmark = UnitName(guid), GetRaidTargetIndex(guid) or 0
   local zoneName = GetRealZoneText()
-  auto_print("Adding " .. unitName .. "(" .. guid .. ") to pack: " .. currentPackName .. " with mark: " .. raidMarks[raidmark + 1] .. " in zone: " .. zoneName)
+
   customNpcsToMark[zoneName] = customNpcsToMark[zoneName] or {}
   customNpcsToMark[zoneName][currentPackName] = customNpcsToMark[zoneName][currentPackName] or {}
+  local not_fresh = customNpcsToMark[zoneName] and customNpcsToMark[zoneName][currentPackName] and customNpcsToMark[zoneName][currentPackName][guid] and (customNpcsToMark[zoneName][currentPackName][guid] == raidmark)
+
   customNpcsToMark[zoneName][currentPackName][guid] = raidmark
+
+  if not not_fresh then
+    auto_print("Adding " .. unitName .. "(" .. guid .. ") to pack: " .. currentPackName .. " with mark: " .. raidMarks[raidmark + 1] .. " in zone: " .. zoneName)
+  end
 end
 
 local function OnMouseover()
@@ -206,6 +296,7 @@ local temporary_mobs = {
         queue = {},
     },
 }
+-- ^ should this even care about count? it only matters for live_marks right?
 
 -- so we'll order them and assigned them ordered source marks
 local elapsed = 0
@@ -220,10 +311,11 @@ function UpdateRespawns()
           sortAndReplaceKeys(defaultNpcsToMark[config.raid][config.pack], config.queue)
         config.queue = {}
         autoMarkerFrame:SetScript("OnUpdate", nil)
+        -- if live update the marks as soon as we have them
         if config.live_mark then
           for guid,mark in pairs(currentNpcsToMark[config.raid][config.pack]) do
             if UnitExists(guid) then
-              SetRaidTarget(guid, mark)
+              SetMarker(guid, mark, 1)
             end
           end
         end
@@ -290,6 +382,8 @@ autoMarkerFrame:SetScript("OnEvent", function()
   end
 end)
 
+-- add a config handler, for debug or skeram setting
+-- also things like add or sweep should accept a packname as an extra arg
 local function handleCommands(msg, editbox)
   local args = {}
   for word in string.gfind(msg, '%S+') do
@@ -351,6 +445,10 @@ local function handleCommands(msg, editbox)
     end
     AddToPack(guid,force_add)
   elseif command == "sweep" or command == "s" then
+    if not currentPackName then
+      auto_print("You must provide a pack name before using sweep.")
+      return
+    end
     sweep_on = not sweep_on
     if sweep_on then
       auto_print("Sweep mode [ on ] sweep your mouse over enemeis to add them to a group.")
