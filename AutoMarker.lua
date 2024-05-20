@@ -124,6 +124,26 @@ local function AM_UnitPopup_HideButtons()
   end
 end
 
+-- returns false if the mark was solo
+local function MarkTarget(unit,mark)
+  if ((GetNumPartyMembers() > 0) or (GetNumRaidMembers() > 0))
+        and not (IsRaidOfficer() or IsPartyLeader()) then
+    SetRaidTarget(unit,mark,1)
+    return false
+  else
+    SetRaidTarget(unit,mark)
+    return true
+  end
+end
+
+local function MarkPack(pack)
+  for guid,mark in pairs(pack) do
+    if UnitExists(guid) then
+      MarkTarget(guid,mark)
+    end
+  end
+end
+
 local warned_lead = false
 local function AM_UnitPopup_OnClick()
   local dropdownFrame = getglobal(UIDROPDOWNMENU_INIT_MENU);
@@ -135,12 +155,10 @@ local function AM_UnitPopup_OnClick()
     if ( raidTargetIndex == "NONE" ) then
       raidTargetIndex = 0;
     end
-    if not warned_lead and ((GetNumPartyMembers() > 0) or (GetNumRaidMembers() > 0))
-        and not (IsRaidOfficer() or IsPartyLeader()) then 
-      DEFAULT_CHAT_FRAME:AddMessage("Warning, you are setting a mark while not a leader/assistant, others will not see them.")
+    if not MarkTarget(unit, tonumber(raidTargetIndex)) then
+      DEFAULT_CHAT_FRAME:AddMessage("Warning: a mark set while not a leader/assistant is not visible to others")
       warned_lead = true
     end
-    SetRaidTarget(unit, tonumber(raidTargetIndex),1);
   end
   PlaySound("UChatScrollButton");
 end
@@ -205,12 +223,7 @@ function AutoMark_MarkGroup()
   targetGuid = mouseoverGuid and mouseoverGuid or targetGuid
   if targetGuid and not UnitIsDead(targetGuid) and PlayerCanMark() then
     local _, packMobs = guidToPack(targetGuid, GetRealZoneText())
-    for mob, mark in pairs(packMobs or {}) do
-      -- might be out of range, e.g. a patrol
-      if UnitExists(mob) then
-        SetRaidTarget(mob, mark, 1)
-      end
-    end
+    MarkPack(packMobs or {})
   end
 end
 
@@ -289,13 +302,9 @@ function UpdateRespawns()
           sortAndReplaceKeys(defaultNpcsToMark[config.raid][config.pack], config.queue)
         config.queue = {}
         autoMarkerFrame:SetScript("OnUpdate", nil)
-        -- if live update the marks as soon as we have them
+        -- if live update the marks as soon as we have them all
         if config.live_mark then
-          for guid,mark in pairs(currentNpcsToMark[config.raid][config.pack]) do
-            if UnitExists(guid) then
-              SetRaidTarget(guid, mark, 1)
-            end
-          end
+          MarkPack(currentNpcsToMark[config.raid][config.pack])
         end
       end
     end
