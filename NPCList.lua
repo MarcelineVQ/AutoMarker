@@ -1146,6 +1146,46 @@ defaultNpcsToMark["Emerald Sanctum"]["solnius"] = {
 
 defaultNpcsToMark["Molten Core"] = {}
 
+defaultNpcsToMark["Molten Core"]["pats1"] = {
+  ["0xF130002D9900DE21"] = 5,
+  ["0xF130002F4500DE0C"] = 4,
+  ["0xF130002F4500DE07"] = 2,
+  ["0xF130002D9900DE15"] = 1,
+  ["0xF130002D9900DE13"] = 7,
+  ["0xF130002D9900DE14"] = 6,
+  ["0xF130002D9900DE16"] = 3,
+}
+
+defaultNpcsToMark["Molten Core"]["lucifron"] = {
+  ["0xF130002F5700DD1F"] = 7,
+  ["0xF130002F5600DD1D"] = 8,
+  ["0xF130002F5700DD1E"] = 6,
+}
+
+defaultNpcsToMark["Molten Core"]["imp_surgers"] = {
+  ["0xF130002F4500DE0A"] = 3,
+  ["0xF130002F4500DE0B"] = 4,
+  ["0xF130002F4500DE08"] = 8,
+  ["0xF130002F4500DE09"] = 7,
+}
+
+defaultNpcsToMark["Molten Core"]["gehennas"] = {
+  ["0xF130002D8D00DDA2"] = 7,
+  ["0xF130002D8D00DDA3"] = 6,
+  ["0xF130002FE300DDA1"] = 8,
+}
+
+defaultNpcsToMark["Molten Core"]["pats2"] = {
+  ["0xF130002D9900DE1E"] = 2,
+  ["0xF130002D9900DE1A"] = 4,
+  ["0xF130002D9900DE20"] = 3,
+  ["0xF130002D9900DE17"] = 7,
+  ["0xF130002F4500DE11"] = 1,
+  ["0xF130002D9900DE19"] = 8,
+  ["0xF130002F4500DE10"] = 5,
+  ["0xF130002D9900DE18"] = 6,
+}
+
 defaultNpcsToMark["Molten Core"]["garr"] = {
 	["0xF130002F4300DD28"] = STAR,
 	["0xF130002F4300DD2E"] = CIRCLE,
@@ -1212,25 +1252,26 @@ defaultNpcsToMark["Molten Core"]["domo"] = {
 	["0xF130002EF2276EB2"] = UNMARKED,
 }
 
-
+-- needs testing
+--[[
 --/////////////// BWL ///////////////
 defaultNpcsToMark["Blackwing Lair"] = {}
 
 	defaultNpcsToMark["Blackwing Lair"]["supress"] = {
 		["0xF1300030AA104BD1"] = MOON, -- controller
 		["0xF1300030AA104BD3"] = CROSS, -- controller
-		
+
 		["0xF1300030AA104BD4"] = SKULL, -- controller
 		["0xF1300030AA104BD5"] = SQUARE, -- controller
 		["0xF1300030AA104BD6"] = SKULL, -- controller
-		
+
 		["0xF1300030AA104BD7"] = CROSS, -- controller
 		["0xF1300030AA104BD9"] = MOON, -- controller
 		
 		["0xF1300030AA104BD0"] = CROSS, -- controller
 		["0xF1300030AA104BDA"] = CIRCLE, -- controller
 		["0xF1300030AA104BDB"] = DIAMOND, -- controller
-		
+
 		["0xF1300030AA104BCF"] = DIAMOND, -- controller
 
 		["0xF1300030B40BA43F"] = UNMARKED, -- hatcher
@@ -1242,27 +1283,6 @@ defaultNpcsToMark["Blackwing Lair"] = {}
 		["0xF1300030B40BA3BF"] = UNMARKED, -- hatcher
 		["0xF1300030B40BA43A"] = UNMARKED, -- hatcher
 		["0xF1300030B40BA43D"] = UNMARKED, -- hatcher
-
-		-- ["0xF1300030AA104BDB"] = DIAMOND,
-		-- ["0xF1300030B40BA43F"] = UNMARKED,
-		-- ["0xF1300030AA104BD5"] = SQUARE,
-		-- ["0xF1300030AA104BD4"] = SKULL,
-		-- ["0xF1300030AA104BD0"] = CROSS,
-		-- ["0xF1300030AA104BDA"] = CIRCLE,
-		-- ["0xF1300030B40BA395"] = UNMARKED,
-		-- ["0xF1300030B40BA630"] = UNMARKED,
-		-- ["0xF1300030AA104BD9"] = MOON,
-		-- ["0xF1300030B40BA441"] = UNMARKED,
-		-- ["0xF1300030AA104BD6"] = SKULL,
-		-- ["0xF1300030B40BA632"] = UNMARKED,
-		-- ["0xF1300030B40BA62E"] = UNMARKED,
-		-- ["0xF1300030AA104BD3"] = CROSS,
-		-- ["0xF1300030B40BA3BF"] = UNMARKED,
-		-- ["0xF1300030AA104BD1"] = MOON,
-		-- ["0xF1300030AA104BCF"] = DIAMOND,
-		-- ["0xF1300030AA104BD7"] = CROSS,
-		-- ["0xF1300030B40BA43A"] = UNMARKED,
-		-- ["0xF1300030B40BA43D"] = UNMARKED,
 	}
 
 	defaultNpcsToMark["Blackwing Lair"]["wrym2"] = {
@@ -1282,7 +1302,6 @@ defaultNpcsToMark["Blackwing Lair"] = {}
 		["0xF1300036AC014A37"] = UNMARKED,
 		["0xF1300036AC014A3B"] = UNMARKED,
 		["0xF1300036AC014A38"] = UNMARKED,
-		["0x0000000000118EDE"] = UNMARKED,
 		["0xF1300030AB014A3E"] = CROSS,
 		["0xF1300030AB014A3D"] = SKULL,
 	}
@@ -1395,3 +1414,4 @@ defaultNpcsToMark["Blackwing Lair"] = {}
 		["0xF1300030AC014AA8"] = CIRCLE,
 		["0xF1300036C4014F18"] = TRIANGLE, -- chromag
 	}
+--]]
