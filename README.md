@@ -1,4 +1,4 @@
-# AutoMarker 1.6.0
+# AutoMarker 1.6.1
 AutoMarker for [SuperWow](https://github.com/balakethelock/SuperWoW/) on the 1.12 client.
 
 * Hold `shift then ctrl or alt` to activate automatic raid marking when mousing over a mob group.  
@@ -11,8 +11,8 @@ Many pre-defined groups exists already in the addon but can be customized with t
 - `/am set <packname> - Set the current pack name.` `Alias: /am s`
 - `/am get - Get the current pack name and information about the targeted mob.` `Alias: /am g`
 - `/am clear - Clear all mobs in the current pack.` `Alias: /am c`
-- `/am add [packname] - Add the targeted mob to a specified pack. If no pack name is provided, use the current pack name.` `Alias: /am a`
-- `/am sweep [packname] - Toggle sweep mode to add multiple mobs to a specified pack. If no pack name is provided, use the current pack name.`
+- `/am add [packname] - Add the targeted mob to a specified pack. If no pack name is provided, use the current 'set' pack name.` `Alias: /am a`
+- `/am sweep [packname] - Toggle sweep mode to add multiple mobs to a specified pack. If no pack name is provided, use the current 'set' pack name.`
 - `/am remove - Remove the targeted mob from its current pack.` `Alias: /am r`
 - `/am debug - Toggle debug mode.`
 
