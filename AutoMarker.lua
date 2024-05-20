@@ -102,6 +102,35 @@ end
 
 -- Addon ---------------------
 
+-- /// Util functions /// --
+
+-- You may mark when you're a lead, assist, or you're doing soloplay
+local function PlayerCanRaidMark()
+  return IsRaidOfficer() or IsPartyLeader()
+end
+local function PlayerCanMark()
+  return PlayerCanRaidMark() or (GetNumPartyMembers() + GetNumRaidMembers() == 0)
+end
+
+-- returns false if the mark was solo
+local function MarkTarget(unit,mark)
+  if PlayerCanRaidMark() then
+    SetRaidTarget(unit,mark)
+    return true
+  else
+    SetRaidTarget(unit,mark,1)
+    return false
+  end
+end
+
+local function MarkPack(pack)
+  for guid,mark in pairs(pack) do
+    if UnitExists(guid) then
+      MarkTarget(guid,mark)
+    end
+  end
+end
+
 -- /// Allow marking solo as well /// --
 
 local original_UnitPopup_HideButtons = UnitPopup_HideButtons
@@ -124,15 +153,22 @@ local function AM_UnitPopup_HideButtons()
   end
 end
 
+-- You may mark when you're a lead, assist, or you're doing soloplay
+local function PlayerCanRaidMark()
+  return IsRaidOfficer() or IsPartyLeader()
+end
+local function PlayerCanMark()
+  return PlayerCanRaidMark() or (GetNumPartyMembers() + GetNumRaidMembers() == 0)
+end
+
 -- returns false if the mark was solo
 local function MarkTarget(unit,mark)
-  if ((GetNumPartyMembers() > 0) or (GetNumRaidMembers() > 0))
-        and not (IsRaidOfficer() or IsPartyLeader()) then
-    SetRaidTarget(unit,mark,1)
-    return false
-  else
+  if PlayerCanRaidMark() then
     SetRaidTarget(unit,mark)
     return true
+  else
+    SetRaidTarget(unit,mark,1)
+    return false
   end
 end
 
@@ -155,7 +191,7 @@ local function AM_UnitPopup_OnClick()
     if ( raidTargetIndex == "NONE" ) then
       raidTargetIndex = 0;
     end
-    if not MarkTarget(unit, tonumber(raidTargetIndex)) then
+    if not MarkTarget(unit, tonumber(raidTargetIndex)) and not warned_lead then
       DEFAULT_CHAT_FRAME:AddMessage("Warning: a mark set while not a leader/assistant is not visible to others")
       warned_lead = true
     end
@@ -182,7 +218,6 @@ local defaultSettings = {
   debug = false,
 }
 
--- the sweep_mobs should, in sweep mode, store what's grabbed and inform if the mark's changed
 local sweep_on = false
 local sweepPackName = nil
 local currentPackName = nil
@@ -207,21 +242,11 @@ local function guidToPack(id, zone)
   end
 end
 
-local function PlayerCanMark()
-  for i = 1, GetNumRaidMembers() do
-    local name, rank = GetRaidRosterInfo(i)
-    if name==UnitName("player") then
-      return rank>0
-    end
-  end
-  return UnitIsPartyLeader("player") or (GetNumPartyMembers() == 0)
-end
-
 function AutoMark_MarkGroup()
   local _, mouseoverGuid = UnitExists("mouseover")
   local _, targetGuid = UnitExists("target")
   targetGuid = mouseoverGuid and mouseoverGuid or targetGuid
-  if targetGuid and not UnitIsDead(targetGuid) and PlayerCanMark() then
+  if targetGuid and not UnitIsDead(targetGuid) then
     local _, packMobs = guidToPack(targetGuid, GetRealZoneText())
     MarkPack(packMobs or {})
   end
@@ -249,12 +274,17 @@ local function AddToPack(guid,force_add,pack)
   customNpcsToMark[zoneName] = customNpcsToMark[zoneName] or {}
   customNpcsToMark[zoneName][the_pack] = customNpcsToMark[zoneName][the_pack] or {}
 
+  -- update the live table too
+  currentNpcsToMark[zoneName] = currentNpcsToMark[zoneName] or {}
+  currentNpcsToMark[zoneName][the_pack] = currentNpcsToMark[zoneName][the_pack] or {}
+
   local existing_mark = customNpcsToMark[zoneName][the_pack][guid]
   local same = existing_mark and (existing_mark == raidmark)
   if not same then
     auto_print((existing_mark and "Updating " or "Adding ")
       .. unitName .. "(" .. guid .. ") in pack: " .. the_pack .. " with new mark: " .. raidMarks[raidmark + 1] .. " in zone: " .. zoneName)
     customNpcsToMark[zoneName][the_pack][guid] = raidmark
+    currentNpcsToMark[zoneName][the_pack][guid] = raidmark
   end
   return true, nil
 end
@@ -436,7 +466,7 @@ local function handleCommands(msg, editbox)
     customNpcsToMark[zoneName][packName][guid] = nil
   elseif command == "add" or command == "a" or force_add then
     local guid = getGuid()
-    local success, err =   AddToPack(guid, force_add, packName)
+    local success, err = AddToPack(guid, force_add, packName)
     if not success then
       if err == "no_guid" then
         auto_print("You must target a mob.")
