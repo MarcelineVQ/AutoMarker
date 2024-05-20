@@ -1077,7 +1077,7 @@ defaultNpcsToMark["Emerald Sanctum"]["wyrmkin_pack_left_2"] = {
 }
 
 defaultNpcsToMark["Emerald Sanctum"]["dreamer_pack_right_1"] = {
-  ["0xF13000ED462754A 3"] = UNMARKED, -- sanctum dreamer
+  ["0xF13000ED462754A3"] = UNMARKED, -- sanctum dreamer
   ["0xF13000ED462754A4"] = UNMARKED, -- sanctum dreamer
   ["0xF13000ED462754A5"] = UNMARKED, -- sanctum dreamer
   ["0xF13000ED462754A6"] = UNMARKED, -- sanctum dreamer
@@ -1144,76 +1144,70 @@ defaultNpcsToMark["Emerald Sanctum"]["solnius"] = {
 
 --/////////////// MC ///////////////
 
-local errenius = "0xF13000ED4B2739FA"
-local errenius_mark = DIAMOND
 defaultNpcsToMark["Molten Core"] = {}
 
 defaultNpcsToMark["Molten Core"]["garr"] = {
-	["0xF130002F4300DD28"] = 1,
-	["0xF130002F4300DD2E"] = 2,
-	["0xF130002F4300DD2C"] = 6,
-	["0xF130002F4300DD34"] = 3,
-	["0xF130002F4300DD2B"] = 8,
-	["0xF130002F4300DD32"] = 7,
-	["0xF130002F4300DD33"] = 5,
-	["0xF130002F4300DD22"] = 4,
+	["0xF130002F4300DD28"] = STAR,
+	["0xF130002F4300DD2E"] = CIRCLE,
+	["0xF130002F4300DD2C"] = SQUARE,
+	["0xF130002F4300DD34"] = DIAMOND,
+	["0xF130002F4300DD2B"] = SKULL,
+	["0xF130002F4300DD32"] = CROSS,
+	["0xF130002F4300DD33"] = MOON,
+	["0xF130002F4300DD22"] = TRIANGLE,
 }
 
 defaultNpcsToMark["Molten Core"]["baron_pack_1"] = {
-	["0xF130002D93016498"] = 7,
-	["0xF130002F2C016497"] = 2,
-	["0xF130002D92016496"] = 8,
-	["0xF130002F2C016499"] = 3,
+	["0xF130002D93016498"] = CROSS,
+	["0xF130002F2C016497"] = CIRCLE,
+	["0xF130002D92016496"] = SKULL,
+	["0xF130002F2C016499"] = DIAMOND,
 }
 
 defaultNpcsToMark["Molten Core"]["baron_pack_2"] = {
-	["0xF130002F2C016480"] = 2,
-	["0xF130002F2C01647E"] = 3,
-	["0xF130002D9301647F"] = 7,
-	["0xF130002D9201647D"] = 8,
+	["0xF130002F2C016480"] = CIRCLE,
+	["0xF130002F2C01647E"] = DIAMOND,
+	["0xF130002D9301647F"] = CROSS,
+	["0xF130002D9201647D"] = SKULL,
 	["0xF130002F1800DD4F"] = STAR, -- baron
 }
 
 defaultNpcsToMark["Molten Core"]["baron_pack_3"] = {
-	["0xF130002D9301649C"] = 7,
-	["0xF130002D9201649A"] = 8,
-	["0xF130002F4401649B"] = 2,
+	["0xF130002D9301649C"] = CROSS,
+	["0xF130002D9201649A"] = SKULL,
+	["0xF130002F4401649B"] = CIRCLE,
 	["0xF130002FE800DD20"] = STAR, -- shazzrah
 }
 
 defaultNpcsToMark["Molten Core"]["baron_pack_4"] = {
-	["0xF130002D9200DD92"] = 8,
-	["0xF130002F4400DD93"] = 2,
-	["0xF130002D9300DD94"] = 7,
+	["0xF130002D9200DD92"] = SKULL,
+	["0xF130002F4400DD93"] = CIRCLE,
+	["0xF130002D9300DD94"] = CROSS,
 }
 
 defaultNpcsToMark["Molten Core"]["baron_pack_5"] = {
-	["0xF130002F2C00DDD9"] = 2,
-	["0xF130002D9300DDDA"] = 7,
-	["0xF130002D9200DDD8"] = 8,
-	["0xF130002F2C00DDDB"] = 3,
+	["0xF130002F2C00DDD9"] = CIRCLE,
+	["0xF130002D9300DDDA"] = CROSS,
+	["0xF130002D9200DDD8"] = SKULL,
+	["0xF130002F2C00DDDB"] = DIAMOND,
 }
 
 defaultNpcsToMark["Molten Core"]["sulfuron"] = {
-	["0xF130002D8E00DD69"] = 5,
-	["0xF130002D8E00DD66"] = 6,
-	["0xF130002D8E00DD67"] = 7,
-	["0xF130002F4200DD65"] = 4,
-	["0xF130002D8E00DD6A"] = 8,
+	["0xF130002D8E00DD69"] = MOON,
+	["0xF130002D8E00DD66"] = SQUARE,
+	["0xF130002D8E00DD67"] = CROSS,
+	["0xF130002F4200DD65"] = TRIANGLE,
+	["0xF130002D8E00DD6A"] = SKULL,
 }
 
 defaultNpcsToMark["Molten Core"]["domo"] = {
-	["0xF130002D8F276EB8"] = 4,
-	["0xF130002D90276EB4"] = 1,
-	["0xF130002D90276EB5"] = 2,
-	["0xF130002D90276EB3"] = 3,
-	["0xF130002D90276EB6"] = 7,
-	["0xF130002D8F276EB9"] = 5,
-	["0xF130002D8F276EBA"] = 6,
-	["0xF130002D8F276EB7"] = 8,
-	["0xF130002EF2276EB2"] = 0,
+	["0xF130002D8F276EB8"] = TRIANGLE,
+	["0xF130002D90276EB4"] = STAR,
+	["0xF130002D90276EB5"] = CIRCLE,
+	["0xF130002D90276EB3"] = DIAMOND,
+	["0xF130002D90276EB6"] = CROSS,
+	["0xF130002D8F276EB9"] = MOON,
+	["0xF130002D8F276EBA"] = SQUARE,
+	["0xF130002D8F276EB7"] = SKULL,
+	["0xF130002EF2276EB2"] = UNMARKED,
 }
-
---/////////////// BWL ///////////////
-defaultNpcsToMark["Blackwing Lair"] = {}
-
