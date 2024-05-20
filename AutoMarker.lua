@@ -153,12 +153,17 @@ local function AM_UnitPopup_HideButtons()
   end
 end
 
--- You may mark when you're a lead, assist, or you're doing soloplay
-local function PlayerCanRaidMark()
-  return IsRaidOfficer() or IsPartyLeader()
+local function InGroup()
+  return (GetNumPartyMembers() + GetNumRaidMembers() > 0)
 end
+
+local function PlayerCanRaidMark()
+  return InGroup() and (IsRaidOfficer() or IsPartyLeader())
+end
+
+-- You may mark when you're a lead, assist, or you're doing soloplay
 local function PlayerCanMark()
-  return PlayerCanRaidMark() or (GetNumPartyMembers() + GetNumRaidMembers() == 0)
+  return PlayerCanRaidMark() or not InGroup()
 end
 
 -- returns false if the mark was solo
@@ -191,7 +196,7 @@ local function AM_UnitPopup_OnClick()
     if ( raidTargetIndex == "NONE" ) then
       raidTargetIndex = 0;
     end
-    if not MarkTarget(unit, tonumber(raidTargetIndex)) and not warned_lead then
+    if not MarkTarget(unit, tonumber(raidTargetIndex)) and InGroup() and not warned_lead then
       DEFAULT_CHAT_FRAME:AddMessage("Warning: a mark set while not a leader/assistant is not visible to others")
       warned_lead = true
     end
@@ -246,7 +251,7 @@ function AutoMark_MarkGroup()
   local _, mouseoverGuid = UnitExists("mouseover")
   local _, targetGuid = UnitExists("target")
   targetGuid = mouseoverGuid and mouseoverGuid or targetGuid
-  if targetGuid and not UnitIsDead(targetGuid) then
+  if targetGuid and not UnitIsDead(targetGuid) and PlayerCanMark() then
     local _, packMobs = guidToPack(targetGuid, GetRealZoneText())
     MarkPack(packMobs or {})
   end
