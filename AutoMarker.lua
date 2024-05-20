@@ -124,6 +124,7 @@ local function AM_UnitPopup_HideButtons()
   end
 end
 
+local warned_lead = false
 local function AM_UnitPopup_OnClick()
   local dropdownFrame = getglobal(UIDROPDOWNMENU_INIT_MENU);
   local button = this.value;
@@ -133,6 +134,11 @@ local function AM_UnitPopup_OnClick()
     local raidTargetIndex = strsub(button, 13);
     if ( raidTargetIndex == "NONE" ) then
       raidTargetIndex = 0;
+    end
+    if not warned_lead and ((GetNumPartyMembers() > 0) or (GetNumRaidMembers() > 0))
+        and not (IsRaidOfficer() or IsPartyLeader()) then 
+      DEFAULT_CHAT_FRAME:AddMessage("Warning, you are setting a mark while not a leader/assistant, others will not see them.")
+      warned_lead = true
     end
     SetRaidTarget(unit, tonumber(raidTargetIndex),1);
   end
