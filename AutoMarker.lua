@@ -424,9 +424,9 @@ local function handleCommands(msg, editbox)
   end
 
   -- Disable sweep if another command is used after sweep is enabled
-  if sweep_on and command ~= "sweep" then
+  if sweep_on and (command ~= "sweep" or (command == "sweep" and not packName)) then
     sweep_on = false
-    auto_print("Sweep mode [ off ]")
+    auto_print("Sweep mode [ "..c("off",color.red).." ]")
   end
 
   if command == "enabled" then
@@ -438,15 +438,15 @@ local function handleCommands(msg, editbox)
       return
     end
     currentPackName = packName
-    auto_print("Packname set to: " .. currentPackName)
+    auto_print("Packname set to: " .. c(currentPackName,color.orange))
   elseif command == "get" or command == "g" then
-    auto_print("Curent packname set to: " .. (currentPackName or "none"))
+    auto_print("Curent packname set to: " .. c(currentPackName or "none",color.orange))
     local guid = getGuid()
     if guid then
       local packName,pack = guidToPack(guid, zoneName)
       if packName then
         local mark = pack[guid]+1
-        auto_print(format("Mob %s (%s) is %s in pack: %s",guid,UnitName(guid),raidMarks[mark],packName))
+        auto_print(format("Mob %s (%s) is %s in pack: %s",guid,UnitName(guid),raidMarks[mark],c(packName,color.orange)))
       else
         auto_print(format("Mob %s (%s) is not in any pack.",guid,UnitName(guid)))
       end
@@ -467,7 +467,7 @@ local function handleCommands(msg, editbox)
       auto_print("Mob not in any pack.")
       return
     end
-    auto_print("Removing mob " .. UnitName(guid) .. " from pack: " .. packName)
+    auto_print("Removing mob " .. UnitName(guid) .. " from pack: " .. c(packName,color.orange))
     customNpcsToMark[zoneName][packName][guid] = nil
   elseif command == "add" or command == "a" or force_add then
     local guid = getGuid()
@@ -478,25 +478,21 @@ local function handleCommands(msg, editbox)
       elseif err == "no_pack_name" then
         auto_print("You must provide a pack name to add the mob to.")
       elseif err == "mob_in_pack" then
-        auto_print("The mob is already in a pack. Use /am forceadd to override.")
+        auto_print("The mob is already in a pack. Use "..c("/am forceadd",color.yellow).." to override.")
       end
     end
   elseif command == "sweep" then
     local targetPackName = packName or currentPackName
-    if not targetPackName and not sweep_on then
-      auto_print("Provide the pack name to this command as well or set one using sweep with: /am set")
+    if not targetPackName then
+      auto_print("Provide the pack name to this command as well or set one using "..c("/am set",color.yellow))
       return
     end
-    sweep_on = not sweep_on
-    if sweep_on then
-      sweepPackName = targetPackName
-      auto_print("Sweep mode [ on ] sweep your mouse over enemies to add them to pack: " .. sweepPackName)
-    else
-      auto_print("Sweep mode [ off ]")
-    end
+    sweep_on = true
+    sweepPackName = targetPackName
+    auto_print("Sweep mode [ "..c("on",color.green).." ] sweep your mouse over enemies to add them to pack: " .. c(sweepPackName,color.orange))
   elseif command == "debug" then
     settings.debug = not settings.debug
-    auto_print("Debug mode set to: " .. (settings.debug and "on" or "off"))
+    auto_print("Debug mode set to: " .. (settings.debug and c("on",color.green) or c("off",color.red)))
   else
     auto_print("Commands:")
     auto_print("/am " .. c("e", color.green) .. "nable - enabled or disable addon.")

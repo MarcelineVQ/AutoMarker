@@ -3,7 +3,7 @@
 ## Notes: Automatically mark raid mobs
 ## Author: Weird Vibes
 ## SavedVariables: customNpcsToMark,settings
-## Version: 1.6.3
+## Version: 1.6.4
 
 NPCList.lua
 AutoMarker.lua
