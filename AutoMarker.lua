@@ -345,9 +345,7 @@ function UpdateRespawns()
         config.queue = {}
         autoMarkerFrame:SetScript("OnUpdate", nil)
         -- if live update the marks as soon as we have them all
-        auto_print("spoop1")
         if config.live_mark then
-          auto_print("spoop2")
           MarkPack(currentNpcsToMark[config.raid][config.pack])
         end
       end
