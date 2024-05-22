@@ -303,24 +303,31 @@ end
 -- when certain bosses reset so do their adds, but they come back in the same order with new id's
 local temporary_mobs = {
   ["Deathknight Understudy"] = {
-      minCount = 4,
-      pack = "military_razuvious",
-      raid = "Naxxramas",
-      queue = {},
+    minCount = 4,
+    pack = "military_razuvious",
+    raid = "Naxxramas",
+    queue = {},
   },
   ["Crypt Guard"] = {
-      minCount = 2,
-      pack = "spider_anubrekhan",
-      raid = "Naxxramas",
-      queue = {},
+    minCount = 2,
+    pack = "spider_anubrekhan",
+    raid = "Naxxramas",
+    queue = {},
   },
-    ["The Prophet Skeram"] = {
-        minCount = 3,
-        pack = "skeram",
-        raid = "Ahn'Qiraj",
-        live_mark = true, -- do the mobs change in combat
-        queue = {},
-    },
+  ["The Prophet Skeram"] = {
+    minCount = 3,
+    pack = "skeram",
+    raid = "Ahn'Qiraj",
+    live_mark = true, -- do the mobs change in combat
+    queue = {},
+  },
+  ["High Priestess Arlokk"] = {
+    minCount = 1,
+    pack = "arlokk",
+    raid = "Zul'Gurub",
+    live_mark = true, -- do the mobs change in combat
+    queue = {},
+  },
 }
 -- ^ should this even care about count? it only matters for live_marks right?
 
@@ -338,7 +345,9 @@ function UpdateRespawns()
         config.queue = {}
         autoMarkerFrame:SetScript("OnUpdate", nil)
         -- if live update the marks as soon as we have them all
+        auto_print("spoop1")
         if config.live_mark then
+          auto_print("spoop2")
           MarkPack(currentNpcsToMark[config.raid][config.pack])
         end
       end

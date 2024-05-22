@@ -956,6 +956,10 @@ defaultNpcsToMark["Zul'Gurub"]["arlok_4"] = {
   ["0xF130002C4B00C8A6"] = SKULL, -- shadow hunter
 }
 
+defaultNpcsToMark["Zul'Gurub"]["arlokk"] = {
+  ["0xF1300038B3276EF0"] = CIRCLE,
+}
+
 --/////////////// Hakkar ///////////////
 
 defaultNpcsToMark["Zul'Gurub"]["hakkar_bottom"] = {
