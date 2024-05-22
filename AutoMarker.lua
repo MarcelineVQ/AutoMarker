@@ -227,12 +227,14 @@ local sweep_on = false
 local sweepPackName = nil
 local currentPackName = nil
 local currentNpcsToMark = {}
+local buru_egg_queue = nil
 
 local autoMarkerFrame = CreateFrame("Frame","AutoMarkerFrame")
 autoMarkerFrame:RegisterEvent("ADDON_LOADED")
 autoMarkerFrame:RegisterEvent("UPDATE_MOUSEOVER_UNIT")
 autoMarkerFrame:RegisterEvent("UNIT_MODEL_CHANGED") -- mob respawn
 autoMarkerFrame:RegisterEvent("PLAYER_REGEN_DISABLED") -- mob respawn
+autoMarkerFrame:RegisterEvent("UNIT_CASTEVENT") -- mob respawn
 
 local function guidToPack(id, zone)
   if not currentNpcsToMark or not currentNpcsToMark[zone] then
@@ -328,6 +330,13 @@ local temporary_mobs = {
     live_mark = true, -- do the mobs change in combat
     queue = {},
   },
+  ["Buru Egg"] = {
+    minCount = 6,
+    pack = "buru_eggs",
+    raid = "Ruins of Ahn'Qiraj",
+    live_mark = false, -- a different mechanism will handle live buru eggs
+    queue = {},
+  },
 }
 -- ^ should this even care about count? it only matters for live_marks right?
 
@@ -398,18 +407,33 @@ autoMarkerFrame:SetScript("OnEvent", function()
       if sweep_on then
           AddToPack(guid,true,sweepPackName)
       end
+    elseif event=="UNIT_CASTEVENT" then
+      -- if buru egg exploded
+      if arg4 == 19593 then
+        if not buru_egg_queue then buru_egg_queue = {} end
+        table.insert(buru_egg_queue, GetRaidTargetIndex(arg1))
+      end
     elseif event=="UNIT_MODEL_CHANGED" then
       -- Certain mobs are script spawned so their IDs need to be fetched
       local name = UnitName(arg1)
       if temporary_mobs[name] then
+        -- auto_print(name .. " spawned " .. arg1)
         table.insert(temporary_mobs[name].queue, arg1)
         autoMarkerFrame:SetScript("OnUpdate", UpdateRespawns)
       end
+      if buru_egg_queue and name == "Buru Egg" then
+        local next_egg_mark = table.remove(buru_egg_queue,1)
+        if next_egg_mark then
+          MarkTarget(arg1, next_egg_mark)
+        end
+      end
+    -- fd/vanish could be issue, but if more than one automarker is running it's fine
     elseif event=="PLAYER_REGEN_DISABLED" then
       -- combat started, reset model queues in case of incomplete loads
       for _,config in pairs(temporary_mobs) do
         config.queue = {}
       end
+      buru_egg_queue = nil
     end
   end
 end)
