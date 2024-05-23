@@ -3,6 +3,7 @@
 BINDING_HEADER_AUTOMARK = "|cff22CC00 - AutoMark Bindings -";
 BINDING_NAME_MOUSEOVERKEY = "Keys to hold to activate mouseover mark";
 BINDING_NAME_RUNKEY = "Mark mouseover or target";
+BINDING_NAME_CLEARKEY = "Clear all current marks";
 
 
 -- Utility -------------------
@@ -104,55 +105,6 @@ end
 
 -- /// Util functions /// --
 
--- You may mark when you're a lead, assist, or you're doing soloplay
-local function PlayerCanRaidMark()
-  return IsRaidOfficer() or IsPartyLeader()
-end
-local function PlayerCanMark()
-  return PlayerCanRaidMark() or (GetNumPartyMembers() + GetNumRaidMembers() == 0)
-end
-
--- returns false if the mark was solo
-local function MarkTarget(unit,mark)
-  if PlayerCanRaidMark() then
-    SetRaidTarget(unit,mark)
-    return true
-  else
-    SetRaidTarget(unit,mark,1)
-    return false
-  end
-end
-
-local function MarkPack(pack)
-  for guid,mark in pairs(pack) do
-    if UnitExists(guid) then
-      MarkTarget(guid,mark)
-    end
-  end
-end
-
--- /// Allow marking solo as well /// --
-
-local original_UnitPopup_HideButtons = UnitPopup_HideButtons
-local original_UnitPopup_OnClick = UnitPopup_OnClick
-
-local function AM_UnitPopup_HideButtons()
-  local dropdownMenu = getglobal(UIDROPDOWNMENU_INIT_MENU);
-
-  for index, value in UnitPopupMenus[dropdownMenu.which] do
-    if ( strsub(value, 1, 12)  == "RAID_TARGET_" ) then
-      UnitPopupShown[index] = 1;
-      if ( not (dropdownMenu.which == "SELF") ) then
-        if ( UnitExists("target") and not UnitPlayerOrPetInParty("target") and not UnitPlayerOrPetInRaid("target") ) then
-          if ( UnitIsPlayer("target") and (not UnitCanCooperate("player", "target") and not UnitIsUnit("target", "player")) ) then
-            UnitPopupShown[index] = 0;
-          end
-        end
-      end
-    end
-  end
-end
-
 local function InGroup()
   return (GetNumPartyMembers() + GetNumRaidMembers() > 0)
 end
@@ -181,6 +133,37 @@ local function MarkPack(pack)
   for guid,mark in pairs(pack) do
     if UnitExists(guid) then
       MarkTarget(guid,mark)
+    end
+  end
+end
+
+function AutoMark_ClearMarks()
+  local markfunc = InGroup() and
+    SetRaidTarget or
+    function (t,m) SetRaidTarget(t,m,1) end
+  for i=1,8 do
+    markfunc("mark"..i,0)
+  end
+end
+
+-- /// Allow marking solo as well /// --
+
+local original_UnitPopup_HideButtons = UnitPopup_HideButtons
+local original_UnitPopup_OnClick = UnitPopup_OnClick
+
+local function AM_UnitPopup_HideButtons()
+  local dropdownMenu = getglobal(UIDROPDOWNMENU_INIT_MENU);
+
+  for index, value in UnitPopupMenus[dropdownMenu.which] do
+    if ( strsub(value, 1, 12)  == "RAID_TARGET_" ) then
+      UnitPopupShown[index] = 1;
+      if ( not (dropdownMenu.which == "SELF") ) then
+        if ( UnitExists("target") and not UnitPlayerOrPetInParty("target") and not UnitPlayerOrPetInRaid("target") ) then
+          if ( UnitIsPlayer("target") and (not UnitCanCooperate("player", "target") and not UnitIsUnit("target", "player")) ) then
+            UnitPopupShown[index] = 0;
+          end
+        end
+      end
     end
   end
 end
@@ -338,7 +321,6 @@ local temporary_mobs = {
     queue = {},
   },
 }
--- ^ should this even care about count? it only matters for live_marks right?
 
 -- so we'll order them and assigned them ordered source marks
 local elapsed = 0
@@ -427,9 +409,9 @@ autoMarkerFrame:SetScript("OnEvent", function()
           MarkTarget(arg1, next_egg_mark)
         end
       end
-    -- fd/vanish could be issue, but if more than one automarker is running it's fine
     elseif event=="PLAYER_REGEN_DISABLED" then
-      -- combat started, reset model queues in case of incomplete loads
+      -- Combat started, reset model queues in case of incomplete loads.
+      -- As far as I know fd/vanish won't trigger this while the raid is still fighting.
       for _,config in pairs(temporary_mobs) do
         config.queue = {}
       end
@@ -455,9 +437,10 @@ local function handleCommands(msg, editbox)
   end
 
   -- Disable sweep if another command is used after sweep is enabled
-  if sweep_on and (command ~= "sweep" or (command == "sweep" and not packName)) then
+  if sweep_on then
     sweep_on = false
     auto_print("Sweep mode [ "..c("off",color.red).." ]")
+    return
   end
 
   if command == "enabled" then
@@ -521,6 +504,8 @@ local function handleCommands(msg, editbox)
     sweep_on = true
     sweepPackName = targetPackName
     auto_print("Sweep mode [ "..c("on",color.green).." ] sweep your mouse over enemies to add them to pack: " .. c(sweepPackName,color.orange))
+  elseif command == "clearmarks" then
+    AutoMark_ClearMarks()
   elseif command == "debug" then
     settings.debug = not settings.debug
     auto_print("Debug mode set to: " .. (settings.debug and c("on",color.green) or c("off",color.red)))
@@ -533,6 +518,8 @@ local function handleCommands(msg, editbox)
     auto_print("/am " .. c("sweep", color.green) .. " [packname] - Toggle sweep mode to add mobs to a specified pack. If no pack name is provided, use the current pack name.")
     auto_print("/am " .. c("a", color.green) .. "dd [packname] - Add the targeted mob to a specified pack. If no pack name is provided, use the current pack name.")
     auto_print("/am " .. c("r", color.green) .. "emove - Remove the targeted mob from its current pack.")
+    auto_print("/am clearmarks - Remove all active marks.")
+
     auto_print("/am debug - Toggle debug mode.")
   end
 end
