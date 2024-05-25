@@ -9,9 +9,43 @@ local STAR     = 1
 local UNMARKED = 0
 
 defaultNpcsToMark = {}
-defaultNpcsToMark["Naxxramas"] = {}
+
+--[[
+
+  Some ids such as anub adds, raz adds, faerlina adds, and buru adds are interesting and special.
+  Special from each other in fact, each boss has a different behavior in how id's are consistent or not.
+
+  When buru eggs die during the fight the id counter increases multiple times. Shortly after death a spawner is created for them which is one id higher,
+  and when the egg spawns back in it will be one id higher than the spawner. If multiple eggs die at once this id increase is likely expounded
+  and somewhat unpredictable.
+  A mechanism which detects the order of deaths for marked eggs and re-applies marks in order of final respawn accounts for this.
+
+  Anub'rekhan's adds are always fresh ids and not consistent each instance start. When fight resets they will be fresh yet again.
+  A mechanism which detects 2 of his adds respawning is in effect.
+
+  Raz has adds which have a consistent mark when the instance starts, but every time the fight resets the adds are all respawned with new ids
+  one at a time in a clockwise order.
+  A mechanism which detects 4 of his adds respawning is in effect.
+
+  Skeram spawns clones when he does his 3-way split but his own id never changes.
+  A mechanism which detects 3 of his adds respawning is in effect. Since they all share the same name.
+
+  Arlokk doesn't have adds to mark exactly, but she does disappear in the fight.
+  The mechanism to detect 1 add respawning is used to remark her.
+
+  Faerlina adds which aren't dead will not respawn and not gain new ids if the fight resets, they simply run back to their start positions,
+  however dead adds will gain new ids.
+  A mechanism like the buru egg one could work to update them, tracking order of mark deaths, assuming they respawn while the marker isn't released.
+  **If** there's any consistency with their new id's a composite approach can be used.
+  The queue for if we res in room, or detecting the add id's when we run back to her and using the fact that new id's are higher, we can re-mark
+  based on identifying what adds are missing marks and then comparing their death order vs sorted ids.
+
+--]]
+
 
 --/////////////// Naxxramas ///////////////
+
+defaultNpcsToMark["Naxxramas"] = {}
 
 --/////////////// SPIDER ///////////////
 
@@ -171,13 +205,13 @@ defaultNpcsToMark["Naxxramas"]["spider_faerlina_right_3"] = {
 }
 
 defaultNpcsToMark["Naxxramas"]["spider_faerlina"] = {
-	["0xF130003E510159B0"] = TRIANGLE, -- Grand Widow Faerlina
-	["0xF130004079276DE3"] = CROSS, -- Naxxramas Follower
-	["0xF13000407A276DE5"] = MOON, -- Naxxramas Worshipper
-	["0xF130004079276DE4"] = SKULL, -- Naxxramas Follower
-	["0xF13000407A276DE7"] = CIRCLE, -- Naxxramas Worshipper
-	["0xF13000407A276DE8"] = SQUARE, -- Naxxramas Worshipper
-	["0xF13000407A276DE6"] = STAR, -- Naxxramas Worshipper
+  ["0xF130003E510159B0"] = TRIANGLE, -- Grand Widow Faerlina
+  ["0xF130004079276DE5"] = CROSS, -- Naxxramas Follower
+  ["0xF130004079276DE6"] = SKULL, -- Naxxramas Follower
+  ["0xF13000407A276DE7"] = CIRCLE, -- Naxxramas Worshipper
+  ["0xF13000407A276DE8"] = SQUARE, -- Naxxramas Worshipper
+  ["0xF13000407A276DE9"] = MOON, -- Naxxramas Worshipper
+  ["0xF13000407A276DEA"] = STAR, -- Naxxramas Worshipper
 }
 
 defaultNpcsToMark["Naxxramas"]["spider_final"] = {
@@ -1012,7 +1046,7 @@ defaultNpcsToMark["Emerald Sanctum"] = {}
 defaultNpcsToMark["Emerald Sanctum"]["entrance"] = {
   ["0xF13000ED482739F2"] = SQUARE, -- sancutum wyrm pat
   ["0xF13000ED4A273A45"] = MOON, -- sancutum scalebane pat
-  -- ["0xF13000ED4A273A45"] = TRIANGLE, -- sancutum scalebane pat -- missing the id for this still
+  ["0xF13000ED4A273A43"] = TRIANGLE, -- sancutum scalebane pat
 
   -- dreamer_pack_left_1
   ["0xF13000ED462739E2"] = UNMARKED, -- sanctum dreamer, left
@@ -1135,7 +1169,10 @@ defaultNpcsToMark["Emerald Sanctum"]["wyrmkin_pack_right_3"] = {
   ["0xF13000ED4A27549D"] = CROSS, -- sanctum scalebane
   ["0xF13000ED4A27549B"] = SQUARE, -- sanctum scalebane
 }
-
+-- scalebane --string.find(guid,"0xF13000ED4A27....")
+-- dragonkin --string.find(guid,"0xF13000ED4727....")
+-- supressor --string.find(guid,"0xF13000EF1C27....")
+-- dreamer --string.find(guid,"0xF13000EF1C27....")
 defaultNpcsToMark["Emerald Sanctum"]["solnius"] = {
   ["0xF13000ED4C2739E1"] = UNMARKED, -- solnius
   ["0xF13000ED47276EC3"] = CROSS, -- sanctum dragonkin
@@ -1401,165 +1438,163 @@ defaultNpcsToMark["Ruins of Ahn'Qiraj"]["ossirian_room"] = {
 }
 
 -- needs testing
---[[
 --/////////////// BWL ///////////////
 defaultNpcsToMark["Blackwing Lair"] = {}
 
-	defaultNpcsToMark["Blackwing Lair"]["supress"] = {
-		["0xF1300030AA104BD1"] = MOON, -- controller
-		["0xF1300030AA104BD3"] = CROSS, -- controller
+-- defaultNpcsToMark["Blackwing Lair"]["supress"] = {
+-- 	["0xF1300030AA104BD1"] = MOON, -- controller
+-- 	["0xF1300030AA104BD3"] = CROSS, -- controller
 
-		["0xF1300030AA104BD4"] = SKULL, -- controller
-		["0xF1300030AA104BD5"] = SQUARE, -- controller
-		["0xF1300030AA104BD6"] = SKULL, -- controller
+-- 	["0xF1300030AA104BD4"] = SKULL, -- controller
+-- 	["0xF1300030AA104BD5"] = SQUARE, -- controller
+-- 	["0xF1300030AA104BD6"] = SKULL, -- controller
 
-		["0xF1300030AA104BD7"] = CROSS, -- controller
-		["0xF1300030AA104BD9"] = MOON, -- controller
-		
-		["0xF1300030AA104BD0"] = CROSS, -- controller
-		["0xF1300030AA104BDA"] = CIRCLE, -- controller
-		["0xF1300030AA104BDB"] = DIAMOND, -- controller
+-- 	["0xF1300030AA104BD7"] = CROSS, -- controller
+-- 	["0xF1300030AA104BD9"] = MOON, -- controller
+  
+-- 	["0xF1300030AA104BD0"] = CROSS, -- controller
+-- 	["0xF1300030AA104BDA"] = CIRCLE, -- controller
+-- 	["0xF1300030AA104BDB"] = DIAMOND, -- controller
 
-		["0xF1300030AA104BCF"] = DIAMOND, -- controller
+-- 	["0xF1300030AA104BCF"] = DIAMOND, -- controller
 
-		["0xF1300030B40BA43F"] = UNMARKED, -- hatcher
-		["0xF1300030B40BA395"] = UNMARKED, -- hatcher
-		["0xF1300030B40BA630"] = UNMARKED, -- hatcher
-		["0xF1300030B40BA441"] = UNMARKED, -- hatcher
-		["0xF1300030B40BA632"] = UNMARKED, -- hatcher
-		["0xF1300030B40BA62E"] = UNMARKED, -- hatcher
-		["0xF1300030B40BA3BF"] = UNMARKED, -- hatcher
-		["0xF1300030B40BA43A"] = UNMARKED, -- hatcher
-		["0xF1300030B40BA43D"] = UNMARKED, -- hatcher
-	}
+-- 	["0xF1300030B40BA43F"] = UNMARKED, -- hatcher
+-- 	["0xF1300030B40BA395"] = UNMARKED, -- hatcher
+-- 	["0xF1300030B40BA630"] = UNMARKED, -- hatcher
+-- 	["0xF1300030B40BA441"] = UNMARKED, -- hatcher
+-- 	["0xF1300030B40BA632"] = UNMARKED, -- hatcher
+-- 	["0xF1300030B40BA62E"] = UNMARKED, -- hatcher
+-- 	["0xF1300030B40BA3BF"] = UNMARKED, -- hatcher
+-- 	["0xF1300030B40BA43A"] = UNMARKED, -- hatcher
+-- 	["0xF1300030B40BA43D"] = UNMARKED, -- hatcher
+-- }
 
-	defaultNpcsToMark["Blackwing Lair"]["wrym2"] = {
-		["0xF1300030B0014A29"] = SKULL,
-		["0xF1300030B3014A28"] = STAR,
-		["0xF1300030B1014A30"] = MOON,
-		["0xF1300030B1014A2F"] = SQUARE,
-		["0xF1300030B0014A2A"] = CROSS,
-		["0xF1300030AF014A31"] = DIAMOND,
-		["0xF1300030AF014A32"] = CIRCLE,
-	}
+defaultNpcsToMark["Blackwing Lair"]["wrym2"] = {
+  ["0xF1300030B0014A29"] = SKULL,
+  ["0xF1300030B3014A28"] = STAR,
+  ["0xF1300030B1014A30"] = MOON,
+  ["0xF1300030B1014A2F"] = SQUARE,
+  ["0xF1300030B0014A2A"] = CROSS,
+  ["0xF1300030AF014A31"] = DIAMOND,
+  ["0xF1300030AF014A32"] = CIRCLE,
+}
 
-	defaultNpcsToMark["Blackwing Lair"]["lab1"] = {
-		["0xF1300036AC11F796"] = UNMARKED,
-		["0xF1300036AC014A3C"] = UNMARKED,
-		["0xF1300036AC11F797"] = UNMARKED,
-		["0xF1300036AC014A37"] = UNMARKED,
-		["0xF1300036AC014A3B"] = UNMARKED,
-		["0xF1300036AC014A38"] = UNMARKED,
-		["0xF1300030AB014A3E"] = CROSS,
-		["0xF1300030AB014A3D"] = SKULL,
-	}
+defaultNpcsToMark["Blackwing Lair"]["lab1"] = {
+  ["0xF1300036AC11F796"] = UNMARKED,
+  ["0xF1300036AC014A3C"] = UNMARKED,
+  ["0xF1300036AC11F797"] = UNMARKED,
+  ["0xF1300036AC014A37"] = UNMARKED,
+  ["0xF1300036AC014A3B"] = UNMARKED,
+  ["0xF1300036AC014A38"] = UNMARKED,
+  ["0xF1300030AB014A3E"] = CROSS,
+  ["0xF1300030AB014A3D"] = SKULL,
+}
 
-	defaultNpcsToMark["Blackwing Lair"]["lab2"] = {
-		["0xF1300036AC11F79B"] = UNMARKED,
-		["0xF1300030A9014A44"] = DIAMOND,
-		["0xF1300036AC014A4A"] = UNMARKED,
-		["0xF1300036AC11F79A"] = UNMARKED,
-		["0xF1300036AC014A46"] = UNMARKED,
-		["0xF1300036AC014A47"] = UNMARKED,
-		["0xF1300030AB014A42"] = SKULL,
-		["0xF1300036AC014A48"] = UNMARKED,
-		["0xF1300036AC014A4B"] = UNMARKED,
-		["0xF1300030AD014A4D"] = CIRCLE,
-		["0xF130002ECF014A5C"] = TRIANGLE, -- firemaw
-	}
+defaultNpcsToMark["Blackwing Lair"]["lab2"] = {
+  ["0xF1300036AC11F79B"] = UNMARKED,
+  ["0xF1300030A9014A44"] = DIAMOND,
+  ["0xF1300036AC014A4A"] = UNMARKED,
+  ["0xF1300036AC11F79A"] = UNMARKED,
+  ["0xF1300036AC014A46"] = UNMARKED,
+  ["0xF1300036AC014A47"] = UNMARKED,
+  ["0xF1300030AB014A42"] = SKULL,
+  ["0xF1300036AC014A48"] = UNMARKED,
+  ["0xF1300036AC014A4B"] = UNMARKED,
+  ["0xF1300030AD014A4D"] = CIRCLE,
+  ["0xF130002ECF014A5C"] = TRIANGLE, -- firemaw
+}
 
-	defaultNpcsToMark["Blackwing Lair"]["lab3"] = {
-		["0xF1300036AC014A53"] = UNMARKED,
-		["0xF1300030A911F78B"] = DIAMOND,
-		["0xF1300036AC014A55"] = UNMARKED,
-		["0xF1300036AC014A5A"] = UNMARKED,
-		["0xF1300030AB014A51"] = CROSS,
-		["0xF1300036AC11F79D"] = UNMARKED,
-		["0xF1300030AD014A4E"] = CIRCLE,
-		["0xF1300030AB014A50"] = SKULL,
-		["0xF1300036AC014A56"] = UNMARKED,
-		["0xF1300036AC014A54"] = UNMARKED,
-		["0xF1300036AC014A58"] = UNMARKED,
-	}
+defaultNpcsToMark["Blackwing Lair"]["lab3"] = {
+  ["0xF1300036AC014A53"] = UNMARKED,
+  ["0xF1300030A911F78B"] = DIAMOND,
+  ["0xF1300036AC014A55"] = UNMARKED,
+  ["0xF1300036AC014A5A"] = UNMARKED,
+  ["0xF1300030AB014A51"] = CROSS,
+  ["0xF1300036AC11F79D"] = UNMARKED,
+  ["0xF1300030AD014A4E"] = CIRCLE,
+  ["0xF1300030AB014A50"] = SKULL,
+  ["0xF1300036AC014A56"] = UNMARKED,
+  ["0xF1300036AC014A54"] = UNMARKED,
+  ["0xF1300036AC014A58"] = UNMARKED,
+}
 
-	defaultNpcsToMark["Blackwing Lair"]["wyrmguard1"] = {
-		["0xF1300030AD014A6D"] = DIAMOND,
-		["0xF1300030AC014A70"] = SKULL,
-		["0xF1300030AD014A6E"] = CROSS,
-		["0xF1300030AD014A6F"] = CIRCLE,
-	}
+defaultNpcsToMark["Blackwing Lair"]["wyrmguard1"] = {
+  ["0xF1300030AD014A6D"] = DIAMOND,
+  ["0xF1300030AC014A70"] = SKULL,
+  ["0xF1300030AD014A6E"] = CROSS,
+  ["0xF1300030AD014A6F"] = CIRCLE,
+}
 
-	defaultNpcsToMark["Blackwing Lair"]["lab4"] = {
-		["0xF1300030A911F78C"] = DIAMOND,
-		["0xF1300036AC014A7D"] = UNMARKED,
-		["0xF1300036AC014A87"] = UNMARKED,
-		["0xF1300030AB014A77"] = CROSS,
-		["0xF1300030AB014A76"] = SKULL,
-		["0xF1300036AC014A8B"] = UNMARKED,
-		["0xF1300030AD014A91"] = CIRCLE,
-		["0xF1300036AC014A7E"] = UNMARKED,
-		["0xF1300036AC11F799"] = UNMARKED,
-		["0xF1300036AC014A86"] = UNMARKED,
-		["0xF1300036AC11F798"] = UNMARKED,
-	}
+defaultNpcsToMark["Blackwing Lair"]["lab4"] = {
+  ["0xF1300030A911F78C"] = DIAMOND,
+  ["0xF1300036AC014A7D"] = UNMARKED,
+  ["0xF1300036AC014A87"] = UNMARKED,
+  ["0xF1300030AB014A77"] = CROSS,
+  ["0xF1300030AB014A76"] = SKULL,
+  ["0xF1300036AC014A8B"] = UNMARKED,
+  ["0xF1300030AD014A91"] = CIRCLE,
+  ["0xF1300036AC014A7E"] = UNMARKED,
+  ["0xF1300036AC11F799"] = UNMARKED,
+  ["0xF1300036AC014A86"] = UNMARKED,
+  ["0xF1300036AC11F798"] = UNMARKED,
+}
 
-	defaultNpcsToMark["Blackwing Lair"]["lab5"] = {
-		["0xF1300036AC014B1A"] = UNMARKED,
-		["0xF1300036AC014AAE"] = UNMARKED,
-		["0x00000000000C8768"] = UNMARKED,
-		["0xF1300030AB014AAD"] = SKULL,
-		["0xF1300036AC014AD1"] = UNMARKED,
-		["0xF1300030AD014B68"] = CIRCLE,
-		["0xF1300036AC014AD0"] = UNMARKED,
-		["0xF1300036AC014AD3"] = UNMARKED,
-		["0xF1300030A911F78D"] = DIAMOND,
-		["0xF1300036AC11F791"] = UNMARKED,
-		["0xF1300036AC014B1B"] = UNMARKED,
-		["0xF1300036AC014B19"] = UNMARKED,
-		["0xF1300030AB014AAC"] = CROSS,
-	}
+defaultNpcsToMark["Blackwing Lair"]["lab5"] = {
+  ["0xF1300036AC014B1A"] = UNMARKED,
+  ["0xF1300036AC014AAE"] = UNMARKED,
+  ["0x00000000000C8768"] = UNMARKED,
+  ["0xF1300030AB014AAD"] = SKULL,
+  ["0xF1300036AC014AD1"] = UNMARKED,
+  ["0xF1300030AD014B68"] = CIRCLE,
+  ["0xF1300036AC014AD0"] = UNMARKED,
+  ["0xF1300036AC014AD3"] = UNMARKED,
+  ["0xF1300030A911F78D"] = DIAMOND,
+  ["0xF1300036AC11F791"] = UNMARKED,
+  ["0xF1300036AC014B1B"] = UNMARKED,
+  ["0xF1300036AC014B19"] = UNMARKED,
+  ["0xF1300030AB014AAC"] = CROSS,
+}
 
-	defaultNpcsToMark["Blackwing Lair"]["lab6"] = {
-		["0xF1300030A9014EFE"] = DIAMOND,
-		["0xF1300036AC11F794"] = UNMARKED,
-		["0xF1300036AC014F07"] = UNMARKED,
-		["0xF1300036AC014F06"] = UNMARKED,
-		["0xF1300036AC014F00"] = UNMARKED,
-		["0xF1300030A9014F08"] = STAR,
-		["0xF1300030AD11F78F"] = CIRCLE,
-		["0xF1300036AC11F795"] = UNMARKED,
-		["0xF1300030AB014EFD"] = SKULL,
-	}
+defaultNpcsToMark["Blackwing Lair"]["lab6"] = {
+  ["0xF1300030A9014EFE"] = DIAMOND,
+  ["0xF1300036AC11F794"] = UNMARKED,
+  ["0xF1300036AC014F07"] = UNMARKED,
+  ["0xF1300036AC014F06"] = UNMARKED,
+  ["0xF1300036AC014F00"] = UNMARKED,
+  ["0xF1300030A9014F08"] = STAR,
+  ["0xF1300030AD11F78F"] = CIRCLE,
+  ["0xF1300036AC11F795"] = UNMARKED,
+  ["0xF1300030AB014EFD"] = SKULL,
+}
 
-	defaultNpcsToMark["Blackwing Lair"]["lab7"] = {
-		["0xF1300036AC014E77"] = UNMARKED,
-		["0xF1300030AB014E61"] = CROSS,
-		["0xF1300030A9014E6D"] = STAR,
-		["0xF1300036AC11F792"] = UNMARKED,
-		["0xF1300030A9014E75"] = DIAMOND,
-		["0xF1300036AC014E79"] = UNMARKED,
-		["0xF1300036AC014E69"] = UNMARKED,
-		["0xF1300036AC014E74"] = UNMARKED,
-		["0xF1300036AC014E6C"] = UNMARKED,
-		["0xF1300036AC014E6B"] = UNMARKED,
-		["0xF1300036AC014E70"] = UNMARKED,
-		["0xF1300030AB014E4D"] = SKULL,
-		["0xF1300030AD11F78E"] = CIRCLE,
-	}
+defaultNpcsToMark["Blackwing Lair"]["lab7"] = {
+  ["0xF1300036AC014E77"] = UNMARKED,
+  ["0xF1300030AB014E61"] = CROSS,
+  ["0xF1300030A9014E6D"] = STAR,
+  ["0xF1300036AC11F792"] = UNMARKED,
+  ["0xF1300030A9014E75"] = DIAMOND,
+  ["0xF1300036AC014E79"] = UNMARKED,
+  ["0xF1300036AC014E69"] = UNMARKED,
+  ["0xF1300036AC014E74"] = UNMARKED,
+  ["0xF1300036AC014E6C"] = UNMARKED,
+  ["0xF1300036AC014E6B"] = UNMARKED,
+  ["0xF1300036AC014E70"] = UNMARKED,
+  ["0xF1300030AB014E4D"] = SKULL,
+  ["0xF1300030AD11F78E"] = CIRCLE,
+}
 
-	defaultNpcsToMark["Blackwing Lair"]["wyrmguard2"] = {
-		["0xF1300030AC014A9B"] = SKULL,
-		["0xF1300030AC014A9A"] = CIRCLE,
-		["0xF1300030AC014A94"] = DIAMOND,
-		["0xF130003841014A93"] = UNMARKED,
-		["0xF130002ECD014F17"] = SQUARE, -- flamegor
-		["0xF130003909014F14"] = TRIANGLE, -- ebonroc
-	}
+defaultNpcsToMark["Blackwing Lair"]["wyrmguard2"] = {
+  ["0xF1300030AC014A9B"] = SKULL,
+  ["0xF1300030AC014A9A"] = CIRCLE,
+  ["0xF1300030AC014A94"] = DIAMOND,
+  ["0xF130003841014A93"] = UNMARKED,
+  ["0xF130002ECD014F17"] = SQUARE, -- flamegor
+  ["0xF130003909014F14"] = TRIANGLE, -- ebonroc
+}
 
-	defaultNpcsToMark["Blackwing Lair"]["wyrmguard3"] = {
-		["0xF1300030AC014A9F"] = DIAMOND,
-		["0xF1300030AC014AAA"] = SKULL,
-		["0xF1300030AC014AA8"] = CIRCLE,
-		["0xF1300036C4014F18"] = TRIANGLE, -- chromag
-	}
---]]
+defaultNpcsToMark["Blackwing Lair"]["wyrmguard3"] = {
+  ["0xF1300030AC014A9F"] = DIAMOND,
+  ["0xF1300030AC014AAA"] = SKULL,
+  ["0xF1300030AC014AA8"] = CIRCLE,
+  ["0xF1300036C4014F18"] = TRIANGLE, -- chromag
+}

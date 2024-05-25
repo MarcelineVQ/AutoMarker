@@ -25,8 +25,48 @@ local function c(text, color)
 end
 
 if not SetAutoloot then
-  DEFAULT_CHAT_FRAME:AddMessage(c("AutoMarker",color.yellow)..c(" requires SuperWoW to operate.",color.red))
+  -- Function to create the popup box
+  local function CreatePopupBox(message)
+    -- Create the frame for the popup
+    local popupFrame = CreateFrame("Frame", "MyPopupFrame", UIParent)
+    popupFrame:SetWidth(240)
+    popupFrame:SetHeight(100)
+    popupFrame:SetPoint("CENTER", 0, 0)
+    popupFrame:SetBackdrop({
+        bgFile = "Interface\\DialogFrame\\UI-DialogBox-Background",
+        edgeFile = "Interface\\DialogFrame\\UI-DialogBox-Border",
+        tile = true, tileSize = 32, edgeSize = 32,
+        insets = { left = 11, right = 12, top = 12, bottom = 11 }
+    })
+    popupFrame:SetBackdropColor(0, 0, 0, 1)
+
+    -- Create the title for the popup
+    local title = popupFrame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+    title:SetPoint("TOP", 0, -15)
+    title:SetText("AutoMarker")
+
+    -- Create the message text
+    local messageText = popupFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+    messageText:SetPoint("CENTER", 0, 10)
+    messageText:SetText(message)
+
+    -- Create the OK button
+    local okButton = CreateFrame("Button", nil, popupFrame, "UIPanelButtonTemplate")
+    okButton:SetWidth(40)
+    okButton:SetHeight(25)
+    okButton:SetPoint("BOTTOM", 0, 20)
+    okButton:SetText("OK")
+    okButton:SetScript("OnClick", function()
+        popupFrame:Hide() -- Hide the popup when OK is clicked
+    end)
+
+    -- Show the popup
+    popupFrame:Show()
+  end
+
+  CreatePopupBox(c("AutoMarker",color.yellow)..c(" requires SuperWoW to operate.",color.red))
   return
+
 end
 
 local function auto_print(msg)
@@ -119,7 +159,7 @@ local function PlayerCanMark()
 end
 
 -- returns false if the mark was solo
-local function MarkTarget(unit,mark)
+local function MarkUnit(unit,mark)
   if PlayerCanRaidMark() then
     SetRaidTarget(unit,mark)
     return true
@@ -132,17 +172,17 @@ end
 local function MarkPack(pack)
   for guid,mark in pairs(pack) do
     if UnitExists(guid) then
-      MarkTarget(guid,mark)
+      MarkUnit(guid,mark)
     end
   end
 end
 
-function AutoMark_ClearMarks()
+function AutoMarker_ClearMarks()
   local markfunc = InGroup() and
     SetRaidTarget or
     function (t,m) SetRaidTarget(t,m,1) end
   for i=1,8 do
-    markfunc("mark"..i,0)
+    if UnitExists("mark"..i) then markfunc("mark"..i,0) end
   end
 end
 
@@ -179,7 +219,7 @@ local function AM_UnitPopup_OnClick()
     if ( raidTargetIndex == "NONE" ) then
       raidTargetIndex = 0;
     end
-    if not MarkTarget(unit, tonumber(raidTargetIndex)) and InGroup() and not warned_lead then
+    if not MarkUnit(unit, tonumber(raidTargetIndex)) and InGroup() and not warned_lead then
       DEFAULT_CHAT_FRAME:AddMessage("Warning: a mark set while not a leader/assistant is not visible to others")
       warned_lead = true
     end
@@ -232,7 +272,7 @@ local function guidToPack(id, zone)
   end
 end
 
-function AutoMark_MarkGroup()
+function AutoMarker_MarkGroup()
   local _, mouseoverGuid = UnitExists("mouseover")
   local _, targetGuid = UnitExists("target")
   targetGuid = mouseoverGuid and mouseoverGuid or targetGuid
@@ -281,11 +321,11 @@ end
 
 local function OnMouseover()
   if settings.enabled and IsShiftKeyDown() and (IsControlKeyDown() or IsAltKeyDown()) then
-    AutoMark_MarkGroup()
+    AutoMarker_MarkGroup()
   end
 end
 
--- when certain bosses reset so do their adds, but they come back in the same order with new id's
+-- Certain bosses have script spawned adds, so their id's are not consistent, this mechanism is to assign them marks.
 local temporary_mobs = {
   ["Deathknight Understudy"] = {
     minCount = 4,
@@ -296,6 +336,12 @@ local temporary_mobs = {
   ["Crypt Guard"] = {
     minCount = 2,
     pack = "spider_anubrekhan",
+    raid = "Naxxramas",
+    queue = {},
+  },
+  ["Faerlina Add"] = {
+    minCount = 6,
+    pack = "spider_faerlina",
     raid = "Naxxramas",
     queue = {},
   },
@@ -322,20 +368,21 @@ local temporary_mobs = {
   },
 }
 
--- so we'll order them and assigned them ordered source marks
+-- Order them and assign them ordered source marks
 local elapsed = 0
 function UpdateRespawns()
   elapsed = elapsed + arg1
   if elapsed > 0.25 then -- no sense checking tables every single frame
     elapsed = 0
+    local zone = GetRealZoneText()
     for mob, config in pairs(temporary_mobs) do
-      if tsize(config.queue) >= config.minCount then
+      if zone == config.raid and tsize(config.queue) >= config.minCount then
         currentNpcsToMark[config.raid][config.pack] =
           -- the purpose of the default pack despite being regenerated is for consitent marks
           sortAndReplaceKeys(defaultNpcsToMark[config.raid][config.pack], config.queue)
         config.queue = {}
         autoMarkerFrame:SetScript("OnUpdate", nil)
-        -- if live update the marks as soon as we have them all
+        -- if live then apply the marks as soon as we have them all
         if config.live_mark then
           MarkPack(currentNpcsToMark[config.raid][config.pack])
         end
@@ -353,7 +400,7 @@ autoMarkerFrame:SetScript("OnEvent", function()
     else -- update/clean settings
       local s = {}
       for k,v in defaultSettings do
-        s[k] = settings[k] and settings[k] or v
+        s[k] = settings[k] or v
       end
       settings = s
     end
@@ -398,15 +445,61 @@ autoMarkerFrame:SetScript("OnEvent", function()
     elseif event=="UNIT_MODEL_CHANGED" then
       -- Certain mobs are script spawned so their IDs need to be fetched
       local name = UnitName(arg1)
+      if name == "Naxxramas Follower" or name == "Naxxramas Worshipper" then
+        name = "Faerlina Add"
+      end
       if temporary_mobs[name] then
         -- auto_print(name .. " spawned " .. arg1)
         table.insert(temporary_mobs[name].queue, arg1)
         autoMarkerFrame:SetScript("OnUpdate", UpdateRespawns)
       end
+
+      -- fangkriss adds
+      if name == "Spawn of Fankriss" then
+        -- mark from skull on down, any worms around
+        for i=8,0,-1 do
+          local m = "mark"..i
+          if UnitExists(m) and not UnitIsDead(m) and UnitName(m) == "Spawn of Fankriss" then
+            -- mark is a marked worm already
+          else
+            MarkUnit(arg1,i)
+            break
+          end
+        end
+      end
+
+      -- untested
+      --[[
+      -- Solnius adds
+      -- We shouldn't really be discovering units in ES while in combat, it's not super large. needs testing
+      if UnitAffectingCombat("player") and (name == "Sanctum Supressor" or name == "Sanctum Dragonkin" or name == "Sanctum Scalebane") then
+        -- prio supressors
+        if name == "Sanctum Supressor" then
+          if not UnitExists("mark8") or UnitIsDead("mark8") then
+            MarkUnit(arg1,8)
+          elseif not UnitExists("mark7") or UnitIsDead("mark8") then
+            MarkUnit(arg1,7)
+          end
+        else
+          -- try anything
+          for i=8,0,-1 do
+            local m = "mark"..i
+            if UnitExists(m) and not UnitIsDead(m) then
+              -- mark is used already
+            else
+              MarkUnit(arg1,i)
+              break
+            end
+          end
+        end
+      end
+      --]]
+
+      -- buru eggs respawn throughout the fight but we want them marked still
       if buru_egg_queue and name == "Buru Egg" then
         local next_egg_mark = table.remove(buru_egg_queue,1)
         if next_egg_mark then
-          MarkTarget(arg1, next_egg_mark)
+          MarkUnit(arg1, next_egg_mark)
         end
       end
     elseif event=="PLAYER_REGEN_DISABLED" then
@@ -505,7 +598,7 @@ local function handleCommands(msg, editbox)
     sweepPackName = targetPackName
     auto_print("Sweep mode [ "..c("on",color.green).." ] sweep your mouse over enemies to add them to pack: " .. c(sweepPackName,color.orange))
   elseif command == "clearmarks" then
-    AutoMark_ClearMarks()
+    AutoMarker_ClearMarks()
   elseif command == "debug" then
     settings.debug = not settings.debug
     auto_print("Debug mode set to: " .. (settings.debug and c("on",color.green) or c("off",color.red)))

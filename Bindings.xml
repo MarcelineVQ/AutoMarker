@@ -1,5 +1,5 @@
 <Bindings>
   <!-- <Binding name="MOUSEOVERKEY" header="AUTOMARK">function () end</Binding> -->
-	<Binding name="RUNKEY" header="AUTOMARK">AutoMark_MarkGroup();</Binding>
-  <Binding name="CLEARKEY" header="AUTOMARK">AutoMark_ClearMarks();</Binding>
+	<Binding name="RUNKEY" header="AUTOMARK">AutoMarker_MarkGroup();</Binding>
+  <Binding name="CLEARKEY" header="AUTOMARK">AutoMarker_ClearMarks();</Binding>
 </Bindings>
