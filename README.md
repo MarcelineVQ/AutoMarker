@@ -7,6 +7,7 @@ AutoMarker for [SuperWow](https://github.com/balakethelock/SuperWoW/) on the 1.1
 ### Keybinds:
 * Automark moused over group or target
 * Clear all marks
+* Mark next pack (based on default order from NPCList.lua)
 
 
 Many pre-defined groups exists already in the addon but can be customized with the following commands.  
@@ -19,6 +20,7 @@ Many pre-defined groups exists already in the addon but can be customized with t
 - `/am sweep [packname] - Toggle sweep mode to add multiple mobs to a specified pack. If no pack name is provided, use the current 'set' pack name.`
 - `/am remove - Remove the targeted mob from its current pack.` `Alias: /am r`
 - `/am clearmarks - Remove all active marks.`
+- `/am next - Mark next pack based on default order from NPCList.lua`
 - `/am debug - Toggle debug mode.`
 
 ___
