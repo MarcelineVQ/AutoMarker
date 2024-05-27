@@ -947,6 +947,37 @@ addToDefaultNpcsToMark("Zul'Gurub", "zanaz_witchdoctor_rtv", {
   ["0xF130002C56016556"] = MOON,
 })
 
+--/////////////// Madness /////////////
+
+addToDefaultNpcsToMark("Zul'Gurub", "madness1", {
+  ["0xF130003B0700BFA4"] = 3,
+  ["0xF130003B0700BFA3"] = 8,
+  ["0xF130003B0700BFA5"] = 7,
+  ["0xF130000B6200BF8D"] = 0,
+  ["0xF130003B0700BFA0"] = 2,
+})
+
+addToDefaultNpcsToMark("Zul'Gurub", "madness2", {
+  ["0xF130003B0700BF9F"] = 3,
+  ["0xF130003B0700BFA1"] = 7,
+  ["0xF130003B0700BF9D"] = 8,
+  ["0xF130003B0700BF9E"] = 4,
+})
+
+addToDefaultNpcsToMark("Zul'Gurub", "madness3", {
+  ["0xF130003B0700BFAA"] = 7,
+  ["0xF130003B0700BFA9"] = 3,
+  ["0xF130003B0700BFAB"] = 4,
+  ["0xF130002C4C00BF9B"] = 8,
+})
+
+addToDefaultNpcsToMark("Zul'Gurub", "madness4", {
+  ["0xF130002C4C00BF9C"] = 8,
+  ["0xF130003B0700BFA8"] = 3,
+  ["0xF130003B0700BFA6"] = 4,
+  ["0xF130003B0700BFA7"] = 7,
+})
+
 --/////////////// Thekal //////////////
 
 addToDefaultNpcsToMark("Zul'Gurub", "thekal_pack", {
@@ -985,24 +1016,24 @@ addToDefaultNpcsToMark("Zul'Gurub", "arlok_2", {
   ["0xF130002C5900C98B"] = MOON,
   ["0xF130002C5900C98A"] = SQUARE,
   ["0xF130002C6500C0C0"] = UNMARKED,
-  ["0xF130002C6500C0BF"] = STAR,
+  ["0xF130002C6500C0BF"] = SKULL,
 })
 
 addToDefaultNpcsToMark("Zul'Gurub", "arlok_3", {
   ["0xF130002C6500C0BD"] = UNMARKED, -- panther
-  ["0xF130002C6500C0BE"] = UNMARKED, -- panther
-  ["0xF130002C4B00C0B1"] = CROSS, -- shadow hunter
+  ["0xF130002C6500C0BE"] = SKULL, -- panther
+  ["0xF130002C4B00C0B1"] = TRIANGLE, -- shadow hunter
   ["0xF130002C6500C0BB"] = UNMARKED, -- panther
   ["0xF130002C6500C0BC"] = UNMARKED, -- panther
 })
 
 addToDefaultNpcsToMark("Zul'Gurub", "arlok_4", {
   ["0xF130002C6500C8B7"] = UNMARKED,
-  ["0xF130002C6500C8B5"] = UNMARKED,
+  ["0xF130002C6500C8B5"] = SKULL,
   ["0xF130002C6500C8AF"] = UNMARKED,
-  ["0xF130002C4B00C8A5"] = CROSS, -- shadow hunter
+  ["0xF130002C4B00C8A5"] = DIAMOND, -- shadow hunter
   ["0xF130002C6500C8B6"] = UNMARKED,
-  ["0xF130002C4B00C8A6"] = SKULL, -- shadow hunter
+  ["0xF130002C4B00C8A6"] = TRIANGLE, -- shadow hunter
 })
 
 addToDefaultNpcsToMark("Zul'Gurub", "arlokk", {
