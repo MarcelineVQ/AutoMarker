@@ -3,6 +3,7 @@
 BINDING_HEADER_AUTOMARK = "|cff22CC00 - AutoMark Bindings -";
 BINDING_NAME_MOUSEOVERKEY = "Keys to hold to activate mouseover mark";
 BINDING_NAME_RUNKEY = "Mark mouseover or target";
+BINDING_NAME_NEXTKEY = "Mark next group based on default order";
 BINDING_NAME_CLEARKEY = "Clear all current marks";
 
 
@@ -251,13 +252,16 @@ local sweepPackName = nil
 local currentPackName = nil
 local currentNpcsToMark = {}
 local buru_egg_queue = nil
+local corehounds = {}
+local last_pack_marked = nil
+local elapsed = 0
 
-local autoMarkerFrame = CreateFrame("Frame","AutoMarkerFrame")
-autoMarkerFrame:RegisterEvent("ADDON_LOADED")
-autoMarkerFrame:RegisterEvent("UPDATE_MOUSEOVER_UNIT")
-autoMarkerFrame:RegisterEvent("UNIT_MODEL_CHANGED") -- mob respawn
-autoMarkerFrame:RegisterEvent("PLAYER_REGEN_DISABLED") -- mob respawn
-autoMarkerFrame:RegisterEvent("UNIT_CASTEVENT") -- mob respawn
+local autoMarker = CreateFrame("Frame","AutoMarkerFrame")
+autoMarker:RegisterEvent("ADDON_LOADED")
+autoMarker:RegisterEvent("UPDATE_MOUSEOVER_UNIT")
+autoMarker:RegisterEvent("UNIT_MODEL_CHANGED") -- mob respawn
+autoMarker:RegisterEvent("PLAYER_REGEN_DISABLED") -- mob respawn
+autoMarker:RegisterEvent("UNIT_CASTEVENT") -- mob respawn
 
 local function guidToPack(id, zone)
   if not currentNpcsToMark or not currentNpcsToMark[zone] then
@@ -275,10 +279,29 @@ end
 function AutoMarker_MarkGroup()
   local _, mouseoverGuid = UnitExists("mouseover")
   local _, targetGuid = UnitExists("target")
-  targetGuid = mouseoverGuid and mouseoverGuid or targetGuid
+  targetGuid = mouseoverGuid or targetGuid
   if targetGuid and not UnitIsDead(targetGuid) and PlayerCanMark() then
-    local _, packMobs = guidToPack(targetGuid, GetRealZoneText())
+    local pack, packMobs = guidToPack(targetGuid, GetRealZoneText())
     MarkPack(packMobs or {})
+    last_pack_marked = pack
+    auto_print(pack)
+  end
+end
+
+function AutoMarker_MarkNextGroup()
+  local zone = GetRealZoneText()
+
+  for i, pack in ipairs(orderedPacks) do
+    if pack.instance == zone then
+      if not last_pack_marked or pack.packName == last_pack_marked then
+        local nextPack = orderedPacks[i + (last_pack_marked and 1 or 0)]
+        if nextPack then
+          MarkPack(currentNpcsToMark[zone][nextPack.packName])
+          last_pack_marked = nextPack.packName
+          break
+        end
+      end
+    end
   end
 end
 
@@ -345,6 +368,12 @@ local temporary_mobs = {
     raid = "Naxxramas",
     queue = {},
   },
+  -- ["Supression Add"] = {
+  --   minCount = 30,
+  --   pack = "bwl_supression",
+  --   raid = "Blackwing Lair",
+  --   queue = {},
+  -- },
   ["The Prophet Skeram"] = {
     minCount = 3,
     pack = "skeram",
@@ -369,30 +398,54 @@ local temporary_mobs = {
 }
 
 -- Order them and assign them ordered source marks
-local elapsed = 0
-function UpdateRespawns()
-  elapsed = elapsed + arg1
-  if elapsed > 0.25 then -- no sense checking tables every single frame
-    elapsed = 0
-    local zone = GetRealZoneText()
-    for mob, config in pairs(temporary_mobs) do
-      if zone == config.raid and tsize(config.queue) >= config.minCount then
-        currentNpcsToMark[config.raid][config.pack] =
-          -- the purpose of the default pack despite being regenerated is for consitent marks
-          sortAndReplaceKeys(defaultNpcsToMark[config.raid][config.pack], config.queue)
-        config.queue = {}
-        autoMarkerFrame:SetScript("OnUpdate", nil)
-        -- if live then apply the marks as soon as we have them all
-        if config.live_mark then
-          MarkPack(currentNpcsToMark[config.raid][config.pack])
-        end
+local function UpdateTemporaryMobs()
+  for mob, config in pairs(temporary_mobs) do
+    if GetRealZoneText() == config.raid and tsize(config.queue) >= config.minCount then
+      currentNpcsToMark[config.raid][config.pack] =
+        sortAndReplaceKeys(defaultNpcsToMark[config.raid][config.pack], config.queue)
+      if config.live_mark then
+        MarkPack(currentNpcsToMark[config.raid][config.pack])
       end
+      config.queue = {}
+      autoMarker.checkTemporaryMobs = false
     end
   end
 end
 
+-- make it obvious what is the high hp hound
+local function UpdateCorehound()
+  if not next(corehounds) or GetRealZoneText() ~= "Molten Core" then
+    autoMarker.checkCoreHounds = false
+    return
+  end
+  local t = {}
+  for guid, _ in pairs(corehounds) do
+    if not UnitExists(guid) then
+      corehounds[guid] = nil
+    elseif UnitAffectingCombat(guid) then
+      table.insert(t, guid)
+    end
+  end
+  table.sort(t, function(a, b)
+    return UnitHealth(a) > UnitHealth(b)
+  end)
+  if t[1] then MarkUnit(t[1], 8) end
+end
+
+local function AMUpdate()
+  elapsed = elapsed + arg1
+  if elapsed > 0.25 then
+    elapsed = 0
+
+    if autoMarker.checkCoreHounds then UpdateCorehound() end
+    if autoMarker.checkTemporaryMobs then UpdateTemporaryMobs() end
+  end
+end
+autoMarker:SetScript("OnUpdate", AMUpdate)
+
+local started_solnius = false
 -- Event handler
-autoMarkerFrame:SetScript("OnEvent", function()
+autoMarker:SetScript("OnEvent", function()
   if event=="ADDON_LOADED" and arg1=="AutoMarker" then
     -- init settings
     if not settings then
@@ -426,6 +479,7 @@ autoMarkerFrame:SetScript("OnEvent", function()
     end
     auto_print(c("AutoMarker loaded!",color.yellow).." Type "..c("/am",color.green).." to see commands.")
   end
+
   if settings.enabled then
     if event=="UPDATE_MOUSEOVER_UNIT" then
       OnMouseover()
@@ -448,10 +502,16 @@ autoMarkerFrame:SetScript("OnEvent", function()
       if name == "Naxxramas Follower" or name == "Naxxramas Worshipper" then
         name = "Faerlina Add"
       end
+
+      -- if name == "Death Talon Hatcher" or name == "Blackwing Taskmaster" then
+      --   name = "Supression Add"
+      -- end
+
       if temporary_mobs[name] then
         -- auto_print(name .. " spawned " .. arg1)
         table.insert(temporary_mobs[name].queue, arg1)
-        autoMarkerFrame:SetScript("OnUpdate", UpdateRespawns)
+        -- autoMarker:SetScript("OnUpdate", AMUpdate)
+        autoMarker.checkTemporaryMobs = true
       end
 
       -- fangkriss adds
@@ -468,11 +528,19 @@ autoMarkerFrame:SetScript("OnEvent", function()
         end
       end
 
+      if name == "Core Hound" then
+        corehounds[arg1] = true
+        -- autoMarker:SetScript("OnUpdate", AMUpdate)
+        autoMarker.checkCoreHounds = true
+      end
+
       -- untested
-      --[[
       -- Solnius adds
-      -- We shouldn't really be discovering units in ES while in combat, it's not super large. needs testing
-      if UnitAffectingCombat("player") and (name == "Sanctum Supressor" or name == "Sanctum Dragonkin" or name == "Sanctum Scalebane") then
+      -- did solnius go dragonform
+      if UnitName(arg1) == "Solnius" and UnitAffectingCombat(arg1) then
+        started_solnius = true
+      end
+      if started_solnius and (name == "Sanctum Supressor" or name == "Sanctum Dragonkin" or name == "Sanctum Scalebane") then
         -- prio supressors
         if name == "Sanctum Supressor" then
           if not UnitExists("mark8") or UnitIsDead("mark8") then
@@ -493,7 +561,6 @@ autoMarkerFrame:SetScript("OnEvent", function()
           end
         end
       end
-      --]]
 
       -- buru eggs respawn throughout the fight but we want them marked still
       if buru_egg_queue and name == "Buru Egg" then
@@ -509,6 +576,7 @@ autoMarkerFrame:SetScript("OnEvent", function()
         config.queue = {}
       end
       buru_egg_queue = nil
+      started_solnius = false
     end
   end
 end)
@@ -612,6 +680,7 @@ local function handleCommands(msg, editbox)
     auto_print("/am " .. c("a", color.green) .. "dd [packname] - Add the targeted mob to a specified pack. If no pack name is provided, use the current pack name.")
     auto_print("/am " .. c("r", color.green) .. "emove - Remove the targeted mob from its current pack.")
     auto_print("/am clearmarks - Remove all active marks.")
+    auto_print("/am next - Mark next pack.")
 
     auto_print("/am debug - Toggle debug mode.")
   end
