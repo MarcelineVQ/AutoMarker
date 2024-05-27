@@ -284,7 +284,6 @@ function AutoMarker_MarkGroup()
     local pack, packMobs = guidToPack(targetGuid, GetRealZoneText())
     MarkPack(packMobs or {})
     last_pack_marked = pack
-    auto_print(pack)
   end
 end
 
