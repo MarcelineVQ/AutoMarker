@@ -146,6 +146,13 @@ end
 
 -- /// Util functions /// --
 
+local function PostHookFunction(original,hook)
+  return function(a1,a2,a3,a4,a5,a6,a7,a8,a9,a10)
+    original(a1,a2,a3,a4,a5,a6,a7,a8,a9,a10)
+    hook(a1,a2,a3,a4,a5,a6,a7,a8,a9,a10)
+  end
+end
+
 local function InGroup()
   return (GetNumPartyMembers() + GetNumRaidMembers() > 0)
 end
@@ -189,9 +196,6 @@ end
 
 -- /// Allow marking solo as well /// --
 
-local original_UnitPopup_HideButtons = UnitPopup_HideButtons
-local original_UnitPopup_OnClick = UnitPopup_OnClick
-
 local function AM_UnitPopup_HideButtons()
   local dropdownMenu = getglobal(UIDROPDOWNMENU_INIT_MENU);
 
@@ -208,6 +212,7 @@ local function AM_UnitPopup_HideButtons()
     end
   end
 end
+UnitPopup_HideButtons = PostHookFunction(UnitPopup_HideButtons,AM_UnitPopup_HideButtons)
 
 local warned_lead = false
 local function AM_UnitPopup_OnClick()
@@ -227,16 +232,17 @@ local function AM_UnitPopup_OnClick()
   end
   PlaySound("UChatScrollButton");
 end
+UnitPopup_OnClick = PostHookFunction(UnitPopup_OnClick,AM_UnitPopup_OnClick)
 
-UnitPopup_HideButtons = function ()
-  original_UnitPopup_HideButtons()
-  AM_UnitPopup_HideButtons()
+function AM_SetRaidTargetIcon(unit, index)
+  if ( GetRaidTargetIndex(unit) and GetRaidTargetIndex(unit) == index ) then
+    MarkUnit(unit, 0);
+  else
+    MarkUnit(unit, index);
+  end
 end
+SetRaidTargetIcon = PostHookFunction(SetRaidTargetIcon,AM_SetRaidTargetIcon)
 
-UnitPopup_OnClick = function ()
-  original_UnitPopup_OnClick()
-  AM_UnitPopup_OnClick()
-end
 ------------------------------
 
 
@@ -253,6 +259,7 @@ local currentPackName = nil
 local currentNpcsToMark = {}
 local buru_egg_queue = nil
 local corehounds = {}
+local started_solnius = false
 local last_pack_marked = nil
 local elapsed = 0
 
@@ -368,7 +375,7 @@ local temporary_mobs = {
     queue = {},
   },
   -- ["Supression Add"] = {
-  --   minCount = 30,
+  --   minCount = 24,
   --   pack = "bwl_supression",
   --   raid = "Blackwing Lair",
   --   queue = {},
@@ -442,7 +449,6 @@ local function AMUpdate()
 end
 autoMarker:SetScript("OnUpdate", AMUpdate)
 
-local started_solnius = false
 -- Event handler
 autoMarker:SetScript("OnEvent", function()
   if event=="ADDON_LOADED" and arg1=="AutoMarker" then
@@ -497,7 +503,9 @@ autoMarker:SetScript("OnEvent", function()
       end
     elseif event=="UNIT_MODEL_CHANGED" then
       -- Certain mobs are script spawned so their IDs need to be fetched
+
       local name = UnitName(arg1)
+
       if name == "Naxxramas Follower" or name == "Naxxramas Worshipper" then
         name = "Faerlina Add"
       end
@@ -539,7 +547,7 @@ autoMarker:SetScript("OnEvent", function()
       if UnitName(arg1) == "Solnius" and UnitAffectingCombat(arg1) then
         started_solnius = true
       end
-      if started_solnius and (name == "Sanctum Supressor" or name == "Sanctum Dragonkin" or name == "Sanctum Scalebane") then
+      if started_solnius and (name == "Sanctum Supressor" or name == "Sanctum Dragonkin" or name == "Sanctum Scalebane" or name == "Sanctum Wyrmkin") then
         -- prio supressors
         if name == "Sanctum Supressor" then
           if not UnitExists("mark8") or UnitIsDead("mark8") then
@@ -549,7 +557,7 @@ autoMarker:SetScript("OnEvent", function()
           end
         else
           -- try anything
-          for i=8,0,-1 do
+          for i=7,1,-1 do
             local m = "mark"..i
             if UnitExists(m) and not UnitIsDead(m) then
               -- mark is used already
@@ -605,7 +613,7 @@ local function handleCommands(msg, editbox)
 
   if command == "enabled" then
     settings.enabled = not settings.enabled
-    auto_print("AutoMarker is now [".. (settings.enabled and "enabled" or "disabled") .. "]")
+    auto_print("AutoMarker is now [".. (settings.enabled and c("enabled",color.green) or c("disabled",color.red)) .. "]")
   elseif command == "set" or command == "s" then
     if not packName then
       auto_print("You must provide a pack name as well when using set.")

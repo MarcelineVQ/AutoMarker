@@ -676,12 +676,11 @@ addToDefaultNpcsToMark("Ahn'Qiraj", "soldiers", {
   ["0xF130003B7D01575E"]  = MOON, -- Vekniss Soldier
 })
 
--- needs re-testing
 addToDefaultNpcsToMark("Ahn'Qiraj", "scorpions", {
   ["0xF130003B88015798"]  = SKULL, -- Vekniss Hive Crawler
   ["0xF130003B88015799"]  = CROSS, -- Vekniss Hive Crawler
-  ["0xF130003B88049CA5"]  = MOON, -- Vekniss Hive Crawler
-  ["0xF130003B88049CA6"]  = SQUARE, -- Vekniss Hive Crawler
+  ["0xF130003B881307A3"]  = MOON, -- Vekniss Hive Crawler
+  ["0xF130003B881307A4"]  = SQUARE, -- Vekniss Hive Crawler
   ["0xF130003B8801578F"]  = DIAMOND, -- Vekniss Hive Crawler
   ["0xF130003B8801578E"]  = CIRCLE, -- Vekniss Hive Crawler
 })
@@ -1086,7 +1085,7 @@ addToDefaultNpcsToMark("Zul'Gurub", "hakkar_large_2", {
 --/////////////// ES ///////////////
 
 local errenius = "0xF13000ED4B2739FA"
-local errenius_mark = DIAMOND
+local errenius_mark = CIRCLE
 
 addToDefaultNpcsToMark("Emerald Sanctum", "entrance", {
   ["0xF13000ED482739F2"] = SQUARE, -- sancutum wyrm pat
@@ -1154,8 +1153,7 @@ addToDefaultNpcsToMark("Emerald Sanctum", "wyrmkin_pack_left_2", {
   ["0xF13000ED49273A24"] = STAR, -- sanctum wyrmkin
   ["0xF13000ED46273A20"] = UNMARKED, -- sanctum dreamer
   ["0xF13000ED46273A27"] = UNMARKED, -- sanctum dreamer
-  ["0xF13000ED48273A19"] = CROS, -- sanctum wrym
-
+  ["0xF13000ED48273A19"] = CROSS, -- sanctum wrym
   [errenius] = errenius_mark, -- increase chance of spotting him early
 })
 
