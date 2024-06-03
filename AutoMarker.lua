@@ -202,13 +202,14 @@ local function AM_UnitPopup_HideButtons()
   for index, value in UnitPopupMenus[dropdownMenu.which] do
     if ( strsub(value, 1, 12)  == "RAID_TARGET_" ) then
       UnitPopupShown[index] = 1;
-      if ( not (dropdownMenu.which == "SELF") ) then
-        if ( UnitExists("target") and not UnitPlayerOrPetInParty("target") and not UnitPlayerOrPetInRaid("target") ) then
-          if ( UnitIsPlayer("target") and (not UnitCanCooperate("player", "target") and not UnitIsUnit("target", "player")) ) then
-            UnitPopupShown[index] = 0;
-          end
-        end
-      end
+      -- TODO: is there ever a case the below matters? When can you target something that can be a unitframe and not be able to mark it?
+      -- if ( not (dropdownMenu.which == "SELF") ) then
+      --   if ( UnitExists("target") and not UnitPlayerOrPetInParty("target") and not UnitPlayerOrPetInRaid("target") ) then
+      --     if ( UnitIsPlayer("target") and (not UnitCanCooperate("player", "target") and not UnitIsUnit("target", "player")) ) then
+      --       UnitPopupShown[index] = 0;
+      --     end
+      --   end
+      -- end
     end
   end
 end
@@ -557,7 +558,7 @@ autoMarker:SetScript("OnEvent", function()
           end
         else
           -- try anything
-          for i=7,1,-1 do
+          for i=6,1,-1 do
             local m = "mark"..i
             if UnitExists(m) and not UnitIsDead(m) then
               -- mark is used already

@@ -40,6 +40,7 @@ orderedPacks = {}
   **If** there's any consistency with their new id's a composite approach can be used.
   The queue for if we res in room, or detecting the add id's when we run back to her and using the fact that new id's are higher, we can re-mark
   based on identifying what adds are missing marks and then comparing their death order vs sorted ids.
+  Alternatively we can just do a sweeping re-mark every time we see a new one, though the marks won't stay consistent.
 
 --]]
 
