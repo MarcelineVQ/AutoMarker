@@ -407,7 +407,7 @@ local function UpdateTemporaryMobs()
         MarkPack(currentNpcsToMark[config.raid][config.pack])
       end
       config.queue = {}
-      autoMarker.checkTemporaryMobs = false
+      AutoMarkerDB.checkTemporaryMobs = false
     end
   end
 end
@@ -416,6 +416,7 @@ end
 local function UpdateCorehound()
   if not next(AutoMarkerDB.corehounds) or GetRealZoneText() ~= "Molten Core" then
     AutoMarkerDB.checkCoreHounds = false
+    AutoMarkerDB.corehounds = {}
     return
   end
   local t = {}
@@ -443,6 +444,7 @@ end
 local function UpdateSoldiers()
   if not next(AutoMarkerDB.soldiers) or GetRealZoneText() ~= "Naxxramas" then
     AutoMarkerDB.checkSoliders = false
+    AutoMarkerDB.soldiers = {}
     return
   end
 
@@ -571,7 +573,7 @@ autoMarker:SetScript("OnEvent", function()
         -- auto_print(name .. " spawned " .. arg1)
         table.insert(temporary_mobs[name].queue, arg1)
         -- autoMarker:SetScript("OnUpdate", AMUpdate)
-        autoMarker.checkTemporaryMobs = true
+        AutoMarkerDB.checkTemporaryMobs = true
       end
 
       -- fangkriss adds
