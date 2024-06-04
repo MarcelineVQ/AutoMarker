@@ -148,7 +148,6 @@ addToDefaultNpcsToMark("Naxxramas", "spider_faerlina_patrol", {
   ["0xF130003E69049D65"]  = UNMARKED, -- Infectious Skitterer
 })
 
-
 addToDefaultNpcsToMark("Naxxramas", "spider_faerlina_left_1", {
 	["0xF130003E6D269BFD"] = CROSS, -- Naxxramas Acolyte
 	["0xF130003E6C269C02"] = CIRCLE,-- Naxxramas Cultistz
@@ -236,112 +235,6 @@ addToDefaultNpcsToMark("Naxxramas", "spider_final", {
 addToDefaultNpcsToMark("Naxxramas", "spider_ring_3", {
   ["0xF130003FF0015AD4"]  = SKULL, -- Necropolis Acolyte
   ["0xF130003FF0015AD3"]  = CROSS, -- Necropolis Acolyte
-})
-
-
-----/////////////// CONSTRUCT ///////////////
-
-addToDefaultNpcsToMark("Naxxramas", "construct_entrance", {
-  ["0xF130003E910158C7"]  = SKULL, -- Patchwork Golem
-  ["0xF130003E910158C6"]  = CROSS, -- Patchwork Golem
-  ["0xF130003E910158C5"]  = SQUARE, -- Patchwork Golem
-  ["0xF130003E910158C8"]  = MOON, -- Patchwork Golem
-})
-
-addToDefaultNpcsToMark("Naxxramas", "construct_entrance_patrol", {
-  ["0xF130003E920158CD"]  = TRIANGLE, -- Bile Retcher
-  ["0xF130003E920158CE"]  = DIAMOND, -- Bile Retcher
-  ["0xF130003E9D015A90"]  = CIRCLE, -- Sludge Belcher
-  ["0xF130003E9D015A91"]  = STAR, -- Sludge Belcher
-})
-
-addToDefaultNpcsToMark("Naxxramas", "construct_central_left", {
-  ["0xF130003E920158CF"]  = SKULL, -- Bile Retcher
-  ["0xF130003E910158CA"]  = CROSS, -- Patchwork Golem
-  ["0xF130003E910158C9"]  = SQUARE, -- Patchwork Golem
-})
-
-addToDefaultNpcsToMark("Naxxramas", "construct_central_right", {
-  ["0xF130003E920158D0"]  = SKULL, -- Bile Retcher
-  ["0xF130003E910158CB"]  = CROSS, -- Patchwork Golem
-  ["0xF130003E910158CC"]  = SQUARE, -- Patchwork Golem
-})
-
-addToDefaultNpcsToMark("Naxxramas", "construct_central", {
-  ["0xF130003E910158D8"]  = SKULL, -- Patchwork Golem
-  ["0xF130003E910158D7"]  = CROSS, -- Patchwork Golem
-  ["0xF130003E910158D6"]  = SQUARE, -- Patchwork Golem
-  ["0xF130003E910158D9"]  = MOON, -- Patchwork Golem
-})
-
-addToDefaultNpcsToMark("Naxxramas", "construct_patchwerk_patrol", {
-  ["0xF130003E92015A93"]  = SKULL, -- Bile Retcher
-  ["0xF130003E92015A8E"]  = TRIANGLE, -- Bile Retcher
-  ["0xF130003E9D015A92"]  = CIRCLE, -- Sludge Belcher
-  ["0xF130003E92015A8F"]  = STAR, -- Bile Retcher
-})
-
-addToDefaultNpcsToMark("Naxxramas", "construct_scientist_1", {
-  ["0xF130003E95269C46"] = SKULL, -- Living Monstrosity
-  ["0xF130003E94269C4B"] = MOON, -- Mad Scientist
-  ["0xF130003E94269C4C"] = SQUARE, -- Mad Scientist
-  ["0xF130003E94269C4D"] = CROSS, -- Mad Scientist
-  ["0xF130003E94269C4E"] = DIAMOND, -- Mad Scientist
-})
-
-addToDefaultNpcsToMark("Naxxramas", "construct_scientist_2", {
-  ["0xF130003E95269C4F"] = SKULL, -- Living Monstrosity
-  ["0xF130003E94015AA1"] = MOON, -- Mad Scientist
-  ["0xF130003E94015AA0"] = SQUARE, -- Mad Scientist
-  ["0xF130003E94015A9F"] = CROSS, -- Mad Scientist
-  ["0xF130003E94015A9E"] = DIAMOND, -- Mad Scientist
-})
-
-addToDefaultNpcsToMark("Naxxramas", "construct_patchwerk", {
-  ["0xF130003E91015A96"]  = SKULL, -- Patchwork Golem
-  ["0xF130003E91015A94"]  = CROSS, -- Patchwork Golem
-  ["0xF130003E91015A97"]  = SQUARE, -- Patchwork Golem
-  ["0xF130003E91015A95"]  = MOON, -- Patchwork Golem
-})
-
-addToDefaultNpcsToMark("Naxxramas", "construct_scientist_3", {
-  ["0xF130003E95269C54"] = SKULL, -- Living Monstrosity
-  ["0xF130003E94269C5C"] = MOON, -- Mad Scientist
-  ["0xF130003E94269C5B"] = SQUARE, -- Mad Scientist
-  ["0xF130003E94269C59"] = CROSS, -- Mad Scientist
-  ["0xF130003E94269C5A"] = DIAMOND, -- Mad Scientist
-})
-
-addToDefaultNpcsToMark("Naxxramas", "construct_scientist_4", {
-  ["0xF130003E95269C5D"]  = SKULL, -- Living Monstrosity
-  ["0xF130003E94269C61"]  = MOON, -- Mad Scientist
-  ["0xF130003E94269C60"]  = SQUARE, -- Mad Scientist
-  ["0xF130003E94269C5F"]  = CROSS, -- Mad Scientist
-  ["0xF130003E94269C5E"]  = DIAMOND, -- Mad Scientist
-})
-
-addToDefaultNpcsToMark("Naxxramas", "construct_scientist_5", {
-  ["0xF130003E95269C66"] = SKULL, -- Living Monstrosity
-  ["0xF130003E94015A85"] = MOON, -- Mad Scientist
-  ["0xF130003E94015A86"] = SQUARE, -- Mad Scientist
-  ["0xF130003E94015A87"] = CROSS, -- Mad Scientist
-  ["0xF130003E94015A88"] = DIAMOND, -- Mad Scientist
-})
-
-addToDefaultNpcsToMark("Naxxramas", "construct_grobb_entrance", {
-  ["0xF130003E990158F2"]  = SKULL, -- Stitched Spewer
-  ["0xF130003E990158F1"]  = CROSS, -- Stitched Spewer
-})
-
-addToDefaultNpcsToMark("Naxxramas", "construct_grobb_left", {
-  ["0xF130003E990158EC"]  = SKULL, -- Stitched Spewer
-  ["0xF130003E990158EB"]  = CROSS, -- Stitched Spewer
-})
-
-addToDefaultNpcsToMark("Naxxramas", "construct_grobb_far", {
-  ["0xF130003E990158ED"]  = SKULL, -- Stitched Spewer
-  ["0xF130003E99049E6B"]  = CROSS, -- Stitched Spewer
-  ["0xF130003E990158EE"]  = SQUARE, -- Stitched Spewer
 })
 
 ----/////////////// MILITARY ///////////////
@@ -554,6 +447,140 @@ addToDefaultNpcsToMark("Naxxramas", "military_ring_four_horsemen", {
   ["0xF130003EC0015AB0"]  = CROSS, -- Thane Korth'azz
   ["0xF130003EBF015AB2"]  = SQUARE, -- Sir Zeliak
   ["0xF130003EC1015AB1"]  = MOON, -- Lady Blaumeux
+})
+
+----/////////////// PLAGUE ///////////////
+
+addToDefaultNpcsToMark("Naxxramas", "plague_1", {
+  ["0xF130003F2801581F"] = CIRCLE, -- garg pat
+  ["0xF130003F74015811"] = SQUARE,
+  ["0xF130003F74015813"] = CROSS,
+  ["0xF130003F74015812"] = SKULL,
+  ["0xF130003F73015810"] = MOON,
+  ["0xF130003F7301580F"] = STAR,
+})
+
+addToDefaultNpcsToMark("Naxxramas", "plague_2", {
+  ["0xF130003F73015817"] = MOON,
+  ["0xF130003F73015816"] = STAR,
+  ["0xF130003F74015814"] = SQUARE,
+  ["0xF130003F74015815"] = CROSS,
+  ["0xF130003F74015818"] = SKULL,
+})
+
+addToDefaultNpcsToMark("Naxxramas", "plague_gargs", {
+  ["0xF130003F2801581E"] = STAR, -- pat
+  ["0xF130003F2801581C"] = SKULL, -- stone1_right
+  ["0xF130003F2801581D"] = CROSS,
+  ["0xF130003F28015820"] = SQUARE, -- stone2_right
+  ["0xF130003F28015821"] = MOON,
+  ["0xF130003F28015822"] = TRIANGLE, -- stone3_right
+  ["0xF130003F28015823"] = DIAMOND,
+})
+
+----/////////////// CONSTRUCT ///////////////
+
+addToDefaultNpcsToMark("Naxxramas", "construct_entrance", {
+  ["0xF130003E910158C7"]  = SKULL, -- Patchwork Golem
+  ["0xF130003E910158C6"]  = CROSS, -- Patchwork Golem
+  ["0xF130003E910158C5"]  = SQUARE, -- Patchwork Golem
+  ["0xF130003E910158C8"]  = MOON, -- Patchwork Golem
+})
+
+addToDefaultNpcsToMark("Naxxramas", "construct_entrance_patrol", {
+  ["0xF130003E920158CD"]  = TRIANGLE, -- Bile Retcher
+  ["0xF130003E920158CE"]  = DIAMOND, -- Bile Retcher
+  ["0xF130003E9D015A90"]  = CIRCLE, -- Sludge Belcher
+  ["0xF130003E9D015A91"]  = STAR, -- Sludge Belcher
+})
+
+addToDefaultNpcsToMark("Naxxramas", "construct_central_left", {
+  ["0xF130003E920158CF"]  = SKULL, -- Bile Retcher
+  ["0xF130003E910158CA"]  = CROSS, -- Patchwork Golem
+  ["0xF130003E910158C9"]  = SQUARE, -- Patchwork Golem
+})
+
+addToDefaultNpcsToMark("Naxxramas", "construct_central_right", {
+  ["0xF130003E920158D0"]  = SKULL, -- Bile Retcher
+  ["0xF130003E910158CB"]  = CROSS, -- Patchwork Golem
+  ["0xF130003E910158CC"]  = SQUARE, -- Patchwork Golem
+})
+
+addToDefaultNpcsToMark("Naxxramas", "construct_central", {
+  ["0xF130003E910158D8"]  = SKULL, -- Patchwork Golem
+  ["0xF130003E910158D7"]  = CROSS, -- Patchwork Golem
+  ["0xF130003E910158D6"]  = SQUARE, -- Patchwork Golem
+  ["0xF130003E910158D9"]  = MOON, -- Patchwork Golem
+})
+
+addToDefaultNpcsToMark("Naxxramas", "construct_patchwerk_patrol", {
+  ["0xF130003E92015A93"]  = SKULL, -- Bile Retcher
+  ["0xF130003E92015A8E"]  = TRIANGLE, -- Bile Retcher
+  ["0xF130003E9D015A92"]  = CIRCLE, -- Sludge Belcher
+  ["0xF130003E92015A8F"]  = STAR, -- Bile Retcher
+})
+
+addToDefaultNpcsToMark("Naxxramas", "construct_scientist_1", {
+  ["0xF130003E95269C46"] = SKULL, -- Living Monstrosity
+  ["0xF130003E94269C4B"] = MOON, -- Mad Scientist
+  ["0xF130003E94269C4C"] = SQUARE, -- Mad Scientist
+  ["0xF130003E94269C4D"] = CROSS, -- Mad Scientist
+  ["0xF130003E94269C4E"] = DIAMOND, -- Mad Scientist
+})
+
+addToDefaultNpcsToMark("Naxxramas", "construct_scientist_2", {
+  ["0xF130003E95269C4F"] = SKULL, -- Living Monstrosity
+  ["0xF130003E94015AA1"] = MOON, -- Mad Scientist
+  ["0xF130003E94015AA0"] = SQUARE, -- Mad Scientist
+  ["0xF130003E94015A9F"] = CROSS, -- Mad Scientist
+  ["0xF130003E94015A9E"] = DIAMOND, -- Mad Scientist
+})
+
+addToDefaultNpcsToMark("Naxxramas", "construct_patchwerk", {
+  ["0xF130003E91015A96"]  = SKULL, -- Patchwork Golem
+  ["0xF130003E91015A94"]  = CROSS, -- Patchwork Golem
+  ["0xF130003E91015A97"]  = SQUARE, -- Patchwork Golem
+  ["0xF130003E91015A95"]  = MOON, -- Patchwork Golem
+})
+
+addToDefaultNpcsToMark("Naxxramas", "construct_scientist_3", {
+  ["0xF130003E95269C54"] = SKULL, -- Living Monstrosity
+  ["0xF130003E94269C5C"] = MOON, -- Mad Scientist
+  ["0xF130003E94269C5B"] = SQUARE, -- Mad Scientist
+  ["0xF130003E94269C59"] = CROSS, -- Mad Scientist
+  ["0xF130003E94269C5A"] = DIAMOND, -- Mad Scientist
+})
+
+addToDefaultNpcsToMark("Naxxramas", "construct_scientist_4", {
+  ["0xF130003E95269C5D"]  = SKULL, -- Living Monstrosity
+  ["0xF130003E94269C61"]  = MOON, -- Mad Scientist
+  ["0xF130003E94269C60"]  = SQUARE, -- Mad Scientist
+  ["0xF130003E94269C5F"]  = CROSS, -- Mad Scientist
+  ["0xF130003E94269C5E"]  = DIAMOND, -- Mad Scientist
+})
+
+addToDefaultNpcsToMark("Naxxramas", "construct_scientist_5", {
+  ["0xF130003E95269C66"] = SKULL, -- Living Monstrosity
+  ["0xF130003E94015A85"] = MOON, -- Mad Scientist
+  ["0xF130003E94015A86"] = SQUARE, -- Mad Scientist
+  ["0xF130003E94015A87"] = CROSS, -- Mad Scientist
+  ["0xF130003E94015A88"] = DIAMOND, -- Mad Scientist
+})
+
+addToDefaultNpcsToMark("Naxxramas", "construct_grobb_entrance", {
+  ["0xF130003E990158F2"]  = SKULL, -- Stitched Spewer
+  ["0xF130003E990158F1"]  = CROSS, -- Stitched Spewer
+})
+
+addToDefaultNpcsToMark("Naxxramas", "construct_grobb_left", {
+  ["0xF130003E990158EC"]  = SKULL, -- Stitched Spewer
+  ["0xF130003E990158EB"]  = CROSS, -- Stitched Spewer
+})
+
+addToDefaultNpcsToMark("Naxxramas", "construct_grobb_far", {
+  ["0xF130003E990158ED"]  = SKULL, -- Stitched Spewer
+  ["0xF130003E99049E6B"]  = CROSS, -- Stitched Spewer
+  ["0xF130003E990158EE"]  = SQUARE, -- Stitched Spewer
 })
 
 --/////////////// AQ40 ///////////////
