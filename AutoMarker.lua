@@ -442,7 +442,7 @@ local function UpdateSoldiers()
   for guid, _ in pairs(soldiers) do
     if not UnitExists(guid) then
       soldiers[guid] = nil
-    elseif not GetRaidTargetIndex(guid) and UnitAffectingCombat(guid) and CheckInteractDistance(guid,4) then
+    elseif not GetRaidTargetIndex(guid) and UnitAffectingCombat(guid) and CheckInteractDistance(guid,4) and UnitExists(guid.."target") then
       for i=8,1,-1 do
         local m = "mark"..i
         if UnitExists(m) and not UnitIsDead(m) then
