@@ -202,14 +202,6 @@ local function AM_UnitPopup_HideButtons()
   for index, value in UnitPopupMenus[dropdownMenu.which] do
     if ( strsub(value, 1, 12)  == "RAID_TARGET_" ) then
       UnitPopupShown[index] = 1;
-      -- TODO: is there ever a case the below matters? When can you target something that can be a unitframe and not be able to mark it?
-      -- if ( not (dropdownMenu.which == "SELF") ) then
-      --   if ( UnitExists("target") and not UnitPlayerOrPetInParty("target") and not UnitPlayerOrPetInRaid("target") ) then
-      --     if ( UnitIsPlayer("target") and (not UnitCanCooperate("player", "target") and not UnitIsUnit("target", "player")) ) then
-      --       UnitPopupShown[index] = 0;
-      --     end
-      --   end
-      -- end
     end
   end
 end
@@ -260,6 +252,7 @@ local currentPackName = nil
 local currentNpcsToMark = {}
 local buru_egg_queue = nil
 local corehounds = {}
+local soldiers = {}
 local started_solnius = false
 local last_pack_marked = nil
 local elapsed = 0
@@ -436,7 +429,31 @@ local function UpdateCorehound()
   table.sort(t, function(a, b)
     return UnitHealth(a) > UnitHealth(b)
   end)
-  if t[1] then MarkUnit(t[1], 8) end
+  if t[1] and not GetRaidTargetIndex(t[1]) then MarkUnit(t[1], 8) end
+end
+
+-- keep close soliders visible using any spare marks
+local function UpdateSoldiers()
+  if not next(soldiers) or GetRealZoneText() ~= "Naxxramas" then
+    autoMarker.checkSoliders = false
+    return
+  end
+
+  for guid, _ in pairs(soldiers) do
+    if not UnitExists(guid) then
+      soldiers[guid] = nil
+    elseif not GetRaidTargetIndex(guid) and UnitAffectingCombat(guid) and CheckInteractDistance(guid,4) then
+      for i=8,1,-1 do
+        local m = "mark"..i
+        if UnitExists(m) and not UnitIsDead(m) then
+          -- mark is used already
+        else
+          MarkUnit(guid,i)
+          break
+        end
+      end
+    end
+  end
 end
 
 local function AMUpdate()
@@ -445,6 +462,7 @@ local function AMUpdate()
     elapsed = 0
 
     if autoMarker.checkCoreHounds then UpdateCorehound() end
+    if autoMarker.checkSoliders then UpdateSoldiers() end
     if autoMarker.checkTemporaryMobs then UpdateTemporaryMobs() end
   end
 end
@@ -538,8 +556,12 @@ autoMarker:SetScript("OnEvent", function()
 
       if name == "Core Hound" then
         corehounds[arg1] = true
-        -- autoMarker:SetScript("OnUpdate", AMUpdate)
         autoMarker.checkCoreHounds = true
+      end
+
+      if UnitName(arg1) == "Soldier of the Frozen Wastes" then
+        soldiers[arg1] = true
+        autoMarker.checkSoliders = true
       end
 
       -- untested
@@ -548,7 +570,7 @@ autoMarker:SetScript("OnEvent", function()
       if UnitName(arg1) == "Solnius" and UnitAffectingCombat(arg1) then
         started_solnius = true
       end
-      if started_solnius and (name == "Sanctum Supressor" or name == "Sanctum Dragonkin" or name == "Sanctum Scalebane" or name == "Sanctum Wyrmkin") then
+      if started_solnius and (name == "Sanctum Supressor" or name == "Sanctum Dragonkin" or name == "Sanctum Scalebane" or name == "Sanctum Wyrmkin") and not GetRaidTargetIndex(arg1) then
         -- prio supressors
         if name == "Sanctum Supressor" then
           if not UnitExists("mark8") or UnitIsDead("mark8") then
