@@ -1,4 +1,4 @@
-# AutoMarker 1.7.8
+# AutoMarker 1.8.0
 AutoMarker for [SuperWow](https://github.com/balakethelock/SuperWoW/) on the 1.12 client.
 
 * Hold `shift then ctrl or alt` to activate automatic raid marking when mousing over a mob group.  

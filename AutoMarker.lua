@@ -250,10 +250,10 @@ local sweep_on = false
 local sweepPackName = nil
 local currentPackName = nil
 local currentNpcsToMark = {}
-local buru_egg_queue = nil
-local corehounds = {}
-local soldiers = {}
-local started_solnius = false
+-- local buru_egg_queue = nil
+-- local AutoMarkerDB.corehounds = {}
+-- local AutoMarkerDB.soldiers = {}
+-- local started_solnius = false
 local last_pack_marked = nil
 local elapsed = 0
 
@@ -324,26 +324,26 @@ local function AddToPack(guid,force_add,pack)
     return false,"mob_in_pack"
   end
 
-  customNpcsToMark[zoneName] = customNpcsToMark[zoneName] or {}
-  customNpcsToMark[zoneName][the_pack] = customNpcsToMark[zoneName][the_pack] or {}
+  AutoMarkerDB.customNpcsToMark[zoneName] = AutoMarkerDB.customNpcsToMark[zoneName] or {}
+  AutoMarkerDB.customNpcsToMark[zoneName][the_pack] = AutoMarkerDB.customNpcsToMark[zoneName][the_pack] or {}
 
   -- update the live table too
   currentNpcsToMark[zoneName] = currentNpcsToMark[zoneName] or {}
   currentNpcsToMark[zoneName][the_pack] = currentNpcsToMark[zoneName][the_pack] or {}
 
-  local existing_mark = customNpcsToMark[zoneName][the_pack][guid]
+  local existing_mark = AutoMarkerDB.customNpcsToMark[zoneName][the_pack][guid]
   local same = existing_mark and (existing_mark == raidmark)
   if not same then
     auto_print((existing_mark and "Updating " or "Adding ")
       .. unitName .. "(" .. guid .. ") in pack: " .. the_pack .. " with new mark: " .. raidMarks[raidmark + 1] .. " in zone: " .. zoneName)
-    customNpcsToMark[zoneName][the_pack][guid] = raidmark
+    AutoMarkerDB.customNpcsToMark[zoneName][the_pack][guid] = raidmark
     currentNpcsToMark[zoneName][the_pack][guid] = raidmark
   end
   return true, nil
 end
 
 local function OnMouseover()
-  if settings.enabled and IsShiftKeyDown() and (IsControlKeyDown() or IsAltKeyDown()) then
+  if AutoMarkerDB.settings.enabled and IsShiftKeyDown() and (IsControlKeyDown() or IsAltKeyDown()) then
     AutoMarker_MarkGroup()
   end
 end
@@ -414,34 +414,41 @@ end
 
 -- make it obvious what is the high hp hound
 local function UpdateCorehound()
-  if not next(corehounds) or GetRealZoneText() ~= "Molten Core" then
-    autoMarker.checkCoreHounds = false
+  if not next(AutoMarkerDB.corehounds) or GetRealZoneText() ~= "Molten Core" then
+    AutoMarkerDB.checkCoreHounds = false
     return
   end
   local t = {}
-  for guid, _ in pairs(corehounds) do
+  for guid, _ in pairs(AutoMarkerDB.corehounds) do
     if not UnitExists(guid) then
-      corehounds[guid] = nil
+      AutoMarkerDB.corehounds[guid] = nil
     elseif UnitAffectingCombat(guid) then
       table.insert(t, guid)
     end
   end
+  -- if hp are the same, e.g. fight start, use lexigraphical sorting to keep mark stable
   table.sort(t, function(a, b)
-    return UnitHealth(a) > UnitHealth(b)
+    if UnitHealth(a) == UnitHealth(b) then
+      return a < b
+    else
+      return UnitHealth(a) > UnitHealth(b)
+    end
   end)
-  if t[1] and not GetRaidTargetIndex(t[1]) then MarkUnit(t[1], 8) end
+  if t[1] and not GetRaidTargetIndex(t[1]) then
+    MarkUnit(t[1], 8)
+  end
 end
 
 -- keep close soliders visible using any spare marks
 local function UpdateSoldiers()
-  if not next(soldiers) or GetRealZoneText() ~= "Naxxramas" then
-    autoMarker.checkSoliders = false
+  if not next(AutoMarkerDB.soldiers) or GetRealZoneText() ~= "Naxxramas" then
+    AutoMarkerDB.checkSoliders = false
     return
   end
 
-  for guid, _ in pairs(soldiers) do
+  for guid, _ in pairs(AutoMarkerDB.soldiers) do
     if not UnitExists(guid) then
-      soldiers[guid] = nil
+      AutoMarkerDB.soldiers[guid] = nil
     elseif not GetRaidTargetIndex(guid) and UnitAffectingCombat(guid) and CheckInteractDistance(guid,4) and UnitExists(guid.."target") then
       for i=8,1,-1 do
         local m = "mark"..i
@@ -456,14 +463,19 @@ local function UpdateSoldiers()
   end
 end
 
+local core_delay = 0
 local function AMUpdate()
   elapsed = elapsed + arg1
+  core_delay = core_delay + arg1
   if elapsed > 0.25 then
     elapsed = 0
 
-    if autoMarker.checkCoreHounds then UpdateCorehound() end
-    if autoMarker.checkSoliders then UpdateSoldiers() end
-    if autoMarker.checkTemporaryMobs then UpdateTemporaryMobs() end
+    if AutoMarkerDB.checkCoreHounds and core_delay > 2 then
+      core_delay = 0
+      UpdateCorehound()
+    end
+    if AutoMarkerDB.checkSoliders then UpdateSoldiers() end
+    if AutoMarkerDB.checkTemporaryMobs then UpdateTemporaryMobs() end
   end
 end
 autoMarker:SetScript("OnUpdate", AMUpdate)
@@ -471,19 +483,34 @@ autoMarker:SetScript("OnUpdate", AMUpdate)
 -- Event handler
 autoMarker:SetScript("OnEvent", function()
   if event=="ADDON_LOADED" and arg1=="AutoMarker" then
+    -- init vars 
+    if not AutoMarkerDB then AutoMarkerDB = {} end
+    if not AutoMarkerDB.customNpcsToMark then AutoMarkerDB.customNpcsToMark = {} end
+    if not AutoMarkerDB.buru_egg_queue then AutoMarkerDB.buru_egg_queue = {} end
+    if not AutoMarkerDB.corehounds then AutoMarkerDB.corehounds = {} end
+    if not AutoMarkerDB.soldiers then AutoMarkerDB.soldiers = {} end
+
+    if not AutoMarkerDB.checkCoreHounds then AutoMarkerDB.checkCoreHounds = false end
+    if not AutoMarkerDB.checkSoliders then AutoMarkerDB.checkSoliders = false end
+    if not AutoMarkerDB.started_solnius then AutoMarkerDB.started_solnius = false end
+
     -- init settings
-    if not settings then
-      settings = defaultSettings
+    if not AutoMarkerDB.settings then
+      AutoMarkerDB.settings = defaultSettings
     else -- update/clean settings
       local s = {}
-      for k,v in defaultSettings do
-        s[k] = settings[k] or v
+      -- migrate old settings
+      if settings then
+        for k,v in defaultSettings do
+          s[k] = settings[k] or v
+        end
+      else
+        for k,v in defaultSettings do
+          s[k] = AutoMarkerDB.settings[k] or v
+        end
       end
-      settings = s
+      AutoMarkerDB.settings = s
     end
-
-    -- init vars
-    if not customNpcsToMark then customNpcsToMark = {} end
 
     -- load defaults
     for raid_name,packs in pairs(defaultNpcsToMark) do
@@ -495,7 +522,14 @@ autoMarker:SetScript("OnEvent", function()
       end
     end
     -- over-write with customs
-    for raid_name,packs in pairs(customNpcsToMark) do
+    for raid_name,packs in pairs(AutoMarkerDB.customNpcsToMark) do
+      if not currentNpcsToMark[raid_name] then currentNpcsToMark[raid_name] = {} end
+      for pack_name,pack in pairs(packs) do
+        currentNpcsToMark[raid_name][pack_name] = AutoMarkerDB.customNpcsToMark[raid_name][pack_name]
+      end
+    end
+    -- migrate old customs
+    if customNpcsToMark and next(customNpcsToMark) then
       if not currentNpcsToMark[raid_name] then currentNpcsToMark[raid_name] = {} end
       for pack_name,pack in pairs(packs) do
         currentNpcsToMark[raid_name][pack_name] = customNpcsToMark[raid_name][pack_name]
@@ -504,11 +538,11 @@ autoMarker:SetScript("OnEvent", function()
     auto_print(c("AutoMarker loaded!",color.yellow).." Type "..c("/am",color.green).." to see commands.")
   end
 
-  if settings.enabled then
+  if AutoMarkerDB.settings.enabled then
     if event=="UPDATE_MOUSEOVER_UNIT" then
       OnMouseover()
       local _,guid = UnitExists("mouseover")
-      if settings.debug then
+      if AutoMarkerDB.settings.debug then
         auto_print(guid .. " " .. UnitName(guid))
       end
       if sweep_on then
@@ -517,8 +551,8 @@ autoMarker:SetScript("OnEvent", function()
     elseif event=="UNIT_CASTEVENT" then
       -- if buru egg exploded
       if arg4 == 19593 then
-        if not buru_egg_queue then buru_egg_queue = {} end
-        table.insert(buru_egg_queue, GetRaidTargetIndex(arg1))
+        if not AutoMarkerDB.buru_egg_queue then AutoMarkerDB.buru_egg_queue = {} end
+        table.insert(AutoMarkerDB.buru_egg_queue, GetRaidTargetIndex(arg1))
       end
     elseif event=="UNIT_MODEL_CHANGED" then
       -- Certain mobs are script spawned so their IDs need to be fetched
@@ -555,22 +589,22 @@ autoMarker:SetScript("OnEvent", function()
       end
 
       if name == "Core Hound" then
-        corehounds[arg1] = true
-        autoMarker.checkCoreHounds = true
+        AutoMarkerDB.corehounds[arg1] = true
+        AutoMarkerDB.checkCoreHounds = true
       end
 
       if UnitName(arg1) == "Soldier of the Frozen Wastes" then
-        soldiers[arg1] = true
-        autoMarker.checkSoliders = true
+        AutoMarkerDB.soldiers[arg1] = true
+        AutoMarkerDB.checkSoliders = true
       end
 
       -- untested
       -- Solnius adds
       -- did solnius go dragonform
       if UnitName(arg1) == "Solnius" and UnitAffectingCombat(arg1) then
-        started_solnius = true
+        AutoMarkerDB.started_solnius = true
       end
-      if started_solnius and (name == "Sanctum Supressor" or name == "Sanctum Dragonkin" or name == "Sanctum Scalebane" or name == "Sanctum Wyrmkin") and not GetRaidTargetIndex(arg1) then
+      if AutoMarkerDB.started_solnius and (name == "Sanctum Supressor" or name == "Sanctum Dragonkin" or name == "Sanctum Scalebane" or name == "Sanctum Wyrmkin") and not GetRaidTargetIndex(arg1) then
         -- prio supressors
         if name == "Sanctum Supressor" then
           if not UnitExists("mark8") or UnitIsDead("mark8") then
@@ -593,8 +627,8 @@ autoMarker:SetScript("OnEvent", function()
       end
 
       -- buru eggs respawn throughout the fight but we want them marked still
-      if buru_egg_queue and name == "Buru Egg" then
-        local next_egg_mark = table.remove(buru_egg_queue,1)
+      if AutoMarkerDB.buru_egg_queue and name == "Buru Egg" then
+        local next_egg_mark = table.remove(AutoMarkerDB.buru_egg_queue,1)
         if next_egg_mark then
           MarkUnit(arg1, next_egg_mark)
         end
@@ -605,8 +639,8 @@ autoMarker:SetScript("OnEvent", function()
       for _,config in pairs(temporary_mobs) do
         config.queue = {}
       end
-      buru_egg_queue = nil
-      started_solnius = false
+      AutoMarkerDB.buru_egg_queue = nil
+      AutoMarkerDB.started_solnius = false
     end
   end
 end)
@@ -635,8 +669,8 @@ local function handleCommands(msg, editbox)
   end
 
   if command == "enabled" then
-    settings.enabled = not settings.enabled
-    auto_print("AutoMarker is now [".. (settings.enabled and c("enabled",color.green) or c("disabled",color.red)) .. "]")
+    AutoMarkerDB.settings.enabled = not AutoMarkerDB.settings.enabled
+    auto_print("AutoMarker is now [".. (AutoMarkerDB.settings.enabled and c("enabled",color.green) or c("disabled",color.red)) .. "]")
   elseif command == "set" or command == "s" then
     if not packName then
       auto_print("You must provide a pack name as well when using set.")
@@ -657,8 +691,8 @@ local function handleCommands(msg, editbox)
       end
     end
   elseif command == "clear" or command == "c" then
-    if customNpcsToMark[zoneName] then
-      customNpcsToMark[zoneName][currentPackName] = nil
+    if AutoMarkerDB.customNpcsToMark[zoneName] then
+      AutoMarkerDB.customNpcsToMark[zoneName][currentPackName] = nil
     end
     auto_print("Mobs in " .. currentPackName .. " have been cleared.")
   elseif command == "remove" or command == "r" then
@@ -673,7 +707,7 @@ local function handleCommands(msg, editbox)
       return
     end
     auto_print("Removing mob " .. UnitName(guid) .. " from pack: " .. c(packName,color.orange))
-    customNpcsToMark[zoneName][packName][guid] = nil
+    AutoMarkerDB.customNpcsToMark[zoneName][packName][guid] = nil
   elseif command == "add" or command == "a" or force_add then
     local guid = getGuid()
     local success, err = AddToPack(guid, force_add, packName)
@@ -698,8 +732,8 @@ local function handleCommands(msg, editbox)
   elseif command == "clearmarks" then
     AutoMarker_ClearMarks()
   elseif command == "debug" then
-    settings.debug = not settings.debug
-    auto_print("Debug mode set to: " .. (settings.debug and c("on",color.green) or c("off",color.red)))
+    AutoMarkerDB.settings.debug = not AutoMarkerDB.settings.debug
+    auto_print("Debug mode set to: " .. (AutoMarkerDB.settings.debug and c("on",color.green) or c("off",color.red)))
   else
     auto_print("Commands:")
     auto_print("/am " .. c("e", color.green) .. "nable - enabled or disable addon.")
