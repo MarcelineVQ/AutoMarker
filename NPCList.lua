@@ -950,32 +950,32 @@ addToDefaultNpcsToMark("Zul'Gurub", "zanaz_witchdoctor_rtv", {
 --/////////////// Madness /////////////
 
 addToDefaultNpcsToMark("Zul'Gurub", "madness1", {
-  ["0xF130003B0700BFA4"] = 3,
-  ["0xF130003B0700BFA3"] = 8,
-  ["0xF130003B0700BFA5"] = 7,
-  ["0xF130000B6200BF8D"] = 0,
-  ["0xF130003B0700BFA0"] = 2,
+  ["0xF130003B0700BFA4"] = DIAMOND,
+  ["0xF130003B0700BFA3"] = SKULL,
+  ["0xF130003B0700BFA5"] = CROSS,
+  ["0xF130000B6200BF8D"] = UNMARKED,
+  ["0xF130003B0700BFA0"] = CIRCLE,
 })
 
 addToDefaultNpcsToMark("Zul'Gurub", "madness2", {
-  ["0xF130003B0700BF9F"] = 3,
-  ["0xF130003B0700BFA1"] = 7,
-  ["0xF130003B0700BF9D"] = 8,
-  ["0xF130003B0700BF9E"] = 4,
+  ["0xF130003B0700BF9F"] = DIAMOND,
+  ["0xF130003B0700BFA1"] = CROSS,
+  ["0xF130003B0700BF9D"] = SKULL,
+  ["0xF130003B0700BF9E"] = TRIANGLE,
 })
 
 addToDefaultNpcsToMark("Zul'Gurub", "madness3", {
-  ["0xF130003B0700BFAA"] = 7,
-  ["0xF130003B0700BFA9"] = 3,
-  ["0xF130003B0700BFAB"] = 4,
-  ["0xF130002C4C00BF9B"] = 8,
+  ["0xF130003B0700BFAA"] = CROSS,
+  ["0xF130003B0700BFA9"] = DIAMOND,
+  ["0xF130003B0700BFAB"] = TRIANGLE,
+  ["0xF130002C4C00BF9B"] = SKULL,
 })
 
 addToDefaultNpcsToMark("Zul'Gurub", "madness4", {
-  ["0xF130002C4C00BF9C"] = 8,
-  ["0xF130003B0700BFA8"] = 3,
-  ["0xF130003B0700BFA6"] = 4,
-  ["0xF130003B0700BFA7"] = 7,
+  ["0xF130002C4C00BF9C"] = SKULL,
+  ["0xF130003B0700BFA8"] = DIAMOND,
+  ["0xF130003B0700BFA6"] = TRIANGLE,
+  ["0xF130003B0700BFA7"] = CROSS,
 })
 
 --/////////////// Thekal //////////////
@@ -1335,18 +1335,6 @@ addToDefaultNpcsToMark("Molten Core", "domo", {
 	["0xF130002EF2276EB2"] = UNMARKED,
 })
 
--- ["domo2"] = {
---   ["0xF130002D90276F77"] = CROSS,
---   ["0xF130002D90276F76"] = 2,
---   ["0xF130002D8F276F79"] = 4,
---   ["0xF130002D8F276F7A"] = 5,
---   ["0xF130002D8F276F78"] = SKULL,
---   ["0xF130002D90276F75"] = 3,
---   ["0xF130002D8F276F7B"] = 6,
---   ["0xF130002EF2276F73"] = UNMARKED,
---   ["0xF130002D90276F74"] = STAR,
--- },
-
 --/////////////// AQ20 ///////////////
 
 addToDefaultNpcsToMark("Ruins of Ahn'Qiraj", "entrance", {
@@ -1489,44 +1477,47 @@ addToDefaultNpcsToMark("Ruins of Ahn'Qiraj", "ossirian_room", {
   ["0xF130003BFB11FBE1"] = MOON,
 })
 
--- needs testing
 --/////////////// BWL ///////////////
+
+-- taskmasters not quite right yet
+-- there's a missing taskmaster but I'm not sure which mark it is:
+-- 0xF1300030AA104BD5
 
 addToDefaultNpcsToMark("Blackwing Lair", "supress1_1", {
   ["0xF1300030AA104BD4"] = DIAMOND, -- taskmaster
   ["0xF1300030AA104BD3"] = TRIANGLE, -- taskmaster
   ["0xF1300030AA104BD2"] = MOON, -- taskmaster
-  ["0xF1300030B40BA43A"] = 0, -- hatcher
-  ["0xF1300030B40BA3BF"] = 0, -- hatcher
-  ["0xF1300030B40BA395"] = 0, -- hatcher
+  ["0xF1300030B40BA43A"] = UNMARKED, -- hatcher
+  ["0xF1300030B40BA3BF"] = UNMARKED, -- hatcher
+  ["0xF1300030B40BA395"] = UNMARKED, -- hatcher
 })
 
 addToDefaultNpcsToMark("Blackwing Lair", "supress1_2", {
   ["0xF1300030AA104BD1"] = CROSS, -- taskmaster
   ["0xF1300030AA104BD0"] = SQUARE, -- taskmaster
   ["0xF1300030AA104BCF"] = SKULL, -- taskmaster
-  ["0xF1300030B40BA218"] = 0, -- hatcher
-  ["0xF1300030B40BA216"] = 0, -- hatcher
-  ["0xF1300030B40BA08B"] = 0, -- hatcher
+  ["0xF1300030B40BA218"] = UNMARKED, -- hatcher
+  ["0xF1300030B40BA216"] = UNMARKED, -- hatcher
+  ["0xF1300030B40BA08B"] = UNMARKED, -- hatcher
 })
 
 addToDefaultNpcsToMark("Blackwing Lair", "supress2_1", {
   ["0xF1300030AA104BD8"] = CROSS, -- taskmaster
   ["0xF1300030AA104BD7"] = SQUARE, -- taskmaster
   ["0xF1300030AA104BD6"] = SKULL, -- taskmaster
-  ["0xF1300030B40BA632"] = 0, -- hatcher
-  ["0xF1300030B40BA630"] = 0, -- hatcher
-  ["0xF1300030B40BA62E"] = 0, -- hatcher
+  ["0xF1300030B40BA632"] = UNMARKED, -- hatcher
+  ["0xF1300030B40BA630"] = UNMARKED, -- hatcher
+  ["0xF1300030B40BA62E"] = UNMARKED, -- hatcher
 })
 
 addToDefaultNpcsToMark("Blackwing Lair", "supress2_2", {
   ["0xF1300030AA104BDB"] = DIAMOND, -- taskmaster
   ["0xF1300030AA104BDA"] = TRIANGLE, -- taskmaster
   ["0xF1300030AA104BD9"] = MOON, -- taskmaster
-  ["0xF1300030B40BA441"] = 0, -- hatcher
-  ["0xF1300030B40BA43F"] = 0, -- hatcher
-  ["0xF1300030B40BA43D"] = 0, -- hatcher
-  ["0xF130002EF10149A3"] = 0, -- lashlayer
+  ["0xF1300030B40BA441"] = UNMARKED, -- hatcher
+  ["0xF1300030B40BA43F"] = UNMARKED, -- hatcher
+  ["0xF1300030B40BA43D"] = UNMARKED, -- hatcher
+  ["0xF130002EF10149A3"] = UNMARKED, -- lashlayer
 })
 
 addToDefaultNpcsToMark("Blackwing Lair", "wrym1", {
@@ -1658,7 +1649,7 @@ addToDefaultNpcsToMark("Blackwing Lair", "lab7", {
 
 addToDefaultNpcsToMark("Blackwing Lair", "wyrmguard2", {
   ["0xF1300030AC014A9B"] = SKULL,
-  ["0xF1300030AC014A9A"] = CIRCLE,
+  ["0xF1300030AC014A9A"] = CROSS,
   ["0xF1300030AC014A94"] = DIAMOND,
   ["0xF130003841014A93"] = MOON,
   ["0xF130002ECD014F17"] = SQUARE, -- flamegor
@@ -1668,6 +1659,223 @@ addToDefaultNpcsToMark("Blackwing Lair", "wyrmguard2", {
 addToDefaultNpcsToMark("Blackwing Lair", "wyrmguard3", {
   ["0xF1300030AC014A9F"] = DIAMOND,
   ["0xF1300030AC014AAA"] = SKULL,
-  ["0xF1300030AC014AA8"] = CIRCLE,
+  ["0xF1300030AC014AA8"] = CROSS,
   ["0xF1300036C4014F18"] = TRIANGLE, -- chromag
+})
+
+
+--/////////////// KARA10 ///////////////
+
+addToDefaultNpcsToMark("Karazhan", "kara1", {
+  ["0xF13000EF0A2747D1"] = UNMARKED,
+  ["0xF13000EF082747D2"] = SKULL, -- darkcaster
+  ["0xF13000EF0A2747D0"] = UNMARKED,
+  ["0xF13000EF102747C8"] = UNMARKED,
+  ["0xF13000EF102747C5"] = UNMARKED,
+  ["0xF13000EF082747D3"] = CROSS, -- darkcaster
+})
+
+addToDefaultNpcsToMark("Karazhan", "kara2", {
+  ["0xF13000EF0A2747AD"] = UNMARKED,
+  ["0xF13000EF0A2747AE"] = UNMARKED,
+  ["0xF13000EF0A2747AF"] = CROSS,
+  ["0xF13000EF082747B3"] = SKULL, -- darkcaster
+  ["0xF13000EF072747AA"] = STAR,
+  ["0xF130000FEB2755A4"] = UNMARKED,
+})
+
+addToDefaultNpcsToMark("Karazhan", "kara3", {
+  ["0xF13000EF082747A9"] = CROSS, -- darkcaster
+  ["0xF13000EF0A2747A8"] = UNMARKED,
+  ["0xF13000EF072747AA"] = STAR,
+  ["0xF13000EF082747AC"] = SKULL, -- darkcaster
+})
+
+addToDefaultNpcsToMark("Karazhan", "kara4", {
+  ["0xF13000EF082747C1"] = CROSS, -- darkcaster
+  ["0xF13000EF082747C9"] = SKULL, -- darkcaster
+  ["0xF13000EF0A2747C4"] = UNMARKED,
+  ["0xF13000EF0A2747C6"] = UNMARKED,
+})
+
+addToDefaultNpcsToMark("Karazhan", "rider", {
+  ["0xF13000EF1B274792"] = SKULL,
+  ["0xF13000EF13276DE2"] = UNMARKED,
+  ["0xF13000EF10274793"] = UNMARKED,
+  ["0xF13000EF1427470C"] = TRIANGLE,
+  ["0xF130000FEB275597"] = UNMARKED,
+  ["0xF13000EF13276DE1"] = UNMARKED,
+  ["0xF13000EF10274791"] = UNMARKED,
+  ["0xF13000EF12274794"] = DIAMOND,
+  ["0xF13000EF1B274795"] = CROSS,
+  ["0xF13000EF1B2747A2"] = UNMARKED,
+})
+
+addToDefaultNpcsToMark("Karazhan", "kara5", {
+  ["0xF13000EF152756BF"] = SKULL,
+  ["0xF13000EF152756BE"] = CROSS,
+  ["0xF13000EF102747BD"] = UNMARKED,
+  ["0xF13000EF102747BE"] = UNMARKED,
+  ["0xF13000EF102756C0"] = UNMARKED,
+  ["0xF13000EF072747D4"] = TRIANGLE,
+})
+
+addToDefaultNpcsToMark("Karazhan", "kara6", {
+  ["0xF13000EF082747E7"] = CROSS, -- darkcaster
+  ["0xF13000EF0A2747E9"] = UNMARKED,
+  ["0xF13000EF0A2747E8"] = UNMARKED,
+  ["0xF13000EF082747EB"] = SKULL, -- darkcaster
+  ["0xF13000EF072747D4"] = TRIANGLE,
+})
+
+addToDefaultNpcsToMark("Karazhan", "kara7", {
+  ["0xF13000EF092747DF"] = UNMARKED,
+  ["0xF13000EF082747DE"] = SKULL, -- darkcaster
+  ["0xF13000EF082747DC"] = CROSS, -- darkcaster
+  ["0xF13000EF0A2747DD"] = UNMARKED,
+})
+
+addToDefaultNpcsToMark("Karazhan", "kara8", {
+  ["0xF13000EF082747DA"] = CROSS, -- darkcaster
+  ["0xF13000EF0A2747DB"] = UNMARKED,
+  ["0xF13000EF082747D9"] = SKULL, -- darkcaster
+})
+
+addToDefaultNpcsToMark("Karazhan", "imps1", {
+  ["0xF13000EF102747E5"] = UNMARKED,
+  ["0xF13000EF102747F0"] = UNMARKED,
+  ["0xF13000EF182747F4"] = TRIANGLE,
+  ["0xF13000EF102747E4"] = UNMARKED,
+  ["0xF13000EF102747F1"] = SKULL,
+})
+
+addToDefaultNpcsToMark("Karazhan", "imps2", {
+  ["0xF13000EF0C274822"] = UNMARKED,
+  ["0xF13000EF0B274824"] = SKULL,
+  ["0xF13000EF0D274821"] = UNMARKED,
+})
+
+addToDefaultNpcsToMark("Karazhan", "imps3", {
+  ["0xF13000EF0C274808"] = UNMARKED,
+  ["0xF13000EF0D274809"] = UNMARKED,
+  ["0xF13000EF0B274806"] = SKULL,
+})
+
+addToDefaultNpcsToMark("Karazhan", "imps4", {
+  ["0xF13000EF0B274802"] = CROSS,
+  ["0xF13000EF0B274801"] = TRIANGLE,
+  ["0xF13000EF0B274803"] = SKULL,
+  ["0xF13000EF0D274804"] = UNMARKED,
+})
+
+addToDefaultNpcsToMark("Karazhan", "imps5", {
+  ["0xF13000EF0D27480E"] = UNMARKED,
+  ["0xF13000EF0C274812"] = UNMARKED,
+  ["0xF13000EF0B27480D"] = CROSS,
+  ["0xF13000EF0B274811"] = SKULL,
+  ["0xF13000EF0D27480F"] = UNMARKED,
+})
+
+addToDefaultNpcsToMark("Karazhan", "imps6", {
+  ["0xF13000EF0B27481B"] = TRIANGLE,
+  ["0xF13000EF0B27481C"] = SKULL,
+  ["0xF13000EF0B274819"] = CROSS,
+  ["0xF13000EF0C274815"] = UNMARKED,
+  ["0xF130003A212755AD"] = UNMARKED,
+})
+
+addToDefaultNpcsToMark("Karazhan", "imps7", {
+  ["0xF13000EF0C2747F9"] = UNMARKED,
+  ["0xF13000EF0B2747F7"] = SKULL,
+  ["0xF13000EF0D2747FB"] = UNMARKED,
+  ["0xF13000EF0C274800"] = UNMARKED,
+  ["0xF13000EF0C2747F8"] = CROSS,
+})
+
+addToDefaultNpcsToMark("Karazhan", "imps8", {
+  ["0xF13000EF0D27481F"] = UNMARKED,
+  ["0xF13000EF0C274823"] = UNMARKED,
+  ["0xF13000EF0D274814"] = UNMARKED,
+  ["0xF13000EF0C27481E"] = UNMARKED,
+  ["0xF130000FEB2755AF"] = UNMARKED,
+  ["0xF13000EF0C27481D"] = UNMARKED,
+  ["0xF13000EF0D274817"] = UNMARKED,
+  ["0xF13000EF0D274818"] = UNMARKED,
+  ["0xF13000EF0B274820"] = SKULL,
+  ["0xF13000EF0D27481A"] = TRIANGLE,
+})
+
+addToDefaultNpcsToMark("Karazhan", "imps9", {
+  ["0xF13000EF0C2747FD"] = UNMARKED,
+  ["0xF13000EF0B2747FA"] = SKULL,
+  ["0xF13000EF0D2747FE"] = UNMARKED,
+  ["0xF13000EF0B2747FC"] = CROSS,
+  ["0xF13000EF0C2747FF"] = UNMARKED,
+})
+
+addToDefaultNpcsToMark("Karazhan", "spiderpats", {
+  ["0xF13000EF1627477E"] = UNMARKED,
+  ["0xF13000EF16274762"] = UNMARKED,
+  ["0xF130003A212755CC"] = UNMARKED,
+  ["0xF13000EF182747F4"] = TRIANGLE,
+  ["0xF13000EF16274778"] = UNMARKED,
+  ["0xF13000EF1827475C"] = CIRCLE,
+  ["0xF13000EF1927477B"] = UNMARKED,
+  ["0xF13000EF16274776"] = UNMARKED,
+  ["0xF13000EF16274777"] = UNMARKED,
+  ["0xF13000EF152756C3"] = CROSS,
+  ["0xF13000EF19274774"] = UNMARKED,
+  ["0xF13000EF1627477F"] = UNMARKED,
+  ["0xF13000EF18274753"] = DIAMOND,
+  ["0xF13000EF1827477A"] = SKULL,
+})
+
+addToDefaultNpcsToMark("Karazhan", "moroes1", {
+  ["0xF13000EF072747D5"] = SKULL, -- alpha
+  ["0xF13000EF0A2747D7"] = UNMARKED,
+  ["0xF13000EF082747EF"] = CROSS, -- darkcaster
+  ["0xF13000EF0F2756DE"] = CIRCLE, -- magiskull
+  ["0xF13000EF0A2747D6"] = UNMARKED,
+})
+
+addToDefaultNpcsToMark("Karazhan", "moroes2", {
+  ["0xF13000EF0F2756DD"] = CROSS, -- magiskull
+  ["0xF13000EF0F2756E3"] = DIAMOND, -- magiskull
+  ["0xF13000EF0F2756E4"] = TRIANGLE, -- magiskull
+  ["0xF13000EF0F2756DC"] = SKULL, -- magiskull
+  })
+
+addToDefaultNpcsToMark("Karazhan", "moroes3", {
+  ["0xF13000EF0927483B"] = DIAMOND,
+  ["0xF13000EF0E27483D"] = UNMARKED,
+  ["0xF13000EF0E27483E"] = UNMARKED,
+  ["0xF13000EF10274840"] = UNMARKED, -- guardsman
+  ["0xF13000EF29274971"] = UNMARKED,
+  ["0xF13000EF0F27482A"] = CIRCLE, -- shatterskull magiskull
+  ["0xF13000EF0827483C"] = SKULL, -- darkcaster
+})
+
+addToDefaultNpcsToMark("Karazhan", "moroes4", {
+  ["0xF13000EF1027483A"] = UNMARKED, -- guardsman
+  ["0xF13000EF15274838"] = TRIANGLE, -- servant
+  ["0xF13000EF0F27482A"] = CIRCLE, -- shatterskull magiskull
+  ["0xF13000EF15274839"] = SKULL, -- servant
+  ["0xF13000EF15274837"] = CROSS, -- servant
+  ["0xF13000EF1027484C"] = UNMARKED, -- guardsman
+  ["0xF13000EF0E274841"] = STAR, -- shatterskull spearman
+  ["0xF13000EF0E274842"] = UNMARKED, -- shatterskull spearman
+  ["0xF13000EF0E27483F"] = UNMARKED, -- shatterskull spearman
+})
+
+addToDefaultNpcsToMark("Karazhan", "moroes5", {
+  ["0xF13000EF16274827"] = UNMARKED,
+  ["0xF13000EF15274832"] = SKULL, -- servant
+  ["0xF13000EF16274826"] = UNMARKED,
+  ["0xF13000EF19274828"] = UNMARKED,
+})
+
+addToDefaultNpcsToMark("Karazhan", "moroes6", {
+  ["0xF13000EF15274845"] = SKULL, -- servant
+  ["0xF13000EF10274849"] = UNMARKED, -- guardsman
+  ["0xF13000EF15274847"] = CROSS, -- servant
 })

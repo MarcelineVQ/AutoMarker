@@ -227,7 +227,7 @@ local function AM_UnitPopup_OnClick()
       raidTargetIndex = 0;
     end
     if not MarkUnit(unit, tonumber(raidTargetIndex)) and InGroup() and not warned_lead then
-      DEFAULT_CHAT_FRAME:AddMessage("Warning: a mark set while not a leader/assistant is not visible to others")
+      DEFAULT_CHAT_FRAME:AddMessage(c("Warning:",color.red).." a mark set while not a leader/assistant is not visible to others")
       warned_lead = true
     end
   end
