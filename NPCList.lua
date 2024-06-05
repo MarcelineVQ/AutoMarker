@@ -1919,3 +1919,25 @@ addToDefaultNpcsToMark("Karazhan", "moroes6", {
   ["0xF13000EF10274849"] = UNMARKED, -- guardsman
   ["0xF13000EF15274847"] = CROSS, -- servant
 })
+
+--/////////////// Stratholme ///////////////
+
+addToDefaultNpcsToMark("Stratholme", "live_pats", {
+  ["0xF1300028AB11E66A"] = STAR, -- Eye of Naxxramas
+  ["0xF1300028AB11E66B"] = TRIANGLE, -- Eye of Naxxramas
+  ["0xF1300028AE00D2C1"] = SQUARE, -- "Patchwork Horror"
+  ["0xF1300028AE00D2C2"] = CIRCLE, -- "Patchwork Horror"
+  ["0xF1300028AE00D2B7"] = DIAMOND, -- "Patchwork Horror"
+})
+
+addToDefaultNpcsToMark("Stratholme", "dead_pats", {
+  ["0xF1300028A800D22E"] = SKULL,-- Rockwing Gargoyle
+  ["0xF1300028A800D22B"] = CROSS,-- Rockwing Gargoyle
+  ["0xF1300028A800D229"] = SQUARE,-- Rockwing Screecher
+  ["0xF1300028A800D227"] = MOON,-- Rockwing Gargoyle
+  ["0xF1300028A800D225"] = TRIANGLE,-- Rockwing Screecher
+  ["0xF1300028A800D223"] = DIAMOND,-- Rockwing Screecher
+  ["0xF1300028A800D221"] = CIRCLE,-- Rockwing Gargoyle
+  -- ["0xF130002A3900D22F"] = STAR,-- Stonespine -- need the mark for eye
+  ["0xF1300028AB11E66C"] = STAR,-- Eye of Naxxramas
+})

@@ -743,6 +743,8 @@ local function handleCommands(msg, editbox)
     AutoMarker_ClearMarks()
   elseif command == "next" then
     AutoMarker_MarkNextGroup()
+  elseif command == "mark" then
+    AutoMarker_MarkGroup()
   elseif command == "debug" then
     AutoMarkerDB.settings.debug = not AutoMarkerDB.settings.debug
     auto_print("Debug mode set to: " .. (AutoMarkerDB.settings.debug and c("on",color.green) or c("off",color.red)))
@@ -757,6 +759,7 @@ local function handleCommands(msg, editbox)
     auto_print("/am " .. c("r", color.green) .. "emove - Remove the targeted mob from its current pack.")
     auto_print("/am clearmarks - Remove all active marks.")
     auto_print("/am next - Mark next pack.")
+    auto_print("/am mark - Mark pack of current target or mouseover.")
 
     auto_print("/am debug - Toggle debug mode.")
   end
