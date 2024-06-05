@@ -1506,14 +1506,27 @@ addToDefaultNpcsToMark("Ruins of Ahn'Qiraj", "ossirian_room", {
 
 --/////////////// BWL ///////////////
 
--- taskmasters not quite right yet
--- there's a missing taskmaster but I'm not sure which mark it is:
--- 0xF1300030AA104BD5
+addToDefaultNpcsToMark("Blackwing Lair", "bwl_razor", {
+  ["0xF1300030930149A4"] = STAR, -- razorgore
+  ["0xF13000310D0149A5"] = SKULL, -- grethok
+  ["0xF1300038780149A7"] = UNMARKED,
+  ["0xF1300038780149A6"] = UNMARKED,
+})
+
+addToDefaultNpcsToMark("Blackwing Lair", "vael", {
+  -- ["0xF1300032DC014A20"] = 0, -- vael on vmangos, need turtle's still
+  ["0xF1300036AC104CD6"] = CROSS,
+  ["0xF1300036AC104CD5"] = SQUARE,
+  ["0xF1300036AC104CD4"] = MOON,
+  ["0xF1300036AC104DD3"] = TRIANGLE,
+  ["0xF1300036AC104DD2"] = DIAMOND,
+  ["0xF1300036AC104DD1"] = CIRCLE,
+})
 
 addToDefaultNpcsToMark("Blackwing Lair", "supress1_1", {
+  ["0xF1300030AA104BD5"] = MOON, -- taskmaster
   ["0xF1300030AA104BD4"] = DIAMOND, -- taskmaster
   ["0xF1300030AA104BD3"] = TRIANGLE, -- taskmaster
-  ["0xF1300030AA104BD2"] = MOON, -- taskmaster
   ["0xF1300030B40BA43A"] = UNMARKED, -- hatcher
   ["0xF1300030B40BA3BF"] = UNMARKED, -- hatcher
   ["0xF1300030B40BA395"] = UNMARKED, -- hatcher

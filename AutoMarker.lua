@@ -296,6 +296,7 @@ function AutoMarker_MarkNextGroup()
       if not last_pack_marked or pack.packName == last_pack_marked then
         local nextPack = orderedPacks[i + (last_pack_marked and 1 or 0)]
         if nextPack then
+          auto_print("Marking: " .. nextPack.packName)
           MarkPack(currentNpcsToMark[zone][nextPack.packName])
           last_pack_marked = nextPack.packName
           break
@@ -580,11 +581,11 @@ autoMarker:SetScript("OnEvent", function()
       end
 
       -- fangkriss adds
-      if name == "Spawn of Fankriss" then
+      if name == "Spawn of Fankriss" and not GetRaidTargetIndex(arg1) then
         -- mark from skull on down, any worms around
-        for i=8,0,-1 do
+        for i=8,1,-1 do
           local m = "mark"..i
-          if UnitExists(m) and not UnitIsDead(m) and UnitName(m) == "Spawn of Fankriss" then
+          if UnitExists(m) and not UnitIsDead(m) then
             -- mark is a marked worm already
           else
             MarkUnit(arg1,i)
@@ -696,10 +697,14 @@ local function handleCommands(msg, editbox)
       end
     end
   elseif command == "clear" or command == "c" then
-    if AutoMarkerDB.customNpcsToMark[zoneName] then
-      AutoMarkerDB.customNpcsToMark[zoneName][currentPackName] = nil
+    if currentPackName then
+      if AutoMarkerDB.customNpcsToMark[zoneName] then
+        AutoMarkerDB.customNpcsToMark[zoneName][currentPackName] = nil
+        auto_print("Mobs in " .. currentPackName .. " have been cleared.")
+      end
+    else
+      auto_print("A packname isn't currently set.")
     end
-    auto_print("Mobs in " .. currentPackName .. " have been cleared.")
   elseif command == "remove" or command == "r" then
     local guid = getGuid()
     if not guid then
@@ -736,6 +741,8 @@ local function handleCommands(msg, editbox)
     auto_print("Sweep mode [ "..c("on",color.green).." ] sweep your mouse over enemies to add them to pack: " .. c(sweepPackName,color.orange))
   elseif command == "clearmarks" then
     AutoMarker_ClearMarks()
+  elseif command == "next" then
+    AutoMarker_MarkNextGroup()
   elseif command == "debug" then
     AutoMarkerDB.settings.debug = not AutoMarkerDB.settings.debug
     auto_print("Debug mode set to: " .. (AutoMarkerDB.settings.debug and c("on",color.green) or c("off",color.red)))
