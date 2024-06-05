@@ -530,11 +530,14 @@ autoMarker:SetScript("OnEvent", function()
         currentNpcsToMark[raid_name][pack_name] = AutoMarkerDB.customNpcsToMark[raid_name][pack_name]
       end
     end
+
     -- migrate old customs
     if customNpcsToMark and next(customNpcsToMark) then
-      if not currentNpcsToMark[raid_name] then currentNpcsToMark[raid_name] = {} end
-      for pack_name,pack in pairs(packs) do
-        currentNpcsToMark[raid_name][pack_name] = customNpcsToMark[raid_name][pack_name]
+      for raid_name,packs in pairs(customNpcsToMark) do
+        if not AutoMarkerDB.customNpcsToMark[raid_name] then AutoMarkerDB.customNpcsToMark[raid_name] = {} end
+        for pack_name,pack in pairs(packs) do
+          AutoMarkerDB.customNpcsToMark[raid_name][pack_name] = customNpcsToMark[raid_name][pack_name]
+        end
       end
     end
     auto_print(c("AutoMarker loaded!",color.yellow).." Type "..c("/am",color.green).." to see commands.")
