@@ -566,6 +566,7 @@ autoMarker:SetScript("OnEvent", function()
         -- key by id in case you leave the area and come back, which would otherwise add the same mob twice
         temporary_mobs[name].queue[arg1] = arg1
         AutoMarkerDB.checkTemporaryMobs = true
+        return
       end
 
       -- fangkriss adds
@@ -580,16 +581,19 @@ autoMarker:SetScript("OnEvent", function()
             break
           end
         end
+        return
       end
 
       if name == "Core Hound" then
         AutoMarkerDB.corehounds[arg1] = true
         AutoMarkerDB.checkCoreHounds = true
+        return
       end
 
       if name == "Soldier of the Frozen Wastes" then
         AutoMarkerDB.soldiers[arg1] = true
         AutoMarkerDB.checkSoliders = true
+        return
       end
 
       -- untested
@@ -618,6 +622,7 @@ autoMarker:SetScript("OnEvent", function()
             end
           end
         end
+        return
       end
 
       -- buru eggs respawn throughout the fight but we want them marked still
@@ -626,6 +631,7 @@ autoMarker:SetScript("OnEvent", function()
         if next_egg_mark then
           MarkUnit(arg1, next_egg_mark)
         end
+        return
       end
     elseif event=="PLAYER_REGEN_DISABLED" then
       -- As far as I know fd/vanish won't trigger this while the raid is still fighting.
