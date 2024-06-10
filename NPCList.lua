@@ -1240,18 +1240,9 @@ addToDefaultNpcsToMark("Emerald Sanctum", "wyrmkin_pack_right_3", {
   ["0xF13000ED4A27549D"] = CROSS, -- sanctum scalebane
   ["0xF13000ED4A27549B"] = SQUARE, -- sanctum scalebane
 })
--- scalebane --string.find(guid,"0xF13000ED4A27....")
--- dragonkin --string.find(guid,"0xF13000ED4727....")
--- supressor --string.find(guid,"0xF13000EF1C27....")
--- dreamer --string.find(guid,"0xF13000EF1C27....")
+
 addToDefaultNpcsToMark("Emerald Sanctum", "solnius", {
   ["0xF13000ED4C2739E1"] = UNMARKED, -- solnius
-  ["0xF13000ED47276EC3"] = CROSS, -- sanctum dragonkin
-  ["0xF13000ED47276EC7"] = SQUARE, -- sanctum dragonkin
-  ["0xF13000ED46276EC4"] = UNMARKED, -- sanctum dreamer
-  ["0xF13000ED46276EC6"] = UNMARKED, -- sanctum dreamer
-  ["0xF13000ED46276EC8"] = UNMARKED, -- sanctum dreamer
-  ["0xF13000EF1C276EC5"] = SKULL, -- sanctum supressor
 })
 
 --/////////////// MC ///////////////
@@ -1514,50 +1505,13 @@ addToDefaultNpcsToMark("Blackwing Lair", "bwl_razor", {
 })
 
 addToDefaultNpcsToMark("Blackwing Lair", "vael", {
-  -- ["0xF1300032DC014A20"] = 0, -- vael on vmangos, need turtle's still
+  -- ["0xF1300032DC014A20"] = STAR, -- vael doesn't exist until nef rp event happens
   ["0xF1300036AC104CD6"] = CROSS,
   ["0xF1300036AC104CD5"] = SQUARE,
   ["0xF1300036AC104CD4"] = MOON,
   ["0xF1300036AC104DD3"] = TRIANGLE,
   ["0xF1300036AC104DD2"] = DIAMOND,
   ["0xF1300036AC104DD1"] = CIRCLE,
-})
-
-addToDefaultNpcsToMark("Blackwing Lair", "supress1_1", {
-  ["0xF1300030AA104BD5"] = MOON, -- taskmaster
-  ["0xF1300030AA104BD4"] = DIAMOND, -- taskmaster
-  ["0xF1300030AA104BD3"] = TRIANGLE, -- taskmaster
-  ["0xF1300030B40BA43A"] = UNMARKED, -- hatcher
-  ["0xF1300030B40BA3BF"] = UNMARKED, -- hatcher
-  ["0xF1300030B40BA395"] = UNMARKED, -- hatcher
-})
-
-addToDefaultNpcsToMark("Blackwing Lair", "supress1_2", {
-  ["0xF1300030AA104BD1"] = CROSS, -- taskmaster
-  ["0xF1300030AA104BD0"] = SQUARE, -- taskmaster
-  ["0xF1300030AA104BCF"] = SKULL, -- taskmaster
-  ["0xF1300030B40BA218"] = UNMARKED, -- hatcher
-  ["0xF1300030B40BA216"] = UNMARKED, -- hatcher
-  ["0xF1300030B40BA08B"] = UNMARKED, -- hatcher
-})
-
-addToDefaultNpcsToMark("Blackwing Lair", "supress2_1", {
-  ["0xF1300030AA104BD8"] = CROSS, -- taskmaster
-  ["0xF1300030AA104BD7"] = SQUARE, -- taskmaster
-  ["0xF1300030AA104BD6"] = SKULL, -- taskmaster
-  ["0xF1300030B40BA632"] = UNMARKED, -- hatcher
-  ["0xF1300030B40BA630"] = UNMARKED, -- hatcher
-  ["0xF1300030B40BA62E"] = UNMARKED, -- hatcher
-})
-
-addToDefaultNpcsToMark("Blackwing Lair", "supress2_2", {
-  ["0xF1300030AA104BDB"] = DIAMOND, -- taskmaster
-  ["0xF1300030AA104BDA"] = TRIANGLE, -- taskmaster
-  ["0xF1300030AA104BD9"] = MOON, -- taskmaster
-  ["0xF1300030B40BA441"] = UNMARKED, -- hatcher
-  ["0xF1300030B40BA43F"] = UNMARKED, -- hatcher
-  ["0xF1300030B40BA43D"] = UNMARKED, -- hatcher
-  ["0xF130002EF10149A3"] = UNMARKED, -- lashlayer
 })
 
 addToDefaultNpcsToMark("Blackwing Lair", "wrym1", {
@@ -1578,6 +1532,43 @@ addToDefaultNpcsToMark("Blackwing Lair", "wrym2", {
   ["0xF1300030B0014A2A"] = CROSS,
   ["0xF1300030AF014A31"] = DIAMOND,
   ["0xF1300030AF014A32"] = CIRCLE,
+})
+
+addToDefaultNpcsToMark("Blackwing Lair", "supress1", {
+  ["0xF1300030AA104BD5"] = MOON, -- taskmaster
+  ["0xF1300030AA104BD4"] = DIAMOND, -- taskmaster
+  ["0xF1300030AA104BD3"] = TRIANGLE, -- taskmaster
+  ["0xF1300030B40BA43A"] = UNMARKED, -- hatcher
+  ["0xF1300030B40BA3BF"] = UNMARKED, -- hatcher
+  ["0xF1300030B40BA395"] = UNMARKED, -- hatcher
+-- })
+
+-- addToDefaultNpcsToMark("Blackwing Lair", "supress1_2", {
+  ["0xF1300030AA104BD1"] = CROSS, -- taskmaster
+  ["0xF1300030AA104BD0"] = SQUARE, -- taskmaster
+  ["0xF1300030AA104BCF"] = SKULL, -- taskmaster
+  ["0xF1300030B40BA218"] = UNMARKED, -- hatcher
+  ["0xF1300030B40BA216"] = UNMARKED, -- hatcher
+  ["0xF1300030B40BA08B"] = UNMARKED, -- hatcher
+})
+
+addToDefaultNpcsToMark("Blackwing Lair", "supress2", {
+  ["0xF1300030AA104BD8"] = CROSS, -- taskmaster
+  ["0xF1300030AA104BD7"] = SQUARE, -- taskmaster
+  ["0xF1300030AA104BD6"] = SKULL, -- taskmaster
+  ["0xF1300030B40BA632"] = UNMARKED, -- hatcher
+  ["0xF1300030B40BA630"] = UNMARKED, -- hatcher
+  ["0xF1300030B40BA62E"] = UNMARKED, -- hatcher
+-- })
+
+-- addToDefaultNpcsToMark("Blackwing Lair", "supress2_2", {
+  ["0xF1300030AA104BDB"] = DIAMOND, -- taskmaster
+  ["0xF1300030AA104BDA"] = TRIANGLE, -- taskmaster
+  ["0xF1300030AA104BD9"] = MOON, -- taskmaster
+  ["0xF1300030B40BA441"] = UNMARKED, -- hatcher
+  ["0xF1300030B40BA43F"] = UNMARKED, -- hatcher
+  ["0xF1300030B40BA43D"] = UNMARKED, -- hatcher
+  ["0xF130002EF10149A3"] = UNMARKED, -- lashlayer
 })
 
 addToDefaultNpcsToMark("Blackwing Lair", "lab1", {

@@ -250,10 +250,6 @@ local sweep_on = false
 local sweepPackName = nil
 local currentPackName = nil
 local currentNpcsToMark = {}
--- local buru_egg_queue = nil
--- local AutoMarkerDB.corehounds = {}
--- local AutoMarkerDB.soldiers = {}
--- local started_solnius = false
 local last_pack_marked = nil
 local elapsed = 0
 
@@ -295,7 +291,7 @@ function AutoMarker_MarkNextGroup()
     if pack.instance == zone then
       if not last_pack_marked or pack.packName == last_pack_marked then
         local nextPack = orderedPacks[i + (last_pack_marked and 1 or 0)]
-        if nextPack then
+        if nextPack and nextPack.instance == zone then
           auto_print("Marking: " .. nextPack.packName)
           MarkPack(currentNpcsToMark[zone][nextPack.packName])
           last_pack_marked = nextPack.packName
@@ -369,12 +365,6 @@ local temporary_mobs = {
     raid = "Naxxramas",
     queue = {},
   },
-  -- ["Supression Add"] = {
-  --   minCount = 24,
-  --   pack = "bwl_supression",
-  --   raid = "Blackwing Lair",
-  --   queue = {},
-  -- },
   ["The Prophet Skeram"] = {
     minCount = 3,
     pack = "skeram",
@@ -452,7 +442,7 @@ local function UpdateSoldiers()
   for guid, _ in pairs(AutoMarkerDB.soldiers) do
     if not UnitExists(guid) then
       AutoMarkerDB.soldiers[guid] = nil
-    elseif not GetRaidTargetIndex(guid) and UnitAffectingCombat(guid) and CheckInteractDistance(guid,4) and UnitExists(guid.."target") then
+    elseif not GetRaidTargetIndex(guid) and UnitAffectingCombat(guid) and CheckInteractDistance(guid,4) then
       for i=8,1,-1 do
         local m = "mark"..i
         if UnitExists(m) and not UnitIsDead(m) then
@@ -564,19 +554,17 @@ autoMarker:SetScript("OnEvent", function()
       -- Certain mobs are script spawned so their IDs need to be fetched
 
       local name = UnitName(arg1)
+      if AutoMarkerDB.settings.debug then
+        auto_print(arg1 .. " " .. name)
+      end
 
       if name == "Naxxramas Follower" or name == "Naxxramas Worshipper" then
         name = "Faerlina Add"
       end
 
-      -- if name == "Death Talon Hatcher" or name == "Blackwing Taskmaster" then
-      --   name = "Supression Add"
-      -- end
-
       if temporary_mobs[name] then
-        -- auto_print(name .. " spawned " .. arg1)
-        table.insert(temporary_mobs[name].queue, arg1)
-        -- autoMarker:SetScript("OnUpdate", AMUpdate)
+        -- key by id in case you leave the area and come back, which would otherwise add the same mob twice
+        temporary_mobs[name].queue[arg1] = arg1
         AutoMarkerDB.checkTemporaryMobs = true
       end
 
@@ -599,7 +587,7 @@ autoMarker:SetScript("OnEvent", function()
         AutoMarkerDB.checkCoreHounds = true
       end
 
-      if UnitName(arg1) == "Soldier of the Frozen Wastes" then
+      if name == "Soldier of the Frozen Wastes" then
         AutoMarkerDB.soldiers[arg1] = true
         AutoMarkerDB.checkSoliders = true
       end
@@ -607,7 +595,7 @@ autoMarker:SetScript("OnEvent", function()
       -- untested
       -- Solnius adds
       -- did solnius go dragonform
-      if UnitName(arg1) == "Solnius" and UnitAffectingCombat(arg1) then
+      if name == "Solnius" and UnitAffectingCombat(arg1) then
         AutoMarkerDB.started_solnius = true
       end
       if AutoMarkerDB.started_solnius and (name == "Sanctum Supressor" or name == "Sanctum Dragonkin" or name == "Sanctum Scalebane" or name == "Sanctum Wyrmkin") and not GetRaidTargetIndex(arg1) then
@@ -640,10 +628,15 @@ autoMarker:SetScript("OnEvent", function()
         end
       end
     elseif event=="PLAYER_REGEN_DISABLED" then
-      -- Combat started, reset model queues in case of incomplete loads.
       -- As far as I know fd/vanish won't trigger this while the raid is still fighting.
+      -- Combat started, reset relevant model queues in case of incomplete loads
       for _,config in pairs(temporary_mobs) do
-        config.queue = {}
+        for _,guid in pairs(config.queue) do
+          if UnitAffectingCombat(guid) then
+            config.queue = {}
+            break
+          end
+        end
       end
       AutoMarkerDB.buru_egg_queue = nil
       AutoMarkerDB.started_solnius = false
