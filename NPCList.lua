@@ -957,14 +957,22 @@ addToDefaultNpcsToMark("Zul'Gurub", "mandokir_entrance_and_zerk", {
 })
 
 addToDefaultNpcsToMark("Zul'Gurub", "mandokir_room", {
-  ["0xF130002C5C00C283"] = UNMARKED,
-  ["0xF130002C5C00C282"] = STAR,
-  ["0xF130002C5C00C281"] = UNMARKED,
-  ["0xF130002E3600C287"] = SKULL,
-  ["0xF130002C5C00CB5B"] = UNMARKED,
-  ["0xF130002C5900C285"] = MOON,
-  ["0xF130002C5C00C284"] = UNMARKED,
-  ["0xF130002C5C00CB88"] = UNMARKED,
+  ["0xF130002E3600C287"] = SKULL, -- priest
+  ["0xF130002C5900C285"] = MOON, -- blooddrinker
+  ["0xF130002C5C00C282"] = STAR, -- guardian, pat
+  ["0xF130002C5C00C283"] = UNMARKED, -- guardian
+  ["0xF130002C5C00C281"] = UNMARKED, -- guardian
+  ["0xF130002C5C00CB5B"] = UNMARKED, -- guardian
+  ["0xF130002C5C00C284"] = UNMARKED, -- guardian
+  ["0xF130002C5C00CB88"] = UNMARKED, -- guardian
+
+  -- to mark room easier
+  ["0xF1300039E500C974"] = UNMARKED, -- raptors
+  ["0xF1300039E500CB00"] = UNMARKED, -- raptors
+  ["0xF1300039E500C972"] = UNMARKED, -- raptors
+  ["0xF1300039E500C973"] = UNMARKED, -- raptors
+  ["0xF1300039E500CAFF"] = UNMARKED, -- raptors
+  ["0xF1300039E500CB01"] = UNMARKED, -- raptors
 })
 
 addToDefaultNpcsToMark("Zul'Gurub", "zanaz_witchdoctor_rtv", {
@@ -1011,6 +1019,20 @@ addToDefaultNpcsToMark("Zul'Gurub", "thekal_pack", {
   ["0xF13000390700C09E"] = DIAMOND,
   ["0xF130002C5300C0A2"] = SQUARE,
   ["0xF130002C5400C0A1"] = TRIANGLE,
+
+  -- to mark thekal easier
+  ["0xF130002C6100C08D"] = 0, -- tiger
+  ["0xF130002C6100C08A"] = 0, -- tiger
+  ["0xF130002C6100C089"] = 0, -- tiger
+  ["0xF130002C6100C08E"] = 0, -- tiger
+  ["0xF130002C6100C08C"] = 0, -- tiger
+  ["0xF130002C6100C08B"] = 0, -- tiger
+  ["0xF130002C6000C09A"] = 0, -- tiger cub
+  ["0xF130002C6000C098"] = 0, -- tiger cub
+  ["0xF130002C6000C97C"] = 0, -- tiger cub
+  ["0xF130002C6000C97D"] = 0, -- tiger cub
+  ["0xF130002C6000C288"] = 0, -- tiger cub
+  ["0xF130002C6000C292"] = 0, -- tiger cub
 })
 
 addToDefaultNpcsToMark("Zul'Gurub", "gaz_fish", {
@@ -1019,6 +1041,13 @@ addToDefaultNpcsToMark("Zul'Gurub", "gaz_fish", {
   ["0xF130002C6E00C8F4"] = DIAMOND,
   ["0xF130002C6E00C23E"] = STAR,
   ["0xF130002C6E00BFAF"] = CROSS,
+
+  -- to mark fish easier
+  ["0xF130003AC300C22C"] = UNMARKED, -- croc
+  ["0xF130003AC300C22D"] = UNMARKED, -- croc
+  ["0xF130003AC300C22B"] = SKULL, -- croc
+  ["0xF130003AC300C22A"] = UNMARKED, -- croc
+
 })
 
 addToDefaultNpcsToMark("Zul'Gurub", "thekal_zerk_panther", {
