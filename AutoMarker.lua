@@ -433,7 +433,7 @@ end
 
 -- keep close soliders visible using any spare marks
 local function UpdateSoldiers()
-  if not next(AutoMarkerDB.soldiers) or GetRealZoneText() ~= "Naxxramas" then
+  if not next(AutoMarkerDB.soldiers) or GetRealZoneText() ~= "The Upper Necropolis" then
     AutoMarkerDB.checkSoliders = false
     AutoMarkerDB.soldiers = {}
     return
@@ -444,7 +444,9 @@ local function UpdateSoldiers()
       AutoMarkerDB.soldiers[guid] = nil
     elseif not GetRaidTargetIndex(guid) and UnitAffectingCombat(guid) and CheckInteractDistance(guid,4) then
       for i=8,1,-1 do
-        local m = "mark"..i
+        -- local m = "mark"..i
+        -- the "mark" unitid isn't performant, avoid using multiple times
+        local _,m = UnitExists("mark"..i)
         if UnitExists(m) and not UnitIsDead(m) then
           -- mark is used already
         else
@@ -575,6 +577,9 @@ autoMarker:SetScript("OnEvent", function()
         -- mark from skull on down, any worms around
         for i=8,1,-1 do
           local m = "mark"..i
+          -- local m = "mark"..i
+          -- the "mark" unitid isn't performant, avoid using multiple times
+          local _,m = UnitExists("mark"..i)
           if UnitExists(m) and not UnitIsDead(m) then
             -- mark is a marked worm already
           else
@@ -614,7 +619,9 @@ autoMarker:SetScript("OnEvent", function()
         else
           -- try anything
           for i=6,1,-1 do
-            local m = "mark"..i
+            -- local m = "mark"..i
+            -- the "mark" unitid isn't performant, avoid using multiple times
+            local _,m = UnitExists("mark"..i)
             if UnitExists(m) and not UnitIsDead(m) then
               -- mark is used already
             else
