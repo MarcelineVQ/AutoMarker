@@ -149,69 +149,69 @@ addToDefaultNpcsToMark("Naxxramas", "spider_faerlina_patrol", {
 })
 
 addToDefaultNpcsToMark("Naxxramas", "spider_faerlina_left_1", {
-	["0xF130003E6D269BFD"] = CROSS, -- Naxxramas Acolyte
-	["0xF130003E6C269C02"] = CIRCLE,-- Naxxramas Cultistz
-	["0xF130003E6C269BFE"] = TRIANGLE,-- Naxxramas Cultist
-	["0xF130003E6D269C01"] = MOON, -- Naxxramas Acolyte
-	["0xF130003E6C269BFC"] = STAR,-- Naxxramas Cultist
-	["0xF130003E6D269BFB"] = SQUARE, -- Naxxramas Acolyte
-	["0xF130003E6C269C00"] = DIAMOND,-- Naxxramas Cultist
-	["0xF130003E6D269BFF"] = SKULL, -- Naxxramas Acolyte
+  ["0xF130003E6D269BFD"] = CROSS, -- Naxxramas Acolyte
+  ["0xF130003E6C269C02"] = CIRCLE,-- Naxxramas Cultistz
+  ["0xF130003E6C269BFE"] = TRIANGLE,-- Naxxramas Cultist
+  ["0xF130003E6D269C01"] = MOON, -- Naxxramas Acolyte
+  ["0xF130003E6C269BFC"] = STAR,-- Naxxramas Cultist
+  ["0xF130003E6D269BFB"] = SQUARE, -- Naxxramas Acolyte
+  ["0xF130003E6C269C00"] = DIAMOND,-- Naxxramas Cultist
+  ["0xF130003E6D269BFF"] = SKULL, -- Naxxramas Acolyte
 })
 
 addToDefaultNpcsToMark("Naxxramas", "spider_faerlina_left_2", {
-	["0xF130003E6D269BFA"] = MOON, -- Naxxramas Acolyte
-	["0xF130003E6C269BF5"] = CIRCLE,
-	["0xF130003E6C269BF3"] = TRIANGLE,-- -- Naxxramas CultistNaxxramas Cultist
-	["0xF130003E6C269BF7"] = DIAMOND,-- Naxxramas Cultist
-	["0xF130003E6D269BF8"] = SQUARE, -- Naxxramas Acolyte
-	["0xF130003E6C269BF9"] = STAR,-- Naxxramas Cultist
-	["0xF130003E6D269BF4"] = SKULL, -- Naxxramas Acolyte
-	["0xF130003E6D269BF6"] = CROSS, -- Naxxramas Acolyte
+  ["0xF130003E6D269BFA"] = MOON, -- Naxxramas Acolyte
+  ["0xF130003E6C269BF5"] = CIRCLE,
+  ["0xF130003E6C269BF3"] = TRIANGLE,-- -- Naxxramas CultistNaxxramas Cultist
+  ["0xF130003E6C269BF7"] = DIAMOND,-- Naxxramas Cultist
+  ["0xF130003E6D269BF8"] = SQUARE, -- Naxxramas Acolyte
+  ["0xF130003E6C269BF9"] = STAR,-- Naxxramas Cultist
+  ["0xF130003E6D269BF4"] = SKULL, -- Naxxramas Acolyte
+  ["0xF130003E6D269BF6"] = CROSS, -- Naxxramas Acolyte
 })
 
 addToDefaultNpcsToMark("Naxxramas", "spider_faerlina_left_3", {
-	["0xF130003E6C269BDA"] = STAR,-- Naxxramas Cultist
-	["0xF130003E6D269BD9"] = SQUARE, -- Naxxramas Acolyte
-	["0xF130003E6C269BD8"] = DIAMOND,-- Naxxramas Cultist
-	["0xF130003E6D269BD7"] = SKULL, -- Naxxramas Acolyte
-	["0xF130003E6C269BD6"] = CIRCLE,-- Naxxramas Cultist
-	["0xF130003E6D269BD5"] = CROSS, -- Naxxramas Acolyte
-	["0xF130003E6D269BD4"] = MOON, -- Naxxramas Acolyte
-	["0xF130003E6C269BD3"] = TRIANGLE,-- Naxxramas Cultist
+  ["0xF130003E6C269BDA"] = STAR,-- Naxxramas Cultist
+  ["0xF130003E6D269BD9"] = SQUARE, -- Naxxramas Acolyte
+  ["0xF130003E6C269BD8"] = DIAMOND,-- Naxxramas Cultist
+  ["0xF130003E6D269BD7"] = SKULL, -- Naxxramas Acolyte
+  ["0xF130003E6C269BD6"] = CIRCLE,-- Naxxramas Cultist
+  ["0xF130003E6D269BD5"] = CROSS, -- Naxxramas Acolyte
+  ["0xF130003E6D269BD4"] = MOON, -- Naxxramas Acolyte
+  ["0xF130003E6C269BD3"] = TRIANGLE,-- Naxxramas Cultist
 })
 
 addToDefaultNpcsToMark("Naxxramas", "spider_faerlina_right_1", {
-	["0xF130003E6D269BE2"] = SQUARE, -- Naxxramas Acolyte
-	["0xF130003E6C269BE1"] = DIAMOND,-- Naxxramas Cultist
-	["0xF130003E6D269BE0"] = CROSS, -- Naxxramas Acolyte
-	["0xF130003E6C269BDF"] = TRIANGLE,-- Naxxramas Cultist
-	["0xF130003E6D269BDE"] = MOON, -- Naxxramas Acolyte
-	["0xF130003E6C269BDD"] = CIRCLE,-- Naxxramas Cultist
-	["0xF130003E6C269BDC"] = STAR,-- Naxxramas Cultist
-	["0xF130003E6D269BDB"] = SKULL, -- Naxxramas Acolyte
+  ["0xF130003E6D269BE2"] = SQUARE, -- Naxxramas Acolyte
+  ["0xF130003E6C269BE1"] = DIAMOND,-- Naxxramas Cultist
+  ["0xF130003E6D269BE0"] = CROSS, -- Naxxramas Acolyte
+  ["0xF130003E6C269BDF"] = TRIANGLE,-- Naxxramas Cultist
+  ["0xF130003E6D269BDE"] = MOON, -- Naxxramas Acolyte
+  ["0xF130003E6C269BDD"] = CIRCLE,-- Naxxramas Cultist
+  ["0xF130003E6C269BDC"] = STAR,-- Naxxramas Cultist
+  ["0xF130003E6D269BDB"] = SKULL, -- Naxxramas Acolyte
 })
 
 addToDefaultNpcsToMark("Naxxramas", "spider_faerlina_right_2", {
-	["0xF130003E6C269BE3"] = CIRCLE,-- Naxxramas Cultist
-	["0xF130003E6C269BE5"] = DIAMOND,-- Naxxramas Cultist
-	["0xF130003E6C269BE7"] = STAR,-- Naxxramas Cultist
-	["0xF130003E6C269BE9"] = TRIANGLE,-- Naxxramas Cultist
-	["0xF130003E6D269BE8"] = CROSS, -- Naxxramas Acolyte
-	["0xF130003E6D269BEA"] = SQUARE, -- Naxxramas Acolyte
-	["0xF130003E6D269BE6"] = MOON, -- Naxxramas Acolyte
-	["0xF130003E6D269BE4"] = SKULL, -- Naxxramas Acolyte
+  ["0xF130003E6C269BE3"] = CIRCLE,-- Naxxramas Cultist
+  ["0xF130003E6C269BE5"] = DIAMOND,-- Naxxramas Cultist
+  ["0xF130003E6C269BE7"] = STAR,-- Naxxramas Cultist
+  ["0xF130003E6C269BE9"] = TRIANGLE,-- Naxxramas Cultist
+  ["0xF130003E6D269BE8"] = CROSS, -- Naxxramas Acolyte
+  ["0xF130003E6D269BEA"] = SQUARE, -- Naxxramas Acolyte
+  ["0xF130003E6D269BE6"] = MOON, -- Naxxramas Acolyte
+  ["0xF130003E6D269BE4"] = SKULL, -- Naxxramas Acolyte
 })
 
 addToDefaultNpcsToMark("Naxxramas", "spider_faerlina_right_3", {
-	["0xF130003E6D269BED"] = SQUARE, -- Naxxramas Acolyte
-	["0xF130003E6C269BF0"] = DIAMOND, -- Naxxramas Cultist
-	["0xF130003E6D269BF1"] = MOON, -- Naxxramas Acolyte
-	["0xF130003E6C269BF2"] = STAR, -- Naxxramas Cultist
-	["0xF130003E6D269BEB"] = SKULL, -- Naxxramas Acolyte
-	["0xF130003E6C269BEC"] = TRIANGLE, -- Naxxramas Cultist
-	["0xF130003E6D269BEF"] = CROSS, -- Naxxramas Acolyte
-	["0xF130003E6C269BEE"] = CIRCLE, -- Naxxramas Cultist
+  ["0xF130003E6D269BED"] = SQUARE, -- Naxxramas Acolyte
+  ["0xF130003E6C269BF0"] = DIAMOND, -- Naxxramas Cultist
+  ["0xF130003E6D269BF1"] = MOON, -- Naxxramas Acolyte
+  ["0xF130003E6C269BF2"] = STAR, -- Naxxramas Cultist
+  ["0xF130003E6D269BEB"] = SKULL, -- Naxxramas Acolyte
+  ["0xF130003E6C269BEC"] = TRIANGLE, -- Naxxramas Cultist
+  ["0xF130003E6D269BEF"] = CROSS, -- Naxxramas Acolyte
+  ["0xF130003E6C269BEE"] = CIRCLE, -- Naxxramas Cultist
 })
 
 addToDefaultNpcsToMark("Naxxramas", "spider_faerlina", {
@@ -225,11 +225,11 @@ addToDefaultNpcsToMark("Naxxramas", "spider_faerlina", {
 })
 
 addToDefaultNpcsToMark("Naxxramas", "spider_final", {
-	["0xF130003E66269C1A"] = CROSS, -- Dread Creeper
-	["0xF130003E66269C18"] = TRIANGLE, -- Dread Creeper
-	["0xF130003E66015A2F"] = SQUARE, -- Dread Creeper
-	["0xF130003E66269C19"] = MOON, -- Dread Creeper
-	["0xF130003E6B01F3EE"] = SKULL, -- Tomb Horror
+  ["0xF130003E66269C1A"] = CROSS, -- Dread Creeper
+  ["0xF130003E66269C18"] = TRIANGLE, -- Dread Creeper
+  ["0xF130003E66015A2F"] = SQUARE, -- Dread Creeper
+  ["0xF130003E66269C19"] = MOON, -- Dread Creeper
+  ["0xF130003E6B01F3EE"] = SKULL, -- Tomb Horror
 })
 
 addToDefaultNpcsToMark("Naxxramas", "spider_ring_3", {
@@ -1317,69 +1317,69 @@ addToDefaultNpcsToMark("Molten Core", "pats2", {
 })
 
 addToDefaultNpcsToMark("Molten Core", "garr", {
-	["0xF130002F4300DD28"] = STAR,
-	["0xF130002F4300DD2E"] = CIRCLE,
-	["0xF130002F4300DD2C"] = SQUARE,
-	["0xF130002F4300DD34"] = DIAMOND,
-	["0xF130002F4300DD2B"] = SKULL,
-	["0xF130002F4300DD32"] = CROSS,
-	["0xF130002F4300DD33"] = MOON,
-	["0xF130002F4300DD22"] = TRIANGLE,
+  ["0xF130002F4300DD28"] = STAR,
+  ["0xF130002F4300DD2E"] = CIRCLE,
+  ["0xF130002F4300DD2C"] = SQUARE,
+  ["0xF130002F4300DD34"] = DIAMOND,
+  ["0xF130002F4300DD2B"] = SKULL,
+  ["0xF130002F4300DD32"] = CROSS,
+  ["0xF130002F4300DD33"] = MOON,
+  ["0xF130002F4300DD22"] = TRIANGLE,
 })
 
 addToDefaultNpcsToMark("Molten Core", "baron_pack_1", {
-	["0xF130002D93016498"] = CROSS,
-	["0xF130002F2C016497"] = CIRCLE,
-	["0xF130002D92016496"] = SKULL,
-	["0xF130002F2C016499"] = DIAMOND,
+  ["0xF130002D93016498"] = CROSS,
+  ["0xF130002F2C016497"] = CIRCLE,
+  ["0xF130002D92016496"] = SKULL,
+  ["0xF130002F2C016499"] = DIAMOND,
 })
 
 addToDefaultNpcsToMark("Molten Core", "baron_pack_2", {
-	["0xF130002F2C016480"] = CIRCLE,
-	["0xF130002F2C01647E"] = DIAMOND,
-	["0xF130002D9301647F"] = CROSS,
-	["0xF130002D9201647D"] = SKULL,
-	["0xF130002F1800DD4F"] = STAR, -- baron
+  ["0xF130002F2C016480"] = CIRCLE,
+  ["0xF130002F2C01647E"] = DIAMOND,
+  ["0xF130002D9301647F"] = CROSS,
+  ["0xF130002D9201647D"] = SKULL,
+  ["0xF130002F1800DD4F"] = STAR, -- baron
 })
 
 addToDefaultNpcsToMark("Molten Core", "baron_pack_3", {
-	["0xF130002D9301649C"] = CROSS,
-	["0xF130002D9201649A"] = SKULL,
-	["0xF130002F4401649B"] = CIRCLE,
-	["0xF130002FE800DD20"] = STAR, -- shazzrah
+  ["0xF130002D9301649C"] = CROSS,
+  ["0xF130002D9201649A"] = SKULL,
+  ["0xF130002F4401649B"] = CIRCLE,
+  ["0xF130002FE800DD20"] = STAR, -- shazzrah
 })
 
 addToDefaultNpcsToMark("Molten Core", "baron_pack_4", {
-	["0xF130002D9200DD92"] = SKULL,
-	["0xF130002F4400DD93"] = CIRCLE,
-	["0xF130002D9300DD94"] = CROSS,
+  ["0xF130002D9200DD92"] = SKULL,
+  ["0xF130002F4400DD93"] = CIRCLE,
+  ["0xF130002D9300DD94"] = CROSS,
 })
 
 addToDefaultNpcsToMark("Molten Core", "baron_pack_5", {
-	["0xF130002F2C00DDD9"] = CIRCLE,
-	["0xF130002D9300DDDA"] = CROSS,
-	["0xF130002D9200DDD8"] = SKULL,
-	["0xF130002F2C00DDDB"] = DIAMOND,
+  ["0xF130002F2C00DDD9"] = CIRCLE,
+  ["0xF130002D9300DDDA"] = CROSS,
+  ["0xF130002D9200DDD8"] = SKULL,
+  ["0xF130002F2C00DDDB"] = DIAMOND,
 })
 
 addToDefaultNpcsToMark("Molten Core", "sulfuron", {
-	["0xF130002D8E00DD69"] = MOON,
-	["0xF130002D8E00DD66"] = SQUARE,
-	["0xF130002D8E00DD67"] = CROSS,
-	["0xF130002F4200DD65"] = TRIANGLE,
-	["0xF130002D8E00DD6A"] = SKULL,
+  ["0xF130002D8E00DD69"] = MOON,
+  ["0xF130002D8E00DD66"] = SQUARE,
+  ["0xF130002D8E00DD67"] = CROSS,
+  ["0xF130002F4200DD65"] = TRIANGLE,
+  ["0xF130002D8E00DD6A"] = SKULL,
 })
 
 addToDefaultNpcsToMark("Molten Core", "domo", {
-	["0xF130002D8F276EB8"] = TRIANGLE,
-	["0xF130002D90276EB4"] = STAR,
-	["0xF130002D90276EB5"] = CIRCLE,
-	["0xF130002D90276EB3"] = DIAMOND,
-	["0xF130002D90276EB6"] = CROSS,
-	["0xF130002D8F276EB9"] = MOON,
-	["0xF130002D8F276EBA"] = SQUARE,
-	["0xF130002D8F276EB7"] = SKULL,
-	["0xF130002EF2276EB2"] = UNMARKED,
+  ["0xF130002D8F276EDC"] = SQUARE,
+  ["0xF130002D8F276EDB"] = MOON,
+  ["0xF130002D8F276EDA"] = TRIANGLE,
+  ["0xF130002D8F276ED9"] = SKULL,
+  ["0xF130002D90276ED8"] = CROSS,
+  ["0xF130002D90276ED7"] = CIRCLE,
+  ["0xF130002D90276ED6"] = STAR,
+  ["0xF130002D90276ED5"] = DIAMOND,
+  ["0xF130002EF2276ED4"] = UNMARKED,
 })
 
 --/////////////// AQ20 ///////////////
@@ -1534,7 +1534,7 @@ addToDefaultNpcsToMark("Blackwing Lair", "bwl_razor", {
 })
 
 addToDefaultNpcsToMark("Blackwing Lair", "vael", {
-  -- ["0xF1300032DC014A20"] = STAR, -- vael doesn't exist until nef rp event happens
+  ["0xF1300032DC014A20"] = STAR,
   ["0xF1300036AC104CD6"] = CROSS,
   ["0xF1300036AC104CD5"] = SQUARE,
   ["0xF1300036AC104CD4"] = MOON,
@@ -1564,21 +1564,21 @@ addToDefaultNpcsToMark("Blackwing Lair", "wrym2", {
 })
 
 addToDefaultNpcsToMark("Blackwing Lair", "supress1", {
-  ["0xF1300030AA104BD5"] = MOON, -- taskmaster
-  ["0xF1300030AA104BD4"] = DIAMOND, -- taskmaster
-  ["0xF1300030AA104BD3"] = TRIANGLE, -- taskmaster
-  ["0xF1300030B40BA43A"] = UNMARKED, -- hatcher
-  ["0xF1300030B40BA3BF"] = UNMARKED, -- hatcher
-  ["0xF1300030B40BA395"] = UNMARKED, -- hatcher
--- })
-
--- addToDefaultNpcsToMark("Blackwing Lair", "supress1_2", {
   ["0xF1300030AA104BD1"] = CROSS, -- taskmaster
   ["0xF1300030AA104BD0"] = SQUARE, -- taskmaster
   ["0xF1300030AA104BCF"] = SKULL, -- taskmaster
   ["0xF1300030B40BA218"] = UNMARKED, -- hatcher
   ["0xF1300030B40BA216"] = UNMARKED, -- hatcher
   ["0xF1300030B40BA08B"] = UNMARKED, -- hatcher
+-- })
+
+-- addToDefaultNpcsToMark("Blackwing Lair", "supress1_2", {
+  ["0xF1300030AA104BD5"] = MOON, -- taskmaster
+  ["0xF1300030AA104BD4"] = DIAMOND, -- taskmaster
+  ["0xF1300030AA104BD3"] = TRIANGLE, -- taskmaster
+  ["0xF1300030B40BA43A"] = UNMARKED, -- hatcher
+  ["0xF1300030B40BA3BF"] = UNMARKED, -- hatcher
+  ["0xF1300030B40BA395"] = UNMARKED, -- hatcher
 })
 
 addToDefaultNpcsToMark("Blackwing Lair", "supress2", {
@@ -1616,9 +1616,10 @@ addToDefaultNpcsToMark("Blackwing Lair", "lab2", {
   ["0xF1300030A9014A44"] = DIAMOND,
   ["0xF1300036AC014A4A"] = UNMARKED,
   ["0xF1300036AC11F79A"] = UNMARKED,
-  ["0xF1300036AC014A46"] = UNMARKED,
   ["0xF1300036AC014A47"] = UNMARKED,
+  ["0xF1300036AC014A46"] = UNMARKED,
   ["0xF1300030AB014A42"] = SKULL,
+  ["0xF1300030AB014A49"] = CROSS,
   ["0xF1300036AC014A48"] = UNMARKED,
   ["0xF1300036AC014A4B"] = UNMARKED,
   ["0xF1300030AD014A4D"] = CIRCLE,
@@ -1689,6 +1690,7 @@ addToDefaultNpcsToMark("Blackwing Lair", "lab6", {
   ["0xF1300030AD11F78F"] = CIRCLE,
   ["0xF1300036AC11F795"] = UNMARKED,
   ["0xF1300030AB014EFD"] = SKULL,
+  ["0xF1300030AB014F0F"] = CROSS,
 })
 
 addToDefaultNpcsToMark("Blackwing Lair", "lab7", {

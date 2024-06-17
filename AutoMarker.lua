@@ -544,6 +544,7 @@ autoMarker:SetScript("OnEvent", function()
       if sweep_on then
           AddToPack(guid,true,sweepPackName)
       end
+    -- only use of cast event, consider finding another way to detect this
     elseif event=="UNIT_CASTEVENT" then
       -- if buru egg exploded
       if arg4 == 19593 then
