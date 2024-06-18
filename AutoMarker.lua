@@ -458,6 +458,34 @@ local function UpdateSoldiers()
   end
 end
 
+local function UpdateKeepers()
+  if not next(AutoMarkerDB.keepers) or GetRealZoneText() ~= "Blackrock Depths" then
+    AutoMarkerDB.checkKeepers = false
+    AutoMarkerDB.keepers = {}
+    return
+  end
+
+  if GetSubZoneText() == "The Lyceum" then
+    for guid, _ in pairs(AutoMarkerDB.keepers) do
+      if not UnitExists(guid) then
+        AutoMarkerDB.keepers[guid] = nil
+      elseif not GetRaidTargetIndex(guid) then
+        for i=8,1,-1 do
+          -- local m = "mark"..i
+          -- the "mark" unitid isn't performant, avoid using multiple times
+          local _,m = UnitExists("mark"..i)
+          if UnitExists(m) and not UnitIsDead(m) then
+            -- mark is used already
+          else
+            MarkUnit(guid,i)
+            break
+          end
+        end
+      end
+    end
+  end
+end
+
 local core_delay = 0
 local function AMUpdate()
   elapsed = elapsed + arg1
@@ -470,6 +498,7 @@ local function AMUpdate()
       UpdateCorehound()
     end
     if AutoMarkerDB.checkSoliders then UpdateSoldiers() end
+    if AutoMarkerDB.checkKeepers then UpdateKeepers() end
     if AutoMarkerDB.checkTemporaryMobs then UpdateTemporaryMobs() end
   end
 end
@@ -484,6 +513,7 @@ autoMarker:SetScript("OnEvent", function()
     if not AutoMarkerDB.buru_egg_queue then AutoMarkerDB.buru_egg_queue = {} end
     if not AutoMarkerDB.corehounds then AutoMarkerDB.corehounds = {} end
     if not AutoMarkerDB.soldiers then AutoMarkerDB.soldiers = {} end
+    if not AutoMarkerDB.keepers then AutoMarkerDB.keepers = {} end
 
     if not AutoMarkerDB.checkCoreHounds then AutoMarkerDB.checkCoreHounds = false end
     if not AutoMarkerDB.checkSoliders then AutoMarkerDB.checkSoliders = false end
@@ -599,6 +629,12 @@ autoMarker:SetScript("OnEvent", function()
       if name == "Soldier of the Frozen Wastes" then
         AutoMarkerDB.soldiers[arg1] = true
         AutoMarkerDB.checkSoliders = true
+        return
+      end
+
+      if name == "Shadowforge Flame Keeper" then
+        AutoMarkerDB.keepers[arg1] = true
+        AutoMarkerDB.checkKeepers = true
         return
       end
 
