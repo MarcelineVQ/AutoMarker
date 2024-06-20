@@ -228,10 +228,12 @@ function AutoMarker_MarkName(name)
     end
   end
 
+  local hit = false
   for _, data in ipairs(sortedCache) do
     if not UnitExists(data.guid) then
       AutoMarkerDB.unitCache[data.guid] = nil
     elseif not UnitIsDead(data.guid) and string.lower(UnitName(data.guid)) == string.lower(name) then
+      hit = true
       for i=8,1,-1 do
         local _,m = UnitExists("mark"..i)
         if m and UnitExists(m) and not UnitIsDead(m) then
@@ -242,6 +244,9 @@ function AutoMarker_MarkName(name)
         end
       end
     end
+  end
+  if not hit then
+    auto_print(name .. " wasn't found nearby!")
   end
 end
 
