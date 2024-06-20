@@ -167,11 +167,16 @@ local function PlayerCanMark()
 end
 
 -- returns false if the mark was solo
+local warned_lead = false
 local function MarkUnit(unit,mark)
   if PlayerCanRaidMark() then
     SetRaidTarget(unit,mark)
     return true
   else
+    if InGroup() and not warned_lead then
+      DEFAULT_CHAT_FRAME:AddMessage(c("Warning:",color.red).." a mark set while not a leader/assistant is not visible to others")
+      warned_lead = true
+    end
     SetRaidTarget(unit,mark,1)
     return false
   end
@@ -194,6 +199,52 @@ function AutoMarker_ClearMarks()
   end
 end
 
+function AutoMarker_MarkName(name)
+  local sortedCache = {}
+  for guid,name in pairs(AutoMarkerDB.unitCache) do
+    table.insert(sortedCache, { guid = guid, name = name })
+  end
+
+  local function sortUnitsByInteractDistance(units)
+    table.sort(units, function(a, b)
+        local aInRange = CheckInteractDistance(a.guid,4)
+        local bInRange = CheckInteractDistance(b.guid,4)
+        if aInRange and not bInRange then
+            return true
+        elseif not aInRange and bInRange then
+            return false
+        else
+            return false -- Maintain original order if both are the same
+        end
+    end)
+  end
+  sortUnitsByInteractDistance(sortedCache)
+
+  -- clear far marks to help prio close
+  for i=1,8 do
+    local _,m = UnitExists("mark"..i)
+    if m and not CheckInteractDistance(m,4) then
+      MarkUnit(m,0)
+    end
+  end
+
+  for _, data in ipairs(sortedCache) do
+    if not UnitExists(data.guid) then
+      AutoMarkerDB.unitCache[data.guid] = nil
+    elseif not UnitIsDead(data.guid) and string.lower(UnitName(data.guid)) == string.lower(name) then
+      for i=8,1,-1 do
+        local _,m = UnitExists("mark"..i)
+        if m and UnitExists(m) and not UnitIsDead(m) then
+          -- mark is used on already
+        else
+          MarkUnit(data.guid,i)
+          break
+        end
+      end
+    end
+  end
+end
+
 -- /// Allow marking solo as well /// --
 
 local function AM_UnitPopup_HideButtons()
@@ -207,7 +258,6 @@ local function AM_UnitPopup_HideButtons()
 end
 UnitPopup_HideButtons = PostHookFunction(UnitPopup_HideButtons,AM_UnitPopup_HideButtons)
 
-local warned_lead = false
 local function AM_UnitPopup_OnClick()
   local dropdownFrame = getglobal(UIDROPDOWNMENU_INIT_MENU);
   local button = this.value;
@@ -218,10 +268,7 @@ local function AM_UnitPopup_OnClick()
     if ( raidTargetIndex == "NONE" ) then
       raidTargetIndex = 0;
     end
-    if not MarkUnit(unit, tonumber(raidTargetIndex)) and InGroup() and not warned_lead then
-      DEFAULT_CHAT_FRAME:AddMessage(c("Warning:",color.red).." a mark set while not a leader/assistant is not visible to others")
-      warned_lead = true
-    end
+    MarkUnit(unit, tonumber(raidTargetIndex))
   end
   PlaySound("UChatScrollButton");
 end
@@ -514,10 +561,18 @@ autoMarker:SetScript("OnEvent", function()
     if not AutoMarkerDB.corehounds then AutoMarkerDB.corehounds = {} end
     if not AutoMarkerDB.soldiers then AutoMarkerDB.soldiers = {} end
     if not AutoMarkerDB.keepers then AutoMarkerDB.keepers = {} end
+    if not AutoMarkerDB.unitCache then AutoMarkerDB.unitCache = {} end
 
     if not AutoMarkerDB.checkCoreHounds then AutoMarkerDB.checkCoreHounds = false end
     if not AutoMarkerDB.checkSoliders then AutoMarkerDB.checkSoliders = false end
     if not AutoMarkerDB.started_solnius then AutoMarkerDB.started_solnius = false end
+
+    -- clear unit cache
+    for guid, _ in pairs(AutoMarkerDB.unitCache) do
+      if not UnitExists(guid) then
+        AutoMarkerDB.unitCache[guid] = nil
+      end
+    end
 
     -- init settings
     if not AutoMarkerDB.settings then
@@ -587,6 +642,8 @@ autoMarker:SetScript("OnEvent", function()
       -- Certain mobs are script spawned so their IDs need to be fetched
 
       local name = UnitName(arg1)
+      AutoMarkerDB.unitCache[arg1] = name
+
       if AutoMarkerDB.settings.debug then
         auto_print(arg1 .. " " .. name)
       end
@@ -788,6 +845,13 @@ local function handleCommands(msg, editbox)
     AutoMarker_MarkNextGroup()
   elseif command == "mark" then
     AutoMarker_MarkGroup()
+  elseif command == "markname" then
+    if not packName then
+      auto_print("You must provide a name as well when using markname.")
+      return
+    end
+    table.remove(args,1)
+    AutoMarker_MarkName(table.concat(args, " "))
   elseif command == "debug" then
     AutoMarkerDB.settings.debug = not AutoMarkerDB.settings.debug
     auto_print("Debug mode set to: " .. (AutoMarkerDB.settings.debug and c("on",color.green) or c("off",color.red)))
@@ -803,6 +867,7 @@ local function handleCommands(msg, editbox)
     auto_print("/am clearmarks - Remove all active marks.")
     auto_print("/am next - Mark next pack.")
     auto_print("/am mark - Mark pack of current target or mouseover.")
+    auto_print("/am markname - Mark all units of a given name.")
 
     auto_print("/am debug - Toggle debug mode.")
   end
