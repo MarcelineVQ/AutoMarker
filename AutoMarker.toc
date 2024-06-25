@@ -1,9 +1,9 @@
 ## Interface: 11200
-## Title: AutoMarker 1.9.1 |cff7fff7fSuper-WoW|r
+## Title: AutoMarker 1.10.1 |cff7fff7fSuper-WoW|r
 ## Notes: Automatically mark raid mobs
 ## Author: Weird Vibes
 ## SavedVariables: AutoMarkerDB
-## Version: 1.9.1
+## Version: 1.10.1
 
 NPCList.lua
 AutoMarker.lua
