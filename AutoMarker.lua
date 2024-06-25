@@ -561,7 +561,7 @@ local function AMUpdate()
   if elapsed > 0.25 then
     elapsed = 0
 
-    if AutoMarkerDB.checkCoreHounds and core_delay > 2 then
+    if AutoMarkerDB.checkCoreHounds and core_delay > 3 then
       core_delay = 0
       UpdateCorehound()
     end
