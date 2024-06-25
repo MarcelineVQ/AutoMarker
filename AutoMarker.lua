@@ -114,18 +114,27 @@ We get
     ["0x10"] = 8, -- anub
   },
 --]]
-local function sortAndReplaceKeys(defaultTable, updateTable)
+local function sortAndReplaceKeys(defaultTable, updateTable, reverse)
   local keys = {}
   for key in pairs(defaultTable) do
       table.insert(keys, key)
   end
-  table.sort(keys, function(a, b) return a > b end)
+
+  local comp = function (a,b)
+    if reverse then
+        return a < b
+    else
+        return a > b
+    end
+  end
+
+  table.sort(keys, comp)
 
   local values = {}
   for _, value in pairs(updateTable) do
       table.insert(values, value)
   end
-  table.sort(values, function(a, b) return a > b end)
+  table.sort(values, comp)
 
   local updatedTable = {}
   local i = 1
@@ -417,6 +426,13 @@ local temporary_mobs = {
     raid = "Naxxramas",
     queue = {},
   },
+  ["Domo Add"] = {
+    minCount = 8,
+    pack = "domo",
+    raid = "Molten Core",
+    queue = {},
+    reverse = true, -- domo is the one boss so far where his adds have a lower id than him
+  },
   ["The Prophet Skeram"] = {
     minCount = 3,
     pack = "skeram",
@@ -445,7 +461,7 @@ local function UpdateTemporaryMobs()
   for mob, config in pairs(temporary_mobs) do
     if GetRealZoneText() == config.raid and tsize(config.queue) >= config.minCount then
       currentNpcsToMark[config.raid][config.pack] =
-        sortAndReplaceKeys(defaultNpcsToMark[config.raid][config.pack], config.queue)
+        sortAndReplaceKeys(defaultNpcsToMark[config.raid][config.pack], config.queue, config.reverse)
       if config.live_mark then
         MarkPack(currentNpcsToMark[config.raid][config.pack])
       end
@@ -647,14 +663,23 @@ autoMarker:SetScript("OnEvent", function()
       -- Certain mobs are script spawned so their IDs need to be fetched
 
       local name = UnitName(arg1)
+
+      -- store found guid, this is only for `/am markname` so far
       AutoMarkerDB.unitCache[arg1] = name
 
       if AutoMarkerDB.settings.debug then
         auto_print(arg1 .. " " .. name)
       end
 
+      -- player unit models change _often_, exit early if it's not a mob guid
+      if string.sub(arg1,3,3) ~= "F" then return end
+
       if name == "Naxxramas Follower" or name == "Naxxramas Worshipper" then
         name = "Faerlina Add"
+      end
+
+      if name == "Flamewaker Healer" or name == "Flamewaker Elite" then
+        name = "Domo Add"
       end
 
       if temporary_mobs[name] then
@@ -744,7 +769,7 @@ autoMarker:SetScript("OnEvent", function()
       -- Combat started, reset relevant model queues in case of incomplete loads
       for _,config in pairs(temporary_mobs) do
         for _,guid in pairs(config.queue) do
-          if UnitAffectingCombat(guid) then
+          if UnitAffectingCombat(guid) then -- will this work or is it too early? does it need to work?
             config.queue = {}
             break
           end

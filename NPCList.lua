@@ -1371,15 +1371,15 @@ addToDefaultNpcsToMark("Molten Core", "sulfuron", {
 })
 
 addToDefaultNpcsToMark("Molten Core", "domo", {
-  ["0xF130002D8F276EDC"] = SQUARE,
-  ["0xF130002D8F276EDB"] = MOON,
-  ["0xF130002D8F276EDA"] = TRIANGLE,
-  ["0xF130002D8F276ED9"] = SKULL,
-  ["0xF130002D90276ED8"] = CROSS,
-  ["0xF130002D90276ED7"] = CIRCLE,
-  ["0xF130002D90276ED6"] = STAR,
-  ["0xF130002D90276ED5"] = DIAMOND,
-  ["0xF130002EF2276ED4"] = UNMARKED,
+  ["0xF130002D8F276EDC"] = CROSS, -- healer
+  ["0xF130002D8F276EDB"] = MOON, -- healer
+  ["0xF130002D8F276EDA"] = SQUARE, -- healer
+  ["0xF130002D8F276ED9"] = SKULL, -- healer
+  ["0xF130002D90276ED8"] = TRIANGLE, -- elite
+  ["0xF130002D90276ED7"] = CIRCLE, -- elite
+  ["0xF130002D90276ED6"] = STAR, -- elite
+  ["0xF130002D90276ED5"] = DIAMOND, -- elite
+  ["0xF130002EF2276ED4"] = UNMARKED, -- domo
 })
 
 --/////////////// AQ20 ///////////////
