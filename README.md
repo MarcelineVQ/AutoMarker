@@ -1,5 +1,8 @@
-# AutoMarker 1.10.2
+# AutoMarker 1.11.2
 AutoMarker for [SuperWow](https://github.com/balakethelock/SuperWoW/) on the 1.12 client.
+
+* Default values are (so far) calibrated for Turtle WoW specifically.
+___
 
 * Hold `shift then ctrl or alt` to activate automatic raid marking when mousing over a mob group.  
 * Enables setting marks on units without needing a group
@@ -24,6 +27,14 @@ Many pre-defined groups exists already in the addon but can be customized with t
 - `/am markname <unit name> - Mark all units of a given name.`
 
 - `/am debug - Toggle debug mode.`
+
+### Automatic Features:  
+* Marks highest health corehound in a fight with a Skull
+* Re-marks Buru eggs as they respawn
+* Marks Flame Keepers in Blackrock Depths
+* Marks soldiers that are getting to close during KT Fight
+* Marks Fankriss worms as they spawn
+* Informs you of Jed Runewatcher being present in Blackrock Spire
 
 ___
 * Made by and for Weird Vibes of Turtle Wow  

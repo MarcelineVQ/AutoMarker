@@ -320,6 +320,7 @@ autoMarker:RegisterEvent("UPDATE_MOUSEOVER_UNIT")
 autoMarker:RegisterEvent("UNIT_MODEL_CHANGED") -- mob respawn
 autoMarker:RegisterEvent("PLAYER_REGEN_DISABLED") -- mob respawn
 autoMarker:RegisterEvent("UNIT_CASTEVENT") -- mob respawn
+autoMarker:RegisterEvent("ZONE_CHANGED_NEW_AREA") -- mob respawn
 
 local function guidToPack(id, zone)
   if not currentNpcsToMark or not currentNpcsToMark[zone] then
@@ -777,6 +778,10 @@ autoMarker:SetScript("OnEvent", function()
       end
       AutoMarkerDB.buru_egg_queue = nil
       AutoMarkerDB.started_solnius = false
+    elseif event == "ZONE_CHANGED_NEW_AREA" and GetRealZoneText() == "Blackrock Spire" and IsInInstance() then
+      if UnitExists("0xF13000290D104DD6") then
+        UIErrorsFrame:AddMessage("Jed is in the instance!",0,1,0)
+      end
     end
   end
 end)
