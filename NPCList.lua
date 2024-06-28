@@ -579,7 +579,7 @@ addToDefaultNpcsToMark("Naxxramas", "construct_grobb_left", {
 
 addToDefaultNpcsToMark("Naxxramas", "construct_grobb_far", {
   ["0xF130003E990158ED"]  = SKULL, -- Stitched Spewer
-  ["0xF130003E99049E6B"]  = CROSS, -- Stitched Spewer
+  ["0xF130003E99269D08"]  = CROSS, -- Stitched Spewer -- is this changing weekly?
   ["0xF130003E990158EE"]  = SQUARE, -- Stitched Spewer
 })
 
@@ -656,7 +656,7 @@ addToDefaultNpcsToMark("Ahn'Qiraj", "warrior_2", {
 addToDefaultNpcsToMark("Ahn'Qiraj", "guardian_1", {
   ["0xF130003B81015644"]  = SQUARE, -- Vekniss Guardian
   ["0xF130003B81015645"]  = DIAMOND, -- Vekniss Guardian
-  ["0xF130003B81049CA1"]  = CROSS, -- Vekniss Guardian
+  ["0xF130003B8113079F"]  = CROSS, -- Vekniss Guardian
   ["0xF130003B81015642"]  = SKULL, -- Vekniss Guardian
   ["0xF130003B81015643"]  = MOON, -- Vekniss Guardian
   ["0xF130003B81015641"]  = TRIANGLE, -- Vekniss Guardian
