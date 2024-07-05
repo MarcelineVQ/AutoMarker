@@ -1,0 +1,13 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+
+	<Script file="Localization_enUS.lua"/>
+	<!-- <Script file="Localization_deDE.lua"/> -->
+	<!-- <Script file="Localization_esES.lua"/> -->
+	<!-- <Script file="Localization_frFR.lua"/> -->
+	<!-- <Script file="Localization_koKR.lua"/> -->
+	<!-- <Script file="Localization_ruRU.lua"/> -->
+	<Script file="Localization_zhCN.lua"/>
+	<!-- <Script file="Localization_zhTW.lua"/> -->
+
+</Ui>
