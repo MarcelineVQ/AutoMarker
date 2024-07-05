@@ -1,4 +1,4 @@
-if GetLocale() == "zhCN" then
+if GetLocale() == "enUS" then
     AutoMarkerLocale = {
         ["Naxxramas"] = "Naxxramas",
         ["Ahn'Qiraj"] = "Ahn'Qiraj",
