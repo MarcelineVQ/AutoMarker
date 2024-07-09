@@ -1570,12 +1570,12 @@ addToDefaultNpcsToMark(L["Blackwing Lair"], "supress1", {
   ["0xF1300030B40BA218"] = UNMARKED, -- hatcher
   ["0xF1300030B40BA216"] = UNMARKED, -- hatcher
   ["0xF1300030B40BA08B"] = UNMARKED, -- hatcher
--- })
+})
 
--- addToDefaultNpcsToMark(L["Blackwing Lair"], "supress1_2", {
-  ["0xF1300030AA104BD5"] = MOON, -- taskmaster
-  ["0xF1300030AA104BD4"] = DIAMOND, -- taskmaster
-  ["0xF1300030AA104BD3"] = TRIANGLE, -- taskmaster
+addToDefaultNpcsToMark(L["Blackwing Lair"], "supress1_2", {
+  ["0xF1300030AA104BD5"] = CROSS, -- taskmaster
+  ["0xF1300030AA104BD4"] = SQUARE, -- taskmaster
+  ["0xF1300030AA104BD3"] = SKULL, -- taskmaster
   ["0xF1300030B40BA43A"] = UNMARKED, -- hatcher
   ["0xF1300030B40BA3BF"] = UNMARKED, -- hatcher
   ["0xF1300030B40BA395"] = UNMARKED, -- hatcher
@@ -1588,12 +1588,12 @@ addToDefaultNpcsToMark(L["Blackwing Lair"], "supress2", {
   ["0xF1300030B40BA632"] = UNMARKED, -- hatcher
   ["0xF1300030B40BA630"] = UNMARKED, -- hatcher
   ["0xF1300030B40BA62E"] = UNMARKED, -- hatcher
--- })
+})
 
--- addToDefaultNpcsToMark(L["Blackwing Lair"], "supress2_2", {
-  ["0xF1300030AA104BDB"] = DIAMOND, -- taskmaster
-  ["0xF1300030AA104BDA"] = TRIANGLE, -- taskmaster
-  ["0xF1300030AA104BD9"] = MOON, -- taskmaster
+addToDefaultNpcsToMark(L["Blackwing Lair"], "supress2_2", {
+  ["0xF1300030AA104BDB"] = CROSS, -- taskmaster
+  ["0xF1300030AA104BDA"] = SQUARE, -- taskmaster
+  ["0xF1300030AA104BD9"] = SKULL, -- taskmaster
   ["0xF1300030B40BA441"] = UNMARKED, -- hatcher
   ["0xF1300030B40BA43F"] = UNMARKED, -- hatcher
   ["0xF1300030B40BA43D"] = UNMARKED, -- hatcher
@@ -1712,14 +1712,14 @@ addToDefaultNpcsToMark(L["Blackwing Lair"], "lab7", {
 addToDefaultNpcsToMark(L["Blackwing Lair"], "wyrmguard2", {
   ["0xF1300030AC014A9B"] = SKULL,
   ["0xF1300030AC014A9A"] = CROSS,
-  ["0xF1300030AC014A94"] = DIAMOND,
+  ["0xF1300030AC014A94"] = CIRCLE,
   ["0xF130003841014A93"] = MOON,
   ["0xF130002ECD014F17"] = SQUARE, -- flamegor
   ["0xF130003909014F14"] = TRIANGLE, -- ebonroc
 })
 
 addToDefaultNpcsToMark(L["Blackwing Lair"], "wyrmguard3", {
-  ["0xF1300030AC014A9F"] = DIAMOND,
+  ["0xF1300030AC014A9F"] = CIRCLE,
   ["0xF1300030AC014AAA"] = SKULL,
   ["0xF1300030AC014AA8"] = CROSS,
   ["0xF1300036C4014F18"] = TRIANGLE, -- chromag
