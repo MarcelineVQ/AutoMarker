@@ -1,3 +1,5 @@
+local L = AutoMarkerLocale
+
 local SKULL    = 8
 local CROSS    = 7
 local SQUARE   = 6
