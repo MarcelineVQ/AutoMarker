@@ -74,6 +74,15 @@ local function auto_print(msg)
   DEFAULT_CHAT_FRAME:AddMessage(msg)
 end
 
+local function elem(t,item)
+  for _,k in t do
+    if item == k then
+      return true
+    end
+  end
+  return false
+end
+
 local function tsize(t)
   local c = 0
   for _ in pairs(t) do c = c + 1 end
@@ -313,6 +322,9 @@ local currentPackName = nil
 local currentNpcsToMark = {}
 local last_pack_marked = nil
 local elapsed = 0
+
+local solnius_adds = {}
+local solinus_prio = { "Sanctum Supressor", "Sanctum Dragonkin", "Sanctum Wyrmkin", "Sanctum Scalebane" }
 
 local autoMarker = CreateFrame("Frame","AutoMarkerFrame")
 autoMarker:RegisterEvent("ADDON_LOADED")
@@ -731,25 +743,19 @@ autoMarker:SetScript("OnEvent", function()
       if name == "Solnius" and UnitAffectingCombat(arg1) then
         AutoMarkerDB.started_solnius = true
       end
-      if AutoMarkerDB.started_solnius and (name == "Sanctum Supressor" or name == "Sanctum Dragonkin" or name == "Sanctum Scalebane" or name == "Sanctum Wyrmkin") and not GetRaidTargetIndex(arg1) then
-        -- prio supressors
-        if name == "Sanctum Supressor" then
-          if not UnitExists("mark8") or UnitIsDead("mark8") then
-            MarkUnit(arg1,8)
-          elseif not UnitExists("mark7") or UnitIsDead("mark8") then
-            MarkUnit(arg1,7)
-          end
-        else
-          -- try anything
-          for i=6,1,-1 do
-            -- local m = "mark"..i
-            -- the "mark" unitid isn't performant, avoid using multiple times
-            local _,m = UnitExists("mark"..i)
-            if UnitExists(m) and not UnitIsDead(m) then
-              -- mark is used already
-            else
-              MarkUnit(arg1,i)
-              break
+      if AutoMarkerDB.started_solnius and elem(solinus_prio,name) then
+        AutoMarkerDB.solnius_adds[name] = AutoMarkerDB.solnius_adds[name] or {}
+        table.insert(AutoMarkerDB.solnius_adds[name], arg1)
+        AutoMarkerDB.solnius_adds.count = (AutoMarkerDB.solnius_adds.count or 0) + 1
+
+        if AutoMarkerDB.solnius_adds.count >= 4 then
+          -- check each entry by prio and assign marks
+          local ix = 1
+          for _,mobtype in ipairs(solinus_prio) do
+            for _,guid in ipairs(AutoMarkerDB.solnius_adds[mobtype] or {}) do
+              local mark_id = 9-ix
+              MarkUnit(guid,mark_id)
+              ix = ix + 1
             end
           end
         end
@@ -777,6 +783,7 @@ autoMarker:SetScript("OnEvent", function()
       end
       AutoMarkerDB.buru_egg_queue = nil
       AutoMarkerDB.started_solnius = false
+      AutoMarkerDB.solnius_adds = {}
     elseif event == "ZONE_CHANGED_NEW_AREA" and GetRealZoneText() == L["Blackrock Spire"] and IsInInstance() then
       if UnitExists("0xF13000290D104DD6") then
         UIErrorsFrame:AddMessage(L["Jed is in the instance!"],0,1,0)
