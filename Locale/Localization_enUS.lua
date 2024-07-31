@@ -13,6 +13,21 @@ if GetLocale() == "enUS" then
         ["The Upper Necropolis"] = "The Upper Necropolis",
         ["Blackrock Depths"] = "Blackrock Depths",
 
+        ["Solnius"] = "Solnius",
+        ["Sanctum Supressor"] = "Sanctum Supressor",
+        ["Sanctum Dragonkin"] = "Sanctum Dragonkin",
+        ["Sanctum Wyrmkin"] = "Sanctum Wyrmkin",
+        ["Sanctum Scalebane"] = "Sanctum Scalebane",
+        ["Core Hound"] = "Core Hound",
+        ["Soldier of the Frozen Wastes"] = "Soldier of the Frozen Wastes",
+        ["Shadowforge Flame Keeper"] = "Shadowforge Flame Keeper",
+        ["Buru Egg"] = "Buru Egg",
+        ["Spawn of Fankriss"] = "Spawn of Fankriss",
+        ["Flamewaker Healer"] = "Flamewaker Healer",
+        ["Flamewaker Elite"] = "Flamewaker Elite",
+        ["Naxxramas Follower"] = "Naxxramas Follower",
+        ["Naxxramas Worshipper"] = "Naxxramas Worshipper",
+
         ["Unmarked"] = "Unmarked",
         ["Star"] = "Star",
         ["Circle"] = "Circle",
@@ -82,6 +97,7 @@ if GetLocale() == "enUS" then
         ["/am clearmarks - Remove all active marks."] = "/am clearmarks - Remove all active marks.",
         ["/am next - Mark next pack."] = "/am next - Mark next pack.",
         ["/am mark - Mark pack of current target or mouseover."] = "/am mark - Mark pack of current target or mouseover.",
+        ["/am markname - Mark all units of a given name."] = "/am markname - Mark all units of a given name.",
         ["/am debug - Toggle debug mode."] = "/am debug - Toggle debug mode."
     }
 end

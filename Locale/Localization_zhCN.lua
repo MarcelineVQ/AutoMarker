@@ -13,6 +13,22 @@ if GetLocale() == "zhCN" then
         ["The Upper Necropolis"] = "The Upper Necropolis",  -- 未知副本
         ["Blackrock Depths"] = "黑石深渊",
 
+        -- TODO these need localising!
+        ["Solnius"] = "Solnius",
+        ["Sanctum Supressor"] = "Sanctum Supressor",
+        ["Sanctum Dragonkin"] = "Sanctum Dragonkin",
+        ["Sanctum Wyrmkin"] = "Sanctum Wyrmkin",
+        ["Sanctum Scalebane"] = "Sanctum Scalebane",
+        ["Core Hound"] = "Core Hound",
+        ["Soldier of the Frozen Wastes"] = "Soldier of the Frozen Wastes",
+        ["Shadowforge Flame Keeper"] = "Shadowforge Flame Keeper",
+        ["Buru Egg"] = "Buru Egg",
+        ["Spawn of Fankriss"] = "Spawn of Fankriss",
+        ["Flamewaker Healer"] = "Flamewaker Healer",
+        ["Flamewaker Elite"] = "Flamewaker Elite",
+        ["Naxxramas Follower"] = "Naxxramas Follower",
+        ["Naxxramas Worshipper"] = "Naxxramas Worshipper",
+
         ["Unmarked"] = "未标记",
         ["Star"] = "星星",
         ["Circle"] = "大饼",
@@ -82,6 +98,7 @@ if GetLocale() == "zhCN" then
         ["/am clearmarks - Remove all active marks."] = "/am clearmarks - 移除所有标记。",
         ["/am next - Mark next pack."] = "/am next - 标记下一个组。",
         ["/am mark - Mark pack of current target or mouseover."] = "/am mark - 标记当前目标或鼠标悬停目标所属的组。",
+        ["/am markname - Mark all units of a given name."] = "/am markname - Mark all units of a given name.", -- needs localizing
         ["/am debug - Toggle debug mode."] = "/am debug - 切换调试模式。"
     }
 end

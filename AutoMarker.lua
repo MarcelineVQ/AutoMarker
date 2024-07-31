@@ -322,17 +322,12 @@ local currentPackName = nil
 local currentNpcsToMark = {}
 local last_pack_marked = nil
 local elapsed = 0
+local core_delay = 5
+local core_delay_elapsed = 0
 
-local solnius_adds = {}
-local solinus_prio = { "Sanctum Supressor", "Sanctum Dragonkin", "Sanctum Wyrmkin", "Sanctum Scalebane" }
+local solinus_prio = { L["Sanctum Supressor"], L["Sanctum Dragonkin"], L["Sanctum Wyrmkin"], L["Sanctum Scalebane"] }
 
 local autoMarker = CreateFrame("Frame","AutoMarkerFrame")
-autoMarker:RegisterEvent("ADDON_LOADED")
-autoMarker:RegisterEvent("UPDATE_MOUSEOVER_UNIT")
-autoMarker:RegisterEvent("UNIT_MODEL_CHANGED") -- mob respawn
-autoMarker:RegisterEvent("PLAYER_REGEN_DISABLED") -- mob respawn
-autoMarker:RegisterEvent("UNIT_CASTEVENT") -- mob respawn
-autoMarker:RegisterEvent("ZONE_CHANGED_NEW_AREA") -- mob respawn
 
 local function guidToPack(id, zone)
   if not currentNpcsToMark or not currentNpcsToMark[zone] then
@@ -508,6 +503,7 @@ local function UpdateCorehound()
   end)
   if t[1] and not GetRaidTargetIndex(t[1]) then
     MarkUnit(t[1], 8)
+    SendAddonMessage(sync_prefix, "COREHOUND_MARKED", "RAID")
   end
 end
 
@@ -566,15 +562,14 @@ local function UpdateKeepers()
   end
 end
 
-local core_delay = 0
 local function AMUpdate()
   elapsed = elapsed + arg1
-  core_delay = core_delay + arg1
+  core_delay_elapsed = core_delay_elapsed + arg1
   if elapsed > 0.25 then
     elapsed = 0
 
-    if AutoMarkerDB.checkCoreHounds and core_delay > 3 then
-      core_delay = 0
+    if AutoMarkerDB.checkCoreHounds and core_delay_elapsed > core_delay then
+      core_delay_elapsed = 0
       UpdateCorehound()
     end
     if AutoMarkerDB.checkSoliders then UpdateSoldiers() end
@@ -584,213 +579,258 @@ local function AMUpdate()
 end
 autoMarker:SetScript("OnUpdate", AMUpdate)
 
--- Event handler
-autoMarker:SetScript("OnEvent", function()
-  if event=="ADDON_LOADED" and arg1=="AutoMarker" then
-    -- init vars 
-    if not AutoMarkerDB then AutoMarkerDB = {} end
-    if not AutoMarkerDB.customNpcsToMark then AutoMarkerDB.customNpcsToMark = {} end
-    if not AutoMarkerDB.buru_egg_queue then AutoMarkerDB.buru_egg_queue = {} end
-    if not AutoMarkerDB.corehounds then AutoMarkerDB.corehounds = {} end
-    if not AutoMarkerDB.soldiers then AutoMarkerDB.soldiers = {} end
-    if not AutoMarkerDB.keepers then AutoMarkerDB.keepers = {} end
-    if not AutoMarkerDB.unitCache then AutoMarkerDB.unitCache = {} end
+-- EVENTS ----------------------
 
-    if not AutoMarkerDB.checkCoreHounds then AutoMarkerDB.checkCoreHounds = false end
-    if not AutoMarkerDB.checkSoliders then AutoMarkerDB.checkSoliders = false end
-    if not AutoMarkerDB.started_solnius then AutoMarkerDB.started_solnius = false end
+autoMarker:RegisterEvent("ADDON_LOADED")
+autoMarker:RegisterEvent("UPDATE_MOUSEOVER_UNIT")
+autoMarker:RegisterEvent("UNIT_MODEL_CHANGED") -- mob respawn
+autoMarker:RegisterEvent("PLAYER_REGEN_DISABLED") -- mob respawn
+autoMarker:RegisterEvent("UNIT_CASTEVENT") -- mob respawn
+autoMarker:RegisterEvent("ZONE_CHANGED_NEW_AREA") -- mob respawn
+autoMarker:RegisterEvent("CHAT_MSG_ADDON") -- slow corehound mark swap
 
-    -- clear unit cache
-    for guid, _ in pairs(AutoMarkerDB.unitCache) do
-      if not UnitExists(guid) then
-        AutoMarkerDB.unitCache[guid] = nil
-      end
-    end
-
-    -- init settings
-    if not AutoMarkerDB.settings then
-      AutoMarkerDB.settings = defaultSettings
-    else -- update/clean settings
-      local s = {}
-      -- migrate old settings
-      if settings then
-        for k,v in defaultSettings do
-          s[k] = settings[k] or v
-        end
-      else
-        for k,v in defaultSettings do
-          s[k] = AutoMarkerDB.settings[k] or v
-        end
-      end
-      AutoMarkerDB.settings = s
-    end
-
-    -- load defaults
-    for raid_name,packs in pairs(defaultNpcsToMark) do
-      if not currentNpcsToMark[raid_name] then currentNpcsToMark[raid_name] = {} end
-      for pack_name,pack in pairs(packs) do
-        if not currentNpcsToMark[raid_name][pack_name] then
-          currentNpcsToMark[raid_name][pack_name] = defaultNpcsToMark[raid_name][pack_name]
-        end
-      end
-    end
-    -- over-write with customs
-    for raid_name,packs in pairs(AutoMarkerDB.customNpcsToMark) do
-      if not currentNpcsToMark[raid_name] then currentNpcsToMark[raid_name] = {} end
-      for pack_name,pack in pairs(packs) do
-        currentNpcsToMark[raid_name][pack_name] = AutoMarkerDB.customNpcsToMark[raid_name][pack_name]
-      end
-    end
-
-    -- migrate old customs
-    if customNpcsToMark and next(customNpcsToMark) then
-      for raid_name,packs in pairs(customNpcsToMark) do
-        if not AutoMarkerDB.customNpcsToMark[raid_name] then AutoMarkerDB.customNpcsToMark[raid_name] = {} end
-        for pack_name,pack in pairs(packs) do
-          AutoMarkerDB.customNpcsToMark[raid_name][pack_name] = customNpcsToMark[raid_name][pack_name]
-        end
-      end
-    end
-    auto_print(c(L["AutoMarker loaded!"],color.yellow)..L[" Type "]..c("/am",color.green)..L[" to see commands."])
+autoMarker.TriggerEvent = function (self,event,a1,a2,a3,a4,a5,a6,a7,a8,a9,a10)
+  if autoMarker[event] then
+    autoMarker[event](autoMarker,a1,a2,a3,a4,a5,a6,a7,a8,a9,a10)
   end
+end
 
-  if AutoMarkerDB.settings.enabled then
-    if event=="UPDATE_MOUSEOVER_UNIT" then
-      OnMouseover()
-      local _,guid = UnitExists("mouseover")
-      if AutoMarkerDB.settings.debug then
-        auto_print(guid .. " " .. UnitName(guid))
+-- initial loading
+autoMarker:SetScript("OnEvent", function ()
+  if event == "ADDON_LOADED" and arg1 == "AutoMarker" then
+    autoMarker:Initialize()
+    autoMarker:SetScript("OnEvent", function ()
+      if AutoMarkerDB.settings.enabled then
+        autoMarker:TriggerEvent(event,arg1,arg2,arg3,arg4,arg5,arg6,arg7,arg8,arg9,arg10)
       end
-      if sweep_on then
-          AddToPack(guid,true,sweepPackName)
-      end
-    -- only use of cast event, consider finding another way to detect this
-    elseif event=="UNIT_CASTEVENT" then
-      -- if buru egg exploded
-      if arg4 == 19593 then
-        if not AutoMarkerDB.buru_egg_queue then AutoMarkerDB.buru_egg_queue = {} end
-        table.insert(AutoMarkerDB.buru_egg_queue, GetRaidTargetIndex(arg1))
-      end
-    elseif event=="UNIT_MODEL_CHANGED" then
-      -- Certain mobs are script spawned so their IDs need to be fetched
-
-      local name = UnitName(arg1)
-
-      -- store found guid, this is only for `/am markname` so far
-      AutoMarkerDB.unitCache[arg1] = name
-
-      if AutoMarkerDB.settings.debug then
-        auto_print(arg1 .. " " .. name)
-      end
-
-      -- player unit models change _often_, exit early if it's not a mob guid
-      if string.sub(arg1,3,3) ~= "F" then return end
-
-      if name == "Naxxramas Follower" or name == "Naxxramas Worshipper" then
-        name = "Faerlina Add"
-      end
-
-      if name == "Flamewaker Healer" or name == "Flamewaker Elite" then
-        name = "Domo Add"
-      end
-
-      if temporary_mobs[name] then
-        -- key by id in case you leave the area and come back, which would otherwise add the same mob twice
-        temporary_mobs[name].queue[arg1] = arg1
-        AutoMarkerDB.checkTemporaryMobs = true
-        return
-      end
-
-      -- fangkriss adds
-      if name == "Spawn of Fankriss" and not GetRaidTargetIndex(arg1) then
-        -- mark from skull on down, any worms around
-        for i=8,1,-1 do
-          local m = "mark"..i
-          -- local m = "mark"..i
-          -- the "mark" unitid isn't performant, avoid using multiple times
-          local _,m = UnitExists("mark"..i)
-          if UnitExists(m) and not UnitIsDead(m) then
-            -- mark is a marked worm already
-          else
-            MarkUnit(arg1,i)
-            break
-          end
-        end
-        return
-      end
-
-      if name == "Core Hound" then
-        AutoMarkerDB.corehounds[arg1] = true
-        AutoMarkerDB.checkCoreHounds = true
-        return
-      end
-
-      if name == "Soldier of the Frozen Wastes" then
-        AutoMarkerDB.soldiers[arg1] = true
-        AutoMarkerDB.checkSoliders = true
-        return
-      end
-
-      if name == "Shadowforge Flame Keeper" then
-        AutoMarkerDB.keepers[arg1] = true
-        AutoMarkerDB.checkKeepers = true
-        return
-      end
-
-      -- untested
-      -- Solnius adds
-      -- did solnius go dragonform
-      if name == "Solnius" and UnitAffectingCombat(arg1) then
-        AutoMarkerDB.started_solnius = true
-      end
-      if AutoMarkerDB.started_solnius and elem(solinus_prio,name) then
-        AutoMarkerDB.solnius_adds[name] = AutoMarkerDB.solnius_adds[name] or {}
-        table.insert(AutoMarkerDB.solnius_adds[name], arg1)
-        AutoMarkerDB.solnius_adds.count = (AutoMarkerDB.solnius_adds.count or 0) + 1
-
-        if AutoMarkerDB.solnius_adds.count >= 4 then
-          -- check each entry by prio and assign marks
-          local ix = 1
-          for _,mobtype in ipairs(solinus_prio) do
-            for _,guid in ipairs(AutoMarkerDB.solnius_adds[mobtype] or {}) do
-              local mark_id = 9-ix
-              MarkUnit(guid,mark_id)
-              ix = ix + 1
-            end
-          end
-        end
-        return
-      end
-
-      -- buru eggs respawn throughout the fight but we want them marked still
-      if AutoMarkerDB.buru_egg_queue and name == "Buru Egg" then
-        local next_egg_mark = table.remove(AutoMarkerDB.buru_egg_queue,1)
-        if next_egg_mark then
-          MarkUnit(arg1, next_egg_mark)
-        end
-        return
-      end
-    elseif event=="PLAYER_REGEN_DISABLED" then
-      -- As far as I know fd/vanish won't trigger this while the raid is still fighting.
-      -- Combat started, reset relevant model queues in case of incomplete loads
-      for _,config in pairs(temporary_mobs) do
-        for _,guid in pairs(config.queue) do
-          if UnitAffectingCombat(guid) then -- will this work or is it too early? does it need to work?
-            config.queue = {}
-            break
-          end
-        end
-      end
-      AutoMarkerDB.buru_egg_queue = nil
-      AutoMarkerDB.started_solnius = false
-      AutoMarkerDB.solnius_adds = {}
-    elseif event == "ZONE_CHANGED_NEW_AREA" and GetRealZoneText() == L["Blackrock Spire"] and IsInInstance() then
-      if UnitExists("0xF13000290D104DD6") then
-        UIErrorsFrame:AddMessage(L["Jed is in the instance!"],0,1,0)
-      end
-    end
+    end)
   end
 end)
+
+-- Event handlers
+function autoMarker:Initialize()
+  -- init vars
+  if not AutoMarkerDB then AutoMarkerDB = {} end
+  if not AutoMarkerDB.customNpcsToMark then AutoMarkerDB.customNpcsToMark = {} end
+  if not AutoMarkerDB.buru_egg_queue then AutoMarkerDB.buru_egg_queue = {} end
+  if not AutoMarkerDB.corehounds then AutoMarkerDB.corehounds = {} end
+  if not AutoMarkerDB.soldiers then AutoMarkerDB.soldiers = {} end
+  if not AutoMarkerDB.keepers then AutoMarkerDB.keepers = {} end
+  if not AutoMarkerDB.unitCache then AutoMarkerDB.unitCache = {} end
+  if not AutoMarkerDB.solnius_adds then AutoMarkerDB.solnius_adds = {} end
+
+  if not AutoMarkerDB.started_solnius then AutoMarkerDB.started_solnius = false end
+  if not AutoMarkerDB.checkCoreHounds then AutoMarkerDB.checkCoreHounds = false end
+  if not AutoMarkerDB.checkSoliders then AutoMarkerDB.checkSoliders = false end
+
+  -- clear unit cache
+  -- TODO: do this on logout instead?
+  for guid, _ in pairs(AutoMarkerDB.unitCache) do
+    if not UnitExists(guid) then
+      AutoMarkerDB.unitCache[guid] = nil
+    end
+  end
+
+  -- init settings
+  if not AutoMarkerDB.settings then
+    AutoMarkerDB.settings = defaultSettings
+  else -- update/clean settings
+    local s = {}
+    -- migrate old settings
+    if settings then
+      for k,v in defaultSettings do
+        s[k] = settings[k] or v
+      end
+    else
+      for k,v in defaultSettings do
+        s[k] = AutoMarkerDB.settings[k] or v
+      end
+    end
+    AutoMarkerDB.settings = s
+  end
+
+  -- load defaults
+  for raid_name,packs in pairs(defaultNpcsToMark) do
+    if not currentNpcsToMark[raid_name] then currentNpcsToMark[raid_name] = {} end
+    for pack_name,pack in pairs(packs) do
+      if not currentNpcsToMark[raid_name][pack_name] then
+        currentNpcsToMark[raid_name][pack_name] = defaultNpcsToMark[raid_name][pack_name]
+      end
+    end
+  end
+  -- over-write with customs
+  for raid_name,packs in pairs(AutoMarkerDB.customNpcsToMark) do
+    if not currentNpcsToMark[raid_name] then currentNpcsToMark[raid_name] = {} end
+    for pack_name,pack in pairs(packs) do
+      currentNpcsToMark[raid_name][pack_name] = AutoMarkerDB.customNpcsToMark[raid_name][pack_name]
+    end
+  end
+
+  -- migrate old customs
+  if customNpcsToMark and next(customNpcsToMark) then
+    for raid_name,packs in pairs(customNpcsToMark) do
+      if not AutoMarkerDB.customNpcsToMark[raid_name] then AutoMarkerDB.customNpcsToMark[raid_name] = {} end
+      for pack_name,pack in pairs(packs) do
+        AutoMarkerDB.customNpcsToMark[raid_name][pack_name] = customNpcsToMark[raid_name][pack_name]
+      end
+    end
+  end
+  auto_print(c(L["AutoMarker loaded!"],color.yellow)..L[" Type "]..c("/am",color.green)..L[" to see commands."])
+end
+
+function autoMarker:UPDATE_MOUSEOVER_UNIT()
+  OnMouseover()
+  local _,guid = UnitExists("mouseover")
+  if AutoMarkerDB.settings.debug then
+    auto_print(guid .. " " .. UnitName(guid))
+  end
+  if sweep_on then
+      AddToPack(guid,true,sweepPackName)
+  end
+end
+
+-- TODO only use of cast event, consider finding another way to detect this
+function autoMarker:UNIT_CASTEVENT(caster,target,action,spell_id,cast_time)
+  -- if buru egg exploded
+  if spell_id == 19593 then
+    if not AutoMarkerDB.buru_egg_queue then AutoMarkerDB.buru_egg_queue = {} end
+    table.insert(AutoMarkerDB.buru_egg_queue, GetRaidTargetIndex(arg1))
+  end
+end
+
+-- Workhorse, detects when a unit model is loaded in the client.
+-- Units can technically be checked for exsitence before this but this event lets us do it on the fly.
+function autoMarker:UNIT_MODEL_CHANGED(guid)
+  -- Certain mobs are script spawned so their IDs need to be fetched
+
+  local name = UnitName(guid)
+
+  -- store found guid, this is only for `/am markname` so far
+  AutoMarkerDB.unitCache[guid] = name
+
+  if AutoMarkerDB.settings.debug then
+    auto_print(guid .. " " .. name)
+  end
+
+  -- player unit models change _often_, exit early if it's not a mob guid
+  if string.sub(guid,3,3) ~= "F" then return end
+
+  if name == L["Naxxramas Follower"] or name == L["Naxxramas Worshipper"] then
+    name = "Faerlina Add"
+  end
+
+  if name == L["Flamewaker Healer"] or name == L["Flamewaker Elite"] then
+    name = "Domo Add"
+  end
+
+  if temporary_mobs[name] then
+    -- key by id in case you leave the area and come back, which would otherwise add the same mob twice
+    temporary_mobs[name].queue[guid] = guid
+    AutoMarkerDB.checkTemporaryMobs = true
+    return
+  end
+
+  -- fangkriss adds
+  if name == L["Spawn of Fankriss"] and not GetRaidTargetIndex(guid) then
+    -- mark from skull on down, any worms around
+    for i=8,1,-1 do
+      -- the "mark" unitid isn't performant, avoid using multiple times
+      local _,m = UnitExists("mark"..i)
+      if UnitExists(m) and not UnitIsDead(m) then
+        -- mark is a marked worm already
+      else
+        MarkUnit(guid,i)
+        break
+      end
+    end
+    return
+  end
+
+  if name == L["Core Hound"] then
+    AutoMarkerDB.corehounds[guid] = true
+    AutoMarkerDB.checkCoreHounds = true
+    return
+  end
+
+  if name == L["Soldier of the Frozen Wastes"] then
+    AutoMarkerDB.soldiers[guid] = true
+    AutoMarkerDB.checkSoliders = true
+    return
+  end
+
+  if name == L["Shadowforge Flame Keeper"] then
+    AutoMarkerDB.keepers[guid] = true
+    AutoMarkerDB.checkKeepers = true
+    return
+  end
+
+  -- Solnius adds
+  -- did solnius go dragonform
+  if name == L["Solnius"] and UnitAffectingCombat(guid) then
+    AutoMarkerDB.started_solnius = true
+  end
+  if AutoMarkerDB.started_solnius and elem(solinus_prio,name) then
+    AutoMarkerDB.solnius_adds[name] = AutoMarkerDB.solnius_adds[name] or {}
+    table.insert(AutoMarkerDB.solnius_adds[name], guid)
+    AutoMarkerDB.solnius_adds.count = (AutoMarkerDB.solnius_adds.count or 0) + 1
+
+    if AutoMarkerDB.solnius_adds.count >= 4 then
+      -- check each entry by prio and assign marks
+      local ix = 1
+      for _,mobtype in ipairs(solinus_prio) do
+        for _,guid in ipairs(AutoMarkerDB.solnius_adds[mobtype] or {}) do
+          local mark_id = 9-ix
+          MarkUnit(guid,mark_id)
+          ix = ix + 1
+        end
+      end
+      AutoMarkerDB.solnius_adds = {}
+    end
+    return
+  end
+
+  -- buru eggs respawn throughout the fight but we want them marked still
+  if AutoMarkerDB.buru_egg_queue and name == L["Buru Egg"] then
+    local next_egg_mark = table.remove(AutoMarkerDB.buru_egg_queue,1)
+    if next_egg_mark then
+      MarkUnit(guid, next_egg_mark)
+    end
+    return
+  end
+end
+
+function autoMarker:PLAYER_REGEN_DISABLED()
+  -- As far as I know fd/vanish won't trigger this while the raid is still fighting.
+  -- Combat started, reset relevant model queues in case of incomplete loads
+  for _,config in pairs(temporary_mobs) do
+    for _,guid in pairs(config.queue) do
+      if UnitAffectingCombat(guid) then -- will this work or is it too early? does it need to work?
+        config.queue = {}
+        break
+      end
+    end
+  end
+  AutoMarkerDB.buru_egg_queue = nil
+  AutoMarkerDB.started_solnius = false
+  AutoMarkerDB.solnius_adds = {}
+end
+
+function autoMarker:ZONE_CHANGED_NEW_AREA()
+  if GetRealZoneText() == L["Blackrock Spire"] and IsInInstance() and UnitExists("0xF13000290D104DD6") then
+    UIErrorsFrame:AddMessage(L["Jed is in the instance!"],0,1,0)
+  end
+end
+
+function autoMarker:CHAT_MSG_ADDON(prefix,msg,channel,sender)
+  if prefix ~= sync_prefix then return end
+  if channel ~= "RAID" and channel ~= "PARTY" then return end
+
+  -- reset the delay if someone else already updated the mark
+  if msg == "COREHOUND_MARKED" and sender ~= UnitName("player") then
+    core_delay_elapsed = -1 -- you are no longer in control of the timing
+  end
+end
+--------------------------------
 
 local function handleCommands(msg, editbox)
   local args = {}
@@ -910,6 +950,7 @@ local function handleCommands(msg, editbox)
       auto_print(L["/am clearmarks - Remove all active marks."])
       auto_print(L["/am next - Mark next pack."])
       auto_print(L["/am mark - Mark pack of current target or mouseover."])
+      auto_print(L["/am markname - Mark all units of a given name."])
 
       auto_print(L["/am debug - Toggle debug mode."])
   end

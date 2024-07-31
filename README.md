@@ -1,4 +1,4 @@
-# AutoMarker 1.13.2
+# AutoMarker 1.14.3
 AutoMarker for [SuperWow](https://github.com/balakethelock/SuperWoW/) on the 1.12 client.
 
 * Default values are (so far) calibrated for Turtle WoW specifically.
@@ -34,6 +34,7 @@ Many pre-defined groups exists already in the addon but can be customized with t
 * Marks Flame Keepers in Blackrock Depths
 * Marks soldiers that are getting to close during KT Fight
 * Marks Fankriss worms as they spawn
+* Marks Solinus adds when they spawn based on best kill prio
 * Informs you of Jed Runewatcher being present in Blackrock Spire
 
 ___
