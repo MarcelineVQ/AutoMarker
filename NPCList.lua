@@ -135,8 +135,8 @@ addToDefaultNpcsToMark(L["Naxxramas"], "spider_necro_1", {
 })
 
 addToDefaultNpcsToMark(L["Naxxramas"], "spider_necro_2", {
-  ["0xF130004045049DBE"]  = SKULL, -- Necro Stalker
-  ["0xF130004045049DBF"]  = CROSS, -- Necro Stalker
+  ["0xF130004045269C25"]  = SKULL, -- Necro Stalker
+  ["0xF130004045269C24"]  = CROSS, -- Necro Stalker
 })
 
 addToDefaultNpcsToMark(L["Naxxramas"], "spider_faerlina_patrol", {
