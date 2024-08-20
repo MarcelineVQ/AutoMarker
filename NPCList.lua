@@ -1278,6 +1278,11 @@ addToDefaultNpcsToMark(L["Emerald Sanctum"], "solnius", {
 
 --/////////////// MC ///////////////
 
+addToDefaultNpcsToMark(L["Molten Core"], "giants1", {
+  ["0xF130002D8A00DD81"] = CROSS,
+  ["0xF130002D8A00DD80"] = SKULL,
+})
+
 addToDefaultNpcsToMark(L["Molten Core"], "pats1", {
   ["0xF130002D9900DE21"] = MOON,
   ["0xF130002F4500DE0C"] = TRIANGLE,
@@ -1286,6 +1291,11 @@ addToDefaultNpcsToMark(L["Molten Core"], "pats1", {
   ["0xF130002D9900DE13"] = CROSS,
   ["0xF130002D9900DE14"] = SQUARE,
   ["0xF130002D9900DE16"] = DIAMOND,
+})
+
+addToDefaultNpcsToMark(L["Molten Core"], "giants2", {
+  ["0xF130002D8A00DD8C"] = CROSS,
+  ["0xF130002D8A00DD8D"] = SKULL,
 })
 
 addToDefaultNpcsToMark(L["Molten Core"], "lucifron", {
@@ -1301,10 +1311,20 @@ addToDefaultNpcsToMark(L["Molten Core"], "imp_surgers", {
   ["0xF130002F4500DE09"] = CROSS,
 })
 
+addToDefaultNpcsToMark(L["Molten Core"], "giants3", {
+  ["0xF130002D8A00DD83"] = CROSS,
+  ["0xF130002D8A00DD82"] = SKULL,
+})
+
 addToDefaultNpcsToMark(L["Molten Core"], "gehennas", {
   ["0xF130002D8D00DDA2"] = CROSS,
   ["0xF130002D8D00DDA3"] = SQUARE,
   ["0xF130002FE300DDA1"] = SKULL,
+})
+
+addToDefaultNpcsToMark(L["Molten Core"], "giants4", {
+  ["0xF130002D8A00DD86"] = SKULL,
+  ["0xF130002D8B00DD87"] = CROSS, -- destroyer
 })
 
 addToDefaultNpcsToMark(L["Molten Core"], "pats2", {
@@ -1316,6 +1336,11 @@ addToDefaultNpcsToMark(L["Molten Core"], "pats2", {
   ["0xF130002D9900DE19"] = SKULL,
   ["0xF130002F4500DE10"] = MOON,
   ["0xF130002D9900DE18"] = SQUARE,
+})
+
+addToDefaultNpcsToMark(L["Molten Core"], "giants5", {
+  ["0xF130002D8B00DD7D"] = CROSS, -- destroyer
+  ["0xF130002D8B00DD7C"] = SKULL, -- destroyer
 })
 
 addToDefaultNpcsToMark(L["Molten Core"], "garr", {
