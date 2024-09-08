@@ -1,4 +1,4 @@
-# AutoMarker 1.14.5
+# AutoMarker 1.14.6
 AutoMarker for [SuperWow](https://github.com/balakethelock/SuperWoW/) on the 1.12 client.
 
 * Default values are (so far) calibrated for Turtle WoW specifically.

@@ -429,6 +429,24 @@ addToDefaultNpcsToMark(L["Naxxramas"], "military_gothik_shade", {
   ["0xF130003F25015997"]  = SQUARE, -- Necro Knight
 })
 
+addToDefaultNpcsToMark(L["Naxxramas"], "gothick_ring_ghouls", {
+  ["0xF13000403F015B30"] = SQUARE,
+  ["0xF13000403F015B33"] = SKULL,
+  ["0xF13000403F015B31"] = MOON,
+  ["0xF13000403F015B32"] = CROSS,
+})
+
+addToDefaultNpcsToMark(L["Naxxramas"], "gothick_ring_horse", {
+  ["0xF130004043015ADB"] = UNMARKED,
+  ["0xF130004044015ADC"] = SKULL,
+  ["0xF130004044015ADD"] = CROSS,
+})
+
+addToDefaultNpcsToMark(L["Naxxramas"], "gothick_ring_garg", {
+  ["0xF13000403E015B42"] = SKULL,
+  ["0xF13000403E269C6F"] = CROSS,
+})
+
 addToDefaultNpcsToMark(L["Naxxramas"], "military_ring_acoltye_1", {
   ["0xF130003FF0015AD9"]  = SKULL, -- Necropolis Acolyte
   ["0xF130003FF0015ADA"]  = CROSS, -- Necropolis Acolyte
