@@ -322,14 +322,10 @@ local currentPackName = nil
 local currentNpcsToMark = {}
 local last_pack_marked = nil
 local elapsed = 0
-local core_delay = 4
+local core_delay = 5
 local core_delay_elapsed = 0
 
 local solinus_prio = { L["Sanctum Supressor"], L["Sanctum Dragonkin"], L["Sanctum Wyrmkin"], L["Sanctum Scalebane"] }
--- local solinus_prio = { "Burning Felhound", "Burning Imp" }
--- L["Solnius"] = "Scarshield Warlock"
--- merge rabuffs
-
 
 local autoMarker = CreateFrame("Frame","AutoMarkerFrame")
 
@@ -589,8 +585,6 @@ autoMarker:RegisterEvent("ADDON_LOADED")
 autoMarker:RegisterEvent("UPDATE_MOUSEOVER_UNIT")
 autoMarker:RegisterEvent("UNIT_MODEL_CHANGED") -- mob respawn
 autoMarker:RegisterEvent("PLAYER_REGEN_DISABLED") -- mob respawn
-autoMarker:RegisterEvent("PLAYER_ENTERING_WORLD") -- mob respawn
-autoMarker:RegisterEvent("PLAYER_REGEN_ENABLED") -- mob respawn
 autoMarker:RegisterEvent("UNIT_CASTEVENT") -- mob respawn
 autoMarker:RegisterEvent("ZONE_CHANGED_NEW_AREA") -- mob respawn
 autoMarker:RegisterEvent("CHAT_MSG_ADDON") -- slow corehound mark swap
@@ -684,22 +678,6 @@ function autoMarker:Initialize()
   auto_print(c(L["AutoMarker loaded!"],color.yellow)..L[" Type "]..c("/am",color.green)..L[" to see commands."])
 end
 
-local function ClearTemps()
-  -- print("clearin")
-  for _,config in pairs(temporary_mobs) do
-    for _,guid in pairs(config.queue) do
-      if UnitAffectingCombat(guid) then -- will this work or is it too early? does it need to work?
-        config.queue = {}
-        break
-      end
-    end
-  end
-  AutoMarkerDB.buru_egg_queue = nil
-  AutoMarkerDB.started_solnius = false
-  AutoMarkerDB.solnius_adds = {}
-  AutoMarkerDB.solnius_adds.count = 0
-end
-
 function autoMarker:UPDATE_MOUSEOVER_UNIT()
   OnMouseover()
   local _,guid = UnitExists("mouseover")
@@ -789,14 +767,12 @@ function autoMarker:UNIT_MODEL_CHANGED(guid)
   -- Solnius adds
   -- did solnius go dragonform
   if name == L["Solnius"] and UnitAffectingCombat(guid) then
-    print("started")
     AutoMarkerDB.started_solnius = true
   end
   if AutoMarkerDB.started_solnius and elem(solinus_prio,name) then
     AutoMarkerDB.solnius_adds[name] = AutoMarkerDB.solnius_adds[name] or {}
     table.insert(AutoMarkerDB.solnius_adds[name], guid)
     AutoMarkerDB.solnius_adds.count = (AutoMarkerDB.solnius_adds.count or 0) + 1
-    print("adding "..name.." as mob "..AutoMarkerDB.solnius_adds.count)
 
     if AutoMarkerDB.solnius_adds.count >= 4 then
       -- check each entry by prio and assign marks
@@ -804,12 +780,11 @@ function autoMarker:UNIT_MODEL_CHANGED(guid)
       for _,mobtype in ipairs(solinus_prio) do
         for _,guid in ipairs(AutoMarkerDB.solnius_adds[mobtype] or {}) do
           local mark_id = 9-ix
-          print("marking mob "..ix.." "..UnitName(guid)..", as mark "..raidMarks[mark_id-1])
           MarkUnit(guid,mark_id)
           ix = ix + 1
         end
       end
-      ClearTemps()
+      AutoMarkerDB.solnius_adds = {}
     end
     return
   end
@@ -824,18 +799,20 @@ function autoMarker:UNIT_MODEL_CHANGED(guid)
   end
 end
 
--- clear solnius etc
-function autoMarker:PLAYER_REGEN_ENABLED()
-  ClearTemps()
-end
-function autoMarker:PLAYER_ENTERING_WORLD()
-  ClearTemps()
-end
-
 function autoMarker:PLAYER_REGEN_DISABLED()
   -- As far as I know fd/vanish won't trigger this while the raid is still fighting.
   -- Combat started, reset relevant model queues in case of incomplete loads
-  ClearTemps()
+  for _,config in pairs(temporary_mobs) do
+    for _,guid in pairs(config.queue) do
+      if UnitAffectingCombat(guid) then -- will this work or is it too early? does it need to work?
+        config.queue = {}
+        break
+      end
+    end
+  end
+  AutoMarkerDB.buru_egg_queue = nil
+  AutoMarkerDB.started_solnius = false
+  AutoMarkerDB.solnius_adds = {}
 end
 
 function autoMarker:ZONE_CHANGED_NEW_AREA()
