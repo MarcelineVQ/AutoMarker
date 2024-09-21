@@ -26,48 +26,17 @@ local function c(text, color)
 end
 
 if not SetAutoloot then
-  -- Function to create the popup box
-  local function CreatePopupBox(message)
-    -- Create the frame for the popup
-    local popupFrame = CreateFrame("Frame", "MyPopupFrame", UIParent)
-    popupFrame:SetWidth(240)
-    popupFrame:SetHeight(100)
-    popupFrame:SetPoint("CENTER", 0, 0)
-    popupFrame:SetBackdrop({
-        bgFile = "Interface\\DialogFrame\\UI-DialogBox-Background",
-        edgeFile = "Interface\\DialogFrame\\UI-DialogBox-Border",
-        tile = true, tileSize = 32, edgeSize = 32,
-        insets = { left = 11, right = 12, top = 12, bottom = 11 }
-    })
-    popupFrame:SetBackdropColor(0, 0, 0, 1)
+  StaticPopupDialogs["NO_SUPERWOW_AUTOLOOT"] = {
+    text = (c("AutoMarker",color.yellow)..c(" requires SuperWoW to operate.",color.red)),
+    button1 = TEXT(OKAY),
+    timeout = 0,
+    whileDead = 1,
+    hideOnEscape = 1,
+    showAlert = 1,
+  }
 
-    -- Create the title for the popup
-    local title = popupFrame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-    title:SetPoint("TOP", 0, -15)
-    title:SetText("AutoMarker")
-
-    -- Create the message text
-    local messageText = popupFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
-    messageText:SetPoint("CENTER", 0, 10)
-    messageText:SetText(message)
-
-    -- Create the OK button
-    local okButton = CreateFrame("Button", nil, popupFrame, "UIPanelButtonTemplate")
-    okButton:SetWidth(40)
-    okButton:SetHeight(25)
-    okButton:SetPoint("BOTTOM", 0, 20)
-    okButton:SetText("OK")
-    okButton:SetScript("OnClick", function()
-        popupFrame:Hide() -- Hide the popup when OK is clicked
-    end)
-
-    -- Show the popup
-    popupFrame:Show()
-  end
-
-  CreatePopupBox(c("AutoMarker",color.yellow)..c(" requires SuperWoW to operate.",color.red))
+  StaticPopup_Show("NO_SUPERWOW_AUTOLOOT")
   return
-
 end
 
 local function auto_print(msg)
@@ -322,7 +291,7 @@ local currentPackName = nil
 local currentNpcsToMark = {}
 local last_pack_marked = nil
 local elapsed = 0
-local core_delay = 5
+local core_delay = 4
 local core_delay_elapsed = 0
 
 local solinus_prio = { L["Sanctum Supressor"], L["Sanctum Dragonkin"], L["Sanctum Wyrmkin"], L["Sanctum Scalebane"] }
@@ -585,6 +554,8 @@ autoMarker:RegisterEvent("ADDON_LOADED")
 autoMarker:RegisterEvent("UPDATE_MOUSEOVER_UNIT")
 autoMarker:RegisterEvent("UNIT_MODEL_CHANGED") -- mob respawn
 autoMarker:RegisterEvent("PLAYER_REGEN_DISABLED") -- mob respawn
+autoMarker:RegisterEvent("PLAYER_ENTERING_WORLD") -- mob respawn
+autoMarker:RegisterEvent("PLAYER_REGEN_ENABLED") -- mob respawn
 autoMarker:RegisterEvent("UNIT_CASTEVENT") -- mob respawn
 autoMarker:RegisterEvent("ZONE_CHANGED_NEW_AREA") -- mob respawn
 autoMarker:RegisterEvent("CHAT_MSG_ADDON") -- slow corehound mark swap
@@ -678,6 +649,23 @@ function autoMarker:Initialize()
   auto_print(c(L["AutoMarker loaded!"],color.yellow)..L[" Type "]..c("/am",color.green)..L[" to see commands."])
 end
 
+local function ClearTemps()
+  -- print("clearin")
+  for _,config in pairs(temporary_mobs) do
+    for _,guid in pairs(config.queue) do
+      if UnitAffectingCombat(guid) then -- will this work or is it too early? does it need to work?
+        config.queue = {}
+        break
+      end
+    end
+  end
+  AutoMarkerDB.buru_egg_queue = nil
+  AutoMarkerDB.ouro_spawner = nil
+  AutoMarkerDB.started_solnius = false
+  AutoMarkerDB.solnius_adds = {}
+  AutoMarkerDB.solnius_adds.count = 0
+end
+
 function autoMarker:UPDATE_MOUSEOVER_UNIT()
   OnMouseover()
   local _,guid = UnitExists("mouseover")
@@ -721,6 +709,10 @@ function autoMarker:UNIT_MODEL_CHANGED(guid)
 
   if name == L["Flamewaker Healer"] or name == L["Flamewaker Elite"] then
     name = "Domo Add"
+  end
+
+  if name == "Lord Victor Nefarius" then
+    MarkUnit(guid,4)
   end
 
   if temporary_mobs[name] then
@@ -767,6 +759,7 @@ function autoMarker:UNIT_MODEL_CHANGED(guid)
   -- Solnius adds
   -- did solnius go dragonform
   if name == L["Solnius"] and UnitAffectingCombat(guid) then
+    -- print("started")
     AutoMarkerDB.started_solnius = true
   end
   if AutoMarkerDB.started_solnius and elem(solinus_prio,name) then
@@ -774,7 +767,7 @@ function autoMarker:UNIT_MODEL_CHANGED(guid)
     table.insert(AutoMarkerDB.solnius_adds[name], guid)
     AutoMarkerDB.solnius_adds.count = (AutoMarkerDB.solnius_adds.count or 0) + 1
 
-    if AutoMarkerDB.solnius_adds.count >= 4 then
+    if AutoMarkerDB.solnius_adds.count >= 3 then
       -- check each entry by prio and assign marks
       local ix = 1
       for _,mobtype in ipairs(solinus_prio) do
@@ -784,7 +777,7 @@ function autoMarker:UNIT_MODEL_CHANGED(guid)
           ix = ix + 1
         end
       end
-      AutoMarkerDB.solnius_adds = {}
+      ClearTemps()
     end
     return
   end
@@ -799,20 +792,18 @@ function autoMarker:UNIT_MODEL_CHANGED(guid)
   end
 end
 
+-- clear solnius etc
+function autoMarker:PLAYER_REGEN_ENABLED()
+  ClearTemps()
+end
+function autoMarker:PLAYER_ENTERING_WORLD()
+  ClearTemps()
+end
+
 function autoMarker:PLAYER_REGEN_DISABLED()
   -- As far as I know fd/vanish won't trigger this while the raid is still fighting.
   -- Combat started, reset relevant model queues in case of incomplete loads
-  for _,config in pairs(temporary_mobs) do
-    for _,guid in pairs(config.queue) do
-      if UnitAffectingCombat(guid) then -- will this work or is it too early? does it need to work?
-        config.queue = {}
-        break
-      end
-    end
-  end
-  AutoMarkerDB.buru_egg_queue = nil
-  AutoMarkerDB.started_solnius = false
-  AutoMarkerDB.solnius_adds = {}
+  ClearTemps()
 end
 
 function autoMarker:ZONE_CHANGED_NEW_AREA()
