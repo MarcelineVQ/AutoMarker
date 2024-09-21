@@ -711,7 +711,7 @@ function autoMarker:UNIT_MODEL_CHANGED(guid)
     name = "Domo Add"
   end
 
-  if name == "Lord Victor Nefarius" then
+  if name == L["Lord Victor Nefarius"] then
     MarkUnit(guid,4)
   end
 

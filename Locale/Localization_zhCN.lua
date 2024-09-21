@@ -20,6 +20,7 @@ if GetLocale() == "zhCN" then
         ["Sanctum Wyrmkin"] = "Sanctum Wyrmkin",
         ["Sanctum Scalebane"] = "Sanctum Scalebane",
         ["Core Hound"] = "Core Hound",
+        ["Lord Victor Nefarius"] = "Lord Victor Nefarius",
         ["Soldier of the Frozen Wastes"] = "Soldier of the Frozen Wastes",
         ["Shadowforge Flame Keeper"] = "Shadowforge Flame Keeper",
         ["Buru Egg"] = "Buru Egg",
