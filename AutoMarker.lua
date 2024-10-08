@@ -660,7 +660,6 @@ local function ClearTemps()
     end
   end
   AutoMarkerDB.buru_egg_queue = nil
-  AutoMarkerDB.ouro_spawner = nil
   AutoMarkerDB.started_solnius = false
   AutoMarkerDB.solnius_adds = {}
   AutoMarkerDB.solnius_adds.count = 0

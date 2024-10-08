@@ -163,8 +163,8 @@ addToDefaultNpcsToMark(L["Naxxramas"], "spider_faerlina_left_1", {
 
 addToDefaultNpcsToMark(L["Naxxramas"], "spider_faerlina_left_2", {
   ["0xF130003E6D269BFA"] = MOON, -- Naxxramas Acolyte
-  ["0xF130003E6C269BF5"] = CIRCLE,
-  ["0xF130003E6C269BF3"] = TRIANGLE,-- -- Naxxramas CultistNaxxramas Cultist
+  ["0xF130003E6C269BF5"] = CIRCLE, -- Naxxramas Cultist
+  ["0xF130003E6C269BF3"] = TRIANGLE,-- Naxxramas Cultist
   ["0xF130003E6C269BF7"] = DIAMOND,-- Naxxramas Cultist
   ["0xF130003E6D269BF8"] = SQUARE, -- Naxxramas Acolyte
   ["0xF130003E6C269BF9"] = STAR,-- Naxxramas Cultist
@@ -236,30 +236,30 @@ addToDefaultNpcsToMark(L["Naxxramas"], "spider_final", {
 
 addToDefaultNpcsToMark(L["Naxxramas"], "spider_ring_pats", {
   -- addToDefaultNpcsToMark(L["Naxxramas"], "spider_ring_acolyte_1", {
-    ["0xF130003FF0015AD7"] = CROSS,
-    ["0xF130003FF0015AD8"] = SKULL,
+    ["0xF130003FF0015AD7"] = CROSS, -- Necropolis Acolyte
+    ["0xF130003FF0015AD8"] = SKULL, -- Necropolis Acolyte
   -- })
   -- ["spider_ring_spiders1"] = {
-    ["0xF130004045269C07"] = CIRCLE,
-    ["0xF130004045269C08"] = UNMARKED,
+    ["0xF130004045269C07"] = CIRCLE, -- Necro Stalker
+    ["0xF130004045269C08"] = UNMARKED, -- Necro Stalker
   -- },
   -- ["spider_ring_spiders2"] = {
-    ["0xF130004045269C09"] = UNMARKED,
-    ["0xF130004045269C0A"] = STAR,
+    ["0xF130004045269C09"] = UNMARKED, -- Necro Stalker
+    ["0xF130004045269C0A"] = STAR, -- Necro Stalker
   -- },
   -- ["garg1"] = {
-    ["0xF13000403E269C44"] = UNMARKED,
-    ["0xF13000403E269C45"] = TRIANGLE,
+    ["0xF13000403E269C44"] = UNMARKED, -- Plagued Gargoyle
+    ["0xF13000403E269C45"] = TRIANGLE, -- Plagued Gargoyle
   -- },
   -- ["garg2"] = {
-    ["0xF13000403E269C43"] = DIAMOND,
-    ["0xF13000403E015B18"] = UNMARKED,
+    ["0xF13000403E269C43"] = DIAMOND, -- Plagued Gargoyle
+    ["0xF13000403E015B18"] = UNMARKED, -- Plagued Gargoyle
   -- },
 })
 
 addToDefaultNpcsToMark(L["Naxxramas"], "spider_ring_acolyte_2", {
-  ["0xF130003FF0015AD5"] = CROSS,
-  ["0xF130003FF0015AD6"] = SKULL,
+  ["0xF130003FF0015AD5"] = CROSS, -- Necropolis Acolyte
+  ["0xF130003FF0015AD6"] = SKULL, -- Necropolis Acolyte
 })
 
 addToDefaultNpcsToMark(L["Naxxramas"], "spider_ring_acolyte_3", {
@@ -418,7 +418,7 @@ addToDefaultNpcsToMark(L["Naxxramas"], "military_razuvious", {
   ["0xF1300041A304A660"]  = STAR, -- Deathknight Understudy, right far
   ["0xF1300041A304A661"]  = TRIANGLE, -- Deathknight Understudy, left close
   ["0xF1300041A304A662"]  = CIRCLE, -- Deathknight Understudy, right close
-  ["0xF130003EBD01598C"]  = SKULL, -- Instructor Razuvious  
+  ["0xF130003EBD01598C"]  = SKULL, -- Instructor Razuvious
 })
 
 addToDefaultNpcsToMark(L["Naxxramas"], "military_weps_1", {
@@ -458,34 +458,31 @@ addToDefaultNpcsToMark(L["Naxxramas"], "military_gothik_shade", {
 })
 
 addToDefaultNpcsToMark(L["Naxxramas"], "gothick_ring_ghouls", {
-  ["0xF13000403F015B30"] = SQUARE,
-  ["0xF13000403F015B33"] = SKULL,
-  ["0xF13000403F015B31"] = MOON,
-  ["0xF13000403F015B32"] = CROSS,
+  ["0xF13000403F015B30"] = SQUARE, -- Plagued Ghoul
+  ["0xF13000403F015B33"] = SKULL, -- Plagued Ghoul
+  ["0xF13000403F015B31"] = MOON, -- Plagued Ghoul
+  ["0xF13000403F015B32"] = CROSS, -- Plagued Ghoul
 })
 
 addToDefaultNpcsToMark(L["Naxxramas"], "gothick_ring_horse", {
-  ["0xF130004043015ADB"] = UNMARKED,
-  ["0xF130004044015ADC"] = SKULL,
-  ["0xF130004044015ADD"] = CROSS,
+  ["0xF130004044015ADC"] = SKULL, -- Necro Knight
+  ["0xF130004044015ADD"] = CROSS, -- Necro Knight
 })
 
-addToDefaultNpcsToMark(L["Naxxramas"], "gothick_ring_garg", {
-  ["0xF13000403E015B42"] = SKULL,
-  ["0xF13000403E269C6F"] = CROSS,
-})
-
-addToDefaultNpcsToMark(L["Naxxramas"], "military_ring_acoltye_1", {
+addToDefaultNpcsToMark(L["Naxxramas"], "military_ring_acolyte_1", {
   ["0xF130003FF0015AD9"]  = SKULL, -- Necropolis Acolyte
   ["0xF130003FF0015ADA"]  = CROSS, -- Necropolis Acolyte
+  ["0xF130004043015ADB"]  = DIAMOND, -- Deathknight Vindicator
+  ["0xF13000403E015B42"]  = TRIANGLE, -- Plagued Gargoyle
+  ["0xF13000403E269C6F"]  = UNMARKED, -- Plagued Gargoyle
 })
 
-addToDefaultNpcsToMark(L["Naxxramas"], "military_ring_acoltye_2", {
+addToDefaultNpcsToMark(L["Naxxramas"], "military_ring_acolyte_2", {
   ["0xF130003FF0015ADE"]  = SKULL, -- Necropolis Acolyte
   ["0xF130003FF0015ADF"]  = CROSS, -- Necropolis Acolyte
 })
 
-addToDefaultNpcsToMark(L["Naxxramas"], "military_ring_acoltye_3", {
+addToDefaultNpcsToMark(L["Naxxramas"], "military_ring_acolyte_3", {
   ["0xF130003FF0015AE0"]  = SKULL, -- Necropolis Acolyte
   ["0xF130003FF0015AE1"]  = CROSS, -- Necropolis Acolyte
 })
@@ -500,20 +497,20 @@ addToDefaultNpcsToMark(L["Naxxramas"], "military_ring_four_horsemen", {
 ----/////////////// PLAGUE ///////////////
 
 addToDefaultNpcsToMark(L["Naxxramas"], "plague_1", {
-  ["0xF130003F2801581F"] = CIRCLE, -- garg pat
-  ["0xF130003F74015811"] = SQUARE,
-  ["0xF130003F74015813"] = CROSS,
-  ["0xF130003F74015812"] = SKULL,
-  ["0xF130003F73015810"] = MOON,
-  ["0xF130003F7301580F"] = STAR,
+  ["0xF130003F2801581F"] = CIRCLE, -- Stoneskin Gargoyle (patrol)
+  ["0xF130003F74015811"] = SQUARE, -- Infectious Ghoul
+  ["0xF130003F74015813"] = CROSS, -- Infectious Ghoul
+  ["0xF130003F74015812"] = SKULL, -- Infectious Ghoul
+  ["0xF130003F73015810"] = MOON, -- Plague Slime
+  ["0xF130003F7301580F"] = STAR, -- Plague Slime
 })
 
 addToDefaultNpcsToMark(L["Naxxramas"], "plague_2", {
-  ["0xF130003F73015817"] = MOON,
-  ["0xF130003F73015816"] = STAR,
-  ["0xF130003F74015814"] = SQUARE,
-  ["0xF130003F74015815"] = CROSS,
-  ["0xF130003F74015818"] = SKULL,
+  ["0xF130003F73015817"] = MOON, -- Plague Slime
+  ["0xF130003F73015816"] = STAR, -- Plague Slime
+  ["0xF130003F74015814"] = SQUARE, -- Infectious Ghoul
+  ["0xF130003F74015815"] = CROSS, -- Infectious Ghoul
+  ["0xF130003F74015818"] = SKULL, -- Infectious Ghoul
 })
 
 addToDefaultNpcsToMark(L["Naxxramas"], "plague_gargs", {
@@ -840,19 +837,6 @@ addToDefaultNpcsToMark(L["Zul'Gurub"], "jindo_mistress_2", {
   ["0xF130003A2200C0D7"] = UNMARKED,
 })
 
-addToDefaultNpcsToMark(L["Zul'Gurub"], "jindo_mistress_3", {
-  ["0xF130003A2200C0E4"] = UNMARKED,
-  ["0xF130003A2200C0E3"] = UNMARKED,
-  ["0xF1300039E900C0DE"] = UNMARKED,
-  ["0xF130003A2300C0E5"] = MOON,
-  ["0xF1300039E900C0DF"] = UNMARKED,
-  ["0xF130003A2300C0E6"] = SKULL,
-  ["0xF130003A2200C0E1"] = UNMARKED,
-  ["0xF130003A2200C0E2"] = UNMARKED,
-  ["0xF1300039E900C0E0"] = UNMARKED,
-  ["0xF1300039E900C0DD"] = UNMARKED,
-})
-
 addToDefaultNpcsToMark(L["Zul'Gurub"], "jindo_boss_pack", {
   ["0xF1300039E900C1A5"] = UNMARKED,
   ["0xF1300039E900C0FA"] = UNMARKED,
@@ -1123,7 +1107,7 @@ addToDefaultNpcsToMark(L["Zul'Gurub"], "thekal_zerk_panther", {
 addToDefaultNpcsToMark(L["Zul'Gurub"], "arlok_1", {
   ["0xF130002C4B00C899"] = UNMARKED,
   ["0xF130002C4B00C8A4"] = SKULL,
-  ["0xF130002C4B00C89A"] = CROSS, 
+  ["0xF130002C4B00C89A"] = CROSS,
   ["0xF130002C4B00C8A3"] = UNMARKED,
 })
 
@@ -1297,7 +1281,7 @@ addToDefaultNpcsToMark(L["Emerald Sanctum"], "wyrmkin_pack_left_3", {
   ["0xF13000ED46273A59"] = UNMARKED, -- sanctum dreamer
   ["0xF13000ED4A273A48"] = CROSS, -- sanctum scalebane
   ["0xF13000ED4A273A49"] = SKULL, -- sanctum scalebane
-  ["0xF13000ED49273A47"] = STAR, -- sanctum wyrmkin -- ?? 
+  ["0xF13000ED49273A47"] = STAR, -- sanctum wyrmkin -- ??
   ["0xF13000ED47273A1C"] = SQUARE, -- sanctum dragonkin
 
   [errenius] = errenius_mark, -- increase chance of spotting him early
