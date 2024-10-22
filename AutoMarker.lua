@@ -291,7 +291,7 @@ local currentPackName = nil
 local currentNpcsToMark = {}
 local last_pack_marked = nil
 local elapsed = 0
-local core_delay = 4
+local core_delay = 3
 local core_delay_elapsed = 0
 
 local solinus_prio = { L["Sanctum Supressor"], L["Sanctum Dragonkin"], L["Sanctum Wyrmkin"], L["Sanctum Scalebane"] }
@@ -454,6 +454,10 @@ local function UpdateCorehound()
     AutoMarkerDB.corehounds = {}
     return
   end
+
+  -- skip marking hounds if we marked a boss for pull
+  if not UnitIsDead("mark8") and UnitName("mark8") ~= L["Core Hound"] then return end
+
   local t = {}
   for guid, _ in pairs(AutoMarkerDB.corehounds) do
     if not UnitExists(guid) then

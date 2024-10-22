@@ -234,6 +234,12 @@ addToDefaultNpcsToMark(L["Naxxramas"], "spider_final", {
   ["0xF130003E6B01F3EE"] = SKULL, -- Tomb Horror
 })
 
+addToDefaultNpcsToMark(L["Naxxramas"],"spider_ring_ghouls_1", {
+  ["0xF13000403F269C03"] = SKULL,
+  ["0xF13000403F269C04"] = SQUARE,
+  ["0xF13000403F269C06"] = CROSS,
+})
+
 addToDefaultNpcsToMark(L["Naxxramas"], "spider_ring_pats", {
   -- addToDefaultNpcsToMark(L["Naxxramas"], "spider_ring_acolyte_1", {
     ["0xF130003FF0015AD7"] = CROSS, -- Necropolis Acolyte
