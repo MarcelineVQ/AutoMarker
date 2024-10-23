@@ -302,13 +302,27 @@ local function guidToPack(id, zone)
   if not currentNpcsToMark or not currentNpcsToMark[zone] then
     return
   end
+  -- scan for the id, but, we also want to prioritise custom markings
+  local rPackName,rPack
   for packName, packInfo in pairs(currentNpcsToMark[zone]) do
     for guid, _ in pairs(packInfo) do
-      if guid==id then
-        return packName, currentNpcsToMark[zone][packName]
+      if guid == id then
+        rPackName = packName
+        rPack = currentNpcsToMark[zone][packName]
+        break
       end
     end
   end
+  for packName, packInfo in pairs(AutoMarkerDB.customNpcsToMark[zone]) do
+    for guid, _ in pairs(packInfo) do
+      if guid == id then
+        rPackName = packName
+        rPack = AutoMarkerDB.customNpcsToMark[zone][packName]
+        break
+      end
+    end
+  end
+  return rPackName,rPack
 end
 
 function AutoMarker_MarkGroup()

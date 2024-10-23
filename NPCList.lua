@@ -56,6 +56,12 @@ function addToDefaultNpcsToMark(instance, packName, npcs)
     table.insert(orderedPacks, {instance = instance, packName = packName})
 end
 
+addToDefaultNpcsToMark("Orgrimmar", "org_dummies", {
+  ["0xF13000C55326FDD0"] = SKULL,
+  ["0xF13000C55226FDCE"] = SQUARE,
+  ["0xF13000C55426FE5A"] = CROSS,
+})
+
 --/////////////// Naxxramas ///////////////
 
 defaultNpcsToMark[L["Naxxramas"]] = {}
