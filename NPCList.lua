@@ -1078,18 +1078,18 @@ addToDefaultNpcsToMark(L["Zul'Gurub"], "thekal_pack", {
   ["0xF130002C5400C0A1"] = TRIANGLE,
 
   -- to mark thekal easier
-  ["0xF130002C6100C08D"] = 0, -- tiger
-  ["0xF130002C6100C08A"] = 0, -- tiger
-  ["0xF130002C6100C089"] = 0, -- tiger
-  ["0xF130002C6100C08E"] = 0, -- tiger
-  ["0xF130002C6100C08C"] = 0, -- tiger
-  ["0xF130002C6100C08B"] = 0, -- tiger
-  ["0xF130002C6000C09A"] = 0, -- tiger cub
-  ["0xF130002C6000C098"] = 0, -- tiger cub
-  ["0xF130002C6000C97C"] = 0, -- tiger cub
-  ["0xF130002C6000C97D"] = 0, -- tiger cub
-  ["0xF130002C6000C288"] = 0, -- tiger cub
-  ["0xF130002C6000C292"] = 0, -- tiger cub
+  ["0xF130002C6100C08D"] = UNMARKED, -- tiger
+  ["0xF130002C6100C08A"] = UNMARKED, -- tiger
+  ["0xF130002C6100C089"] = UNMARKED, -- tiger
+  ["0xF130002C6100C08E"] = UNMARKED, -- tiger
+  ["0xF130002C6100C08C"] = UNMARKED, -- tiger
+  ["0xF130002C6100C08B"] = UNMARKED, -- tiger
+  ["0xF130002C6000C09A"] = UNMARKED, -- tiger cub
+  ["0xF130002C6000C098"] = UNMARKED, -- tiger cub
+  ["0xF130002C6000C97C"] = UNMARKED, -- tiger cub
+  ["0xF130002C6000C97D"] = UNMARKED, -- tiger cub
+  ["0xF130002C6000C288"] = UNMARKED, -- tiger cub
+  ["0xF130002C6000C292"] = UNMARKED, -- tiger cub
 })
 
 addToDefaultNpcsToMark(L["Zul'Gurub"], "gaz_fish", {
@@ -1810,146 +1810,139 @@ addToDefaultNpcsToMark(L["Blackwing Lair"], "wyrmguard3", {
 
 --/////////////// KARA10 ///////////////
 
-addToDefaultNpcsToMark(L["Karazhan"], "kara1", {
+addToDefaultNpcsToMark(L["Tower of Karazhan"], "kara1", {
   ["0xF13000EF0A2747D1"] = UNMARKED,
-  ["0xF13000EF082747D2"] = SKULL, -- darkcaster
+  ["0xF13000EF082747D2"] = CROSS,
   ["0xF13000EF0A2747D0"] = UNMARKED,
-  ["0xF13000EF102747C8"] = UNMARKED,
-  ["0xF13000EF102747C5"] = UNMARKED,
-  ["0xF13000EF082747D3"] = CROSS, -- darkcaster
+  ["0xF13000EF092747CF"] = UNMARKED,
+  ["0xF13000EF082747D3"] = SKULL,
 })
 
-addToDefaultNpcsToMark(L["Karazhan"], "kara2", {
-  ["0xF13000EF0A2747AD"] = UNMARKED,
-  ["0xF13000EF0A2747AE"] = UNMARKED,
-  ["0xF13000EF0A2747AF"] = CROSS,
-  ["0xF13000EF082747B3"] = SKULL, -- darkcaster
-  ["0xF13000EF072747AA"] = STAR,
-  ["0xF130000FEB2755A4"] = UNMARKED,
-})
-
-addToDefaultNpcsToMark(L["Karazhan"], "kara3", {
-  ["0xF13000EF082747A9"] = CROSS, -- darkcaster
-  ["0xF13000EF0A2747A8"] = UNMARKED,
-  ["0xF13000EF072747AA"] = STAR,
-  ["0xF13000EF082747AC"] = SKULL, -- darkcaster
-})
-
-addToDefaultNpcsToMark(L["Karazhan"], "kara4", {
-  ["0xF13000EF082747C1"] = CROSS, -- darkcaster
-  ["0xF13000EF082747C9"] = SKULL, -- darkcaster
+addToDefaultNpcsToMark(L["Tower of Karazhan"], "kara2", {
+  ["0xF13000EF082747C1"] = SKULL,
+  ["0xF13000EF082747C9"] = CROSS,
+  ["0xF13000EF092747C7"] = UNMARKED,
+  ["0xF130003A212755AA"] = UNMARKED,
   ["0xF13000EF0A2747C4"] = UNMARKED,
   ["0xF13000EF0A2747C6"] = UNMARKED,
 })
 
-addToDefaultNpcsToMark(L["Karazhan"], "rider", {
-  ["0xF13000EF1B274792"] = SKULL,
-  ["0xF13000EF13276DE2"] = UNMARKED,
-  ["0xF13000EF10274793"] = UNMARKED,
-  ["0xF13000EF1427470C"] = TRIANGLE,
-  ["0xF130000FEB275597"] = UNMARKED,
-  ["0xF13000EF13276DE1"] = UNMARKED,
-  ["0xF13000EF10274791"] = UNMARKED,
-  ["0xF13000EF12274794"] = DIAMOND,
-  ["0xF13000EF1B274795"] = CROSS,
-  ["0xF13000EF1B2747A2"] = UNMARKED,
+addToDefaultNpcsToMark(L["Tower of Karazhan"], "kara3", {
+  ["0xF13000EF0A2747AD"] = UNMARKED,
+  ["0xF13000EF0A2747AE"] = UNMARKED,
+  ["0xF13000EF072747AA"] = STAR,
+  ["0xF13000EF082747B3"] = SKULL,
+  ["0xF13000EF0A2747AF"] = UNMARKED,
+  ["0xF130000FEB2755A4"] = UNMARKED,
 })
 
-addToDefaultNpcsToMark(L["Karazhan"], "kara5", {
+addToDefaultNpcsToMark(L["Tower of Karazhan"], "kara4", {
+  ["0xF13000EF082747A9"] = CROSS,
+  ["0xF13000EF0A2747A8"] = UNMARKED,
+  ["0xF13000EF092747AB"] = UNMARKED,
+  ["0xF13000EF072747AA"] = STAR,
+  ["0xF13000EF082747AC"] = SKULL,
+})
+
+addToDefaultNpcsToMark(L["Tower of Karazhan"], "rider", {
+  ["0xF13000EF1B274792"] = CROSS,
+  ["0xF13000EF1427470C"] = TRIANGLE,
+  ["0xF13000EF13277329"] = UNMARKED,
+  ["0xF13000EF1327732A"] = UNMARKED,
+  ["0xF13000EF12274794"] = DIAMOND,
+  ["0xF13000EF1B274795"] = SQUARE,
+  ["0xF13000EF1B2747A2"] = SKULL,
+})
+
+addToDefaultNpcsToMark(L["Tower of Karazhan"], "kara5", {
   ["0xF13000EF152756BF"] = SKULL,
-  ["0xF13000EF152756BE"] = CROSS,
+  ["0xF13000EF102756C0"] = UNMARKED,
   ["0xF13000EF102747BD"] = UNMARKED,
   ["0xF13000EF102747BE"] = UNMARKED,
-  ["0xF13000EF102756C0"] = UNMARKED,
+  ["0xF13000EF152756BE"] = CROSS,
   ["0xF13000EF072747D4"] = TRIANGLE,
 })
 
-addToDefaultNpcsToMark(L["Karazhan"], "kara6", {
-  ["0xF13000EF082747E7"] = CROSS, -- darkcaster
-  ["0xF13000EF0A2747E9"] = UNMARKED,
+addToDefaultNpcsToMark(L["Tower of Karazhan"], "kara6", {
+  ["0xF13000EF082747EB"] = CROSS,
+  ["0xF13000EF0A2747AE"] = UNMARKED,
+  ["0xF13000EF0A2747AF"] = UNMARKED,
+  ["0xF13000EF0A2747AD"] = UNMARKED,
+  ["0xF13000EF082747E7"] = SKULL,
   ["0xF13000EF0A2747E8"] = UNMARKED,
-  ["0xF13000EF082747EB"] = SKULL, -- darkcaster
-  ["0xF13000EF072747D4"] = TRIANGLE,
+  ["0xF13000EF0A2747E9"] = UNMARKED,
 })
 
-addToDefaultNpcsToMark(L["Karazhan"], "kara7", {
-  ["0xF13000EF092747DF"] = UNMARKED,
-  ["0xF13000EF082747DE"] = SKULL, -- darkcaster
-  ["0xF13000EF082747DC"] = CROSS, -- darkcaster
+addToDefaultNpcsToMark(L["Tower of Karazhan"], "kara7", {
   ["0xF13000EF0A2747DD"] = UNMARKED,
+  ["0xF13000EF082747DE"] = SKULL,
+  ["0xF13000EF082747DC"] = CROSS,
 })
 
-addToDefaultNpcsToMark(L["Karazhan"], "kara8", {
-  ["0xF13000EF082747DA"] = CROSS, -- darkcaster
+addToDefaultNpcsToMark(L["Tower of Karazhan"], "kara8", {
+  ["0xF13000EF082747DA"] = CROSS,
   ["0xF13000EF0A2747DB"] = UNMARKED,
-  ["0xF13000EF082747D9"] = SKULL, -- darkcaster
+  ["0xF13000EF082747D9"] = SKULL,
 })
 
-addToDefaultNpcsToMark(L["Karazhan"], "imps1", {
-  ["0xF13000EF102747E5"] = UNMARKED,
-  ["0xF13000EF102747F0"] = UNMARKED,
-  ["0xF13000EF182747F4"] = TRIANGLE,
-  ["0xF13000EF102747E4"] = UNMARKED,
-  ["0xF13000EF102747F1"] = SKULL,
-})
-
-addToDefaultNpcsToMark(L["Karazhan"], "imps2", {
+addToDefaultNpcsToMark(L["Tower of Karazhan"], "imps1", {
   ["0xF13000EF0C274822"] = UNMARKED,
+  ["0xF13000EF102747F0"] = SQUARE,
+  ["0xF13000EF182747F4"] = TRIANGLE,
+  ["0xF13000EF102747F1"] = UNMARKED,
+  ["0xF13000EF102747E5"] = UNMARKED,
   ["0xF13000EF0B274824"] = SKULL,
-  ["0xF13000EF0D274821"] = UNMARKED,
+  ["0xF13000EF102747E4"] = CROSS,
 })
 
-addToDefaultNpcsToMark(L["Karazhan"], "imps3", {
+addToDefaultNpcsToMark(L["Tower of Karazhan"], "imps2", {
   ["0xF13000EF0C274808"] = UNMARKED,
-  ["0xF13000EF0D274809"] = UNMARKED,
+  ["0xF13000EF0B274802"] = MOON,
+  ["0xF13000EF0B274801"] = SQUARE,
+  ["0xF13000EF0B274803"] = CROSS,
   ["0xF13000EF0B274806"] = SKULL,
-})
-
-addToDefaultNpcsToMark(L["Karazhan"], "imps4", {
-  ["0xF13000EF0B274802"] = CROSS,
-  ["0xF13000EF0B274801"] = TRIANGLE,
-  ["0xF13000EF0B274803"] = SKULL,
+  ["0xF13000EF0D274809"] = UNMARKED,
   ["0xF13000EF0D274804"] = UNMARKED,
 })
 
-addToDefaultNpcsToMark(L["Karazhan"], "imps5", {
-  ["0xF13000EF0D27480E"] = UNMARKED,
+addToDefaultNpcsToMark(L["Tower of Karazhan"], "imps3", {
+  ["0xF13000EF0D27480F"] = UNMARKED,
   ["0xF13000EF0C274812"] = UNMARKED,
   ["0xF13000EF0B27480D"] = CROSS,
   ["0xF13000EF0B274811"] = SKULL,
-  ["0xF13000EF0D27480F"] = UNMARKED,
+  ["0xF13000EF0D27480E"] = UNMARKED,
 })
 
-addToDefaultNpcsToMark(L["Karazhan"], "imps6", {
-  ["0xF13000EF0B27481B"] = TRIANGLE,
+addToDefaultNpcsToMark(L["Tower of Karazhan"], "imps4", {
+  ["0xF13000EF0B27481B"] = SQUARE,
   ["0xF13000EF0B27481C"] = SKULL,
   ["0xF13000EF0B274819"] = CROSS,
   ["0xF13000EF0C274815"] = UNMARKED,
   ["0xF130003A212755AD"] = UNMARKED,
 })
 
-addToDefaultNpcsToMark(L["Karazhan"], "imps7", {
+addToDefaultNpcsToMark(L["Tower of Karazhan"], "imps5", {
   ["0xF13000EF0C2747F9"] = UNMARKED,
   ["0xF13000EF0B2747F7"] = SKULL,
   ["0xF13000EF0D2747FB"] = UNMARKED,
+  ["0xF130000FEB2755AE"] = UNMARKED,
   ["0xF13000EF0C274800"] = UNMARKED,
-  ["0xF13000EF0C2747F8"] = CROSS,
+  ["0xF13000EF0C2747F8"] = UNMARKED,
 })
 
-addToDefaultNpcsToMark(L["Karazhan"], "imps8", {
+addToDefaultNpcsToMark(L["Tower of Karazhan"], "imps6", {
   ["0xF13000EF0D27481F"] = UNMARKED,
   ["0xF13000EF0C274823"] = UNMARKED,
   ["0xF13000EF0D274814"] = UNMARKED,
-  ["0xF13000EF0C27481E"] = UNMARKED,
-  ["0xF130000FEB2755AF"] = UNMARKED,
+  ["0xF13000EF0D27481A"] = TRIANGLE,
   ["0xF13000EF0C27481D"] = UNMARKED,
   ["0xF13000EF0D274817"] = UNMARKED,
   ["0xF13000EF0D274818"] = UNMARKED,
   ["0xF13000EF0B274820"] = SKULL,
-  ["0xF13000EF0D27481A"] = TRIANGLE,
+  ["0xF13000EF0C27481E"] = UNMARKED,
 })
 
-addToDefaultNpcsToMark(L["Karazhan"], "imps9", {
+addToDefaultNpcsToMark(L["Tower of Karazhan"], "imps7", {
   ["0xF13000EF0C2747FD"] = UNMARKED,
   ["0xF13000EF0B2747FA"] = SKULL,
   ["0xF13000EF0D2747FE"] = UNMARKED,
@@ -1957,24 +1950,28 @@ addToDefaultNpcsToMark(L["Karazhan"], "imps9", {
   ["0xF13000EF0C2747FF"] = UNMARKED,
 })
 
-addToDefaultNpcsToMark(L["Karazhan"], "spiderpats", {
-  ["0xF13000EF1627477E"] = UNMARKED,
-  ["0xF13000EF16274762"] = UNMARKED,
-  ["0xF130003A212755CC"] = UNMARKED,
-  ["0xF13000EF182747F4"] = TRIANGLE,
+addToDefaultNpcsToMark(L["Tower of Karazhan"], "spiderpats", {
+  ["0xF130003A212755BA"] = UNMARKED,
   ["0xF13000EF16274778"] = UNMARKED,
-  ["0xF13000EF1827475C"] = CIRCLE,
   ["0xF13000EF1927477B"] = UNMARKED,
   ["0xF13000EF16274776"] = UNMARKED,
-  ["0xF13000EF16274777"] = UNMARKED,
   ["0xF13000EF152756C3"] = CROSS,
-  ["0xF13000EF19274774"] = UNMARKED,
-  ["0xF13000EF1627477F"] = UNMARKED,
-  ["0xF13000EF18274753"] = DIAMOND,
+  ["0xF13000EF1627477E"] = UNMARKED,
+  ["0xF13000EF16274772"] = UNMARKED,
+  ["0xF13000EF182747F4"] = TRIANGLE,
+  ["0xF13000EF19274775"] = UNMARKED,
   ["0xF13000EF1827477A"] = SKULL,
+  ["0xF13000EF1827475C"] = SQUARE,
+  ["0xF13000EF18274753"] = CIRCLE,
+  ["0xF13000EF19274774"] = UNMARKED,
+  ["0xF13000EF16274777"] = UNMARKED,
+  ["0xF130003A212755B3"] = UNMARKED,
+  ["0xF13000EF1627477F"] = UNMARKED,
+  ["0xF13000EF19274773"] = UNMARKED,
+  ["0xF130003A212755B2"] = UNMARKED,
 })
 
-addToDefaultNpcsToMark(L["Karazhan"], "moroes1", {
+addToDefaultNpcsToMark(L["Tower of Karazhan"], "moroes1", {
   ["0xF13000EF072747D5"] = SKULL, -- alpha
   ["0xF13000EF0A2747D7"] = UNMARKED,
   ["0xF13000EF082747EF"] = CROSS, -- darkcaster
@@ -1982,46 +1979,42 @@ addToDefaultNpcsToMark(L["Karazhan"], "moroes1", {
   ["0xF13000EF0A2747D6"] = UNMARKED,
 })
 
-addToDefaultNpcsToMark(L["Karazhan"], "moroes2", {
-  ["0xF13000EF0F2756DD"] = CROSS, -- magiskull
-  ["0xF13000EF0F2756E3"] = DIAMOND, -- magiskull
-  ["0xF13000EF0F2756E4"] = TRIANGLE, -- magiskull
-  ["0xF13000EF0F2756DC"] = SKULL, -- magiskull
+addToDefaultNpcsToMark(L["Tower of Karazhan"], "moroes2", {
+  ["0xF13000EF0F2756DD"] = CROSS,
+  ["0xF13000EF0F2756E3"] = DIAMOND,
+  ["0xF13000EF0F2756E4"] = TRIANGLE,
+  ["0xF13000EF0F2756DE"] = CIRCLE,
+  ["0xF13000EF0F2756DC"] = SKULL,
   })
 
-addToDefaultNpcsToMark(L["Karazhan"], "moroes3", {
-  ["0xF13000EF0927483B"] = DIAMOND,
+addToDefaultNpcsToMark(L["Tower of Karazhan"], "moroes3", {
+  ["0xF13000EF0E274841"] = UNMARKED,
   ["0xF13000EF0E27483D"] = UNMARKED,
+  ["0xF13000EF1027484C"] = CROSS,
+  ["0xF13000EF0E274842"] = UNMARKED,
   ["0xF13000EF0E27483E"] = UNMARKED,
-  ["0xF13000EF10274840"] = UNMARKED, -- guardsman
-  ["0xF13000EF29274971"] = UNMARKED,
-  ["0xF13000EF0F27482A"] = CIRCLE, -- shatterskull magiskull
-  ["0xF13000EF0827483C"] = SKULL, -- darkcaster
+  ["0xF13000EF10274840"] = UNMARKED,
+  ["0xF13000EF0827483C"] = SKULL,
+  ["0xF13000EF0F27482A"] = CIRCLE,
+  ["0xF13000EF0E27483F"] = STAR,
 })
 
-addToDefaultNpcsToMark(L["Karazhan"], "moroes4", {
-  ["0xF13000EF1027483A"] = UNMARKED, -- guardsman
-  ["0xF13000EF15274838"] = TRIANGLE, -- servant
-  ["0xF13000EF0F27482A"] = CIRCLE, -- shatterskull magiskull
-  ["0xF13000EF15274839"] = SKULL, -- servant
-  ["0xF13000EF15274837"] = CROSS, -- servant
-  ["0xF13000EF1027484C"] = UNMARKED, -- guardsman
-  ["0xF13000EF0E274841"] = STAR, -- shatterskull spearman
-  ["0xF13000EF0E274842"] = UNMARKED, -- shatterskull spearman
-  ["0xF13000EF0E27483F"] = UNMARKED, -- shatterskull spearman
-})
-
-addToDefaultNpcsToMark(L["Karazhan"], "moroes5", {
-  ["0xF13000EF16274827"] = UNMARKED,
-  ["0xF13000EF15274832"] = SKULL, -- servant
-  ["0xF13000EF16274826"] = UNMARKED,
+addToDefaultNpcsToMark(L["Tower of Karazhan"], "moroes4", {
+  ["0xF13000EF15274838"] = TRIANGLE,
   ["0xF13000EF19274828"] = UNMARKED,
+  ["0xF13000EF15274839"] = SKULL,
+  ["0xF13000EF1027483A"] = UNMARKED,
+  ["0xF13000EF16274826"] = UNMARKED,
+  ["0xF13000EF15274832"] = DIAMOND,
+  ["0xF13000EF15274837"] = CROSS,
+  ["0xF13000EF16274827"] = UNMARKED,
 })
 
-addToDefaultNpcsToMark(L["Karazhan"], "moroes6", {
-  ["0xF13000EF15274845"] = SKULL, -- servant
-  ["0xF13000EF10274849"] = UNMARKED, -- guardsman
-  ["0xF13000EF15274847"] = CROSS, -- servant
+addToDefaultNpcsToMark(L["Tower of Karazhan"], "moroes5", {
+  ["0xF13000EF15274845"] = SKULL,
+  ["0xF13000EF10274849"] = UNMARKED,
+  ["0xF13000EF15274847"] = CROSS,
+  ["0xF13000EF15274832"] = DIAMOND,
 })
 
 --/////////////// Stratholme ///////////////

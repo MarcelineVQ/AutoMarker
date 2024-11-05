@@ -7,7 +7,7 @@ if GetLocale() == "enUS" then
         ["Molten Core"] = "Molten Core",
         ["Ruins of Ahn'Qiraj"] = "Ruins of Ahn'Qiraj",
         ["Blackwing Lair"] = "Blackwing Lair",
-        ["Karazhan"] = "Karazhan",
+        ["Tower of Karazhan"] = "Tower of Karazhan",
         ["Stratholme"] = "Stratholme",
         ["Blackrock Spire"] = "Blackrock Spire",
         ["The Upper Necropolis"] = "The Upper Necropolis",

@@ -7,7 +7,7 @@ if GetLocale() == "zhCN" then
         ["Molten Core"] = "熔火之心",
         ["Ruins of Ahn'Qiraj"] = "安其拉废墟",
         ["Blackwing Lair"] = "黑翼之巢",
-        ["Karazhan"] = "卡拉赞",
+        ["Tower of Karazhan"] = "卡拉赞", -- TODO needs re-localising!
         ["Stratholme"] = "斯坦索姆",
         ["Blackrock Spire"] = "黑石塔",
         ["The Upper Necropolis"] = "The Upper Necropolis",  -- 未知副本
