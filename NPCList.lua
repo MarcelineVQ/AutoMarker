@@ -525,14 +525,20 @@ addToDefaultNpcsToMark(L["Naxxramas"], "plague_2", {
   ["0xF130003F74015818"] = SKULL, -- Infectious Ghoul
 })
 
-addToDefaultNpcsToMark(L["Naxxramas"], "plague_gargs", {
+addToDefaultNpcsToMark(L["Naxxramas"], "plague_gargs1", {
   ["0xF130003F2801581E"] = STAR, -- pat
   ["0xF130003F2801581C"] = SKULL, -- stone1_right
   ["0xF130003F2801581D"] = CROSS,
-  ["0xF130003F28015820"] = SQUARE, -- stone2_right
-  ["0xF130003F28015821"] = MOON,
-  ["0xF130003F28015822"] = TRIANGLE, -- stone3_right
-  ["0xF130003F28015823"] = DIAMOND,
+})
+
+addToDefaultNpcsToMark(L["Naxxramas"], "plague_gargs2", {
+  ["0xF130003F28015820"] = SKULL, -- stone2_right
+  ["0xF130003F28015821"] = CROSS,
+})
+
+addToDefaultNpcsToMark(L["Naxxramas"], "plague_gargs3", {
+  ["0xF130003F28015822"] = SKULL, -- stone3_right
+  ["0xF130003F28015823"] = CROSS,
 })
 
 ----/////////////// CONSTRUCT ///////////////
@@ -1573,6 +1579,11 @@ addToDefaultNpcsToMark(L["Ruins of Ahn'Qiraj"], "buru_path", {
   ["0xF130003BDB11FB96"] = TRIANGLE,
 })
 
+addToDefaultNpcsToMark(L["Ruins of Ahn'Qiraj"], "buru_slimes", {
+  ["0xF130003BE711FE02"] = CROSS, -- slime
+  ["0xF130003BE711FB9F"] = SKULL, -- slime
+})
+
 addToDefaultNpcsToMark(L["Ruins of Ahn'Qiraj"], "buru_eggs", {
   ["0xF130003C9A276DE0"] = CIRCLE, -- egg
   ["0xF130003C9A276DE1"] = DIAMOND, -- egg
@@ -1581,8 +1592,6 @@ addToDefaultNpcsToMark(L["Ruins of Ahn'Qiraj"], "buru_eggs", {
   ["0xF130003C9A276DE4"] = SQUARE, -- egg
   ["0xF130003C9A276DE5"] = STAR, -- egg
   ["0xF130003C0A0162F9"] = UNMARKED, -- buru
-  ["0xF130003BE711FE02"] = CROSS, -- slime
-  ["0xF130003BE711FB9F"] = SKULL, -- slime
 })
 
 addToDefaultNpcsToMark(L["Ruins of Ahn'Qiraj"], "resevoir", {

@@ -813,6 +813,7 @@ end
 function autoMarker:PLAYER_REGEN_ENABLED()
   ClearTemps()
 end
+
 function autoMarker:PLAYER_ENTERING_WORLD()
   ClearTemps()
 end
