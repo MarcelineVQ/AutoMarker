@@ -528,10 +528,38 @@ local function UpdateKeepers()
     return
   end
 
-  if GetSubZoneText() == "The Lyceum" then
+  if GetSubZoneText() == L["The Lyceum"] then
     for guid, _ in pairs(AutoMarkerDB.keepers) do
       if not UnitExists(guid) then
         AutoMarkerDB.keepers[guid] = nil
+      elseif not GetRaidTargetIndex(guid) then
+        for i=8,1,-1 do
+          -- local m = "mark"..i
+          -- the "mark" unitid isn't performant, avoid using multiple times
+          local _,m = UnitExists("mark"..i)
+          if UnitExists(m) and not UnitIsDead(m) then
+            -- mark is used already
+          else
+            MarkUnit(guid,i)
+            break
+          end
+        end
+      end
+    end
+  end
+end
+
+local function UpdateProtectors()
+  if not next(AutoMarkerDB.protectors) or GetRealZoneText() ~= L["Dire Maul"] then
+    AutoMarkerDB.checkProtectors = false
+    AutoMarkerDB.protectors = {}
+    return
+  end
+
+  if GetSubZoneText() == L["Capital Gardens"] then
+    for guid, _ in pairs(AutoMarkerDB.protectors) do
+      if not UnitExists(guid) then
+        AutoMarkerDB.protectors[guid] = nil
       elseif not GetRaidTargetIndex(guid) then
         for i=8,1,-1 do
           -- local m = "mark"..i
@@ -561,6 +589,7 @@ local function AMUpdate()
     end
     if AutoMarkerDB.checkSoliders then UpdateSoldiers() end
     if AutoMarkerDB.checkKeepers then UpdateKeepers() end
+    if AutoMarkerDB.checkProtectors then UpdateProtectors() end
     if AutoMarkerDB.checkTemporaryMobs then UpdateTemporaryMobs() end
   end
 end
@@ -605,6 +634,7 @@ function autoMarker:Initialize()
   if not AutoMarkerDB.corehounds then AutoMarkerDB.corehounds = {} end
   if not AutoMarkerDB.soldiers then AutoMarkerDB.soldiers = {} end
   if not AutoMarkerDB.keepers then AutoMarkerDB.keepers = {} end
+  if not AutoMarkerDB.protectors then AutoMarkerDB.protectors = {} end
   if not AutoMarkerDB.unitCache then AutoMarkerDB.unitCache = {} end
   if not AutoMarkerDB.solnius_adds then AutoMarkerDB.solnius_adds = {} end
 
@@ -770,6 +800,12 @@ function autoMarker:UNIT_MODEL_CHANGED(guid)
   if name == L["Shadowforge Flame Keeper"] then
     AutoMarkerDB.keepers[guid] = true
     AutoMarkerDB.checkKeepers = true
+    return
+  end
+
+  if name == L["Ironbark Protector"] then
+    AutoMarkerDB.protectors[guid] = true
+    AutoMarkerDB.checkProtectors = true
     return
   end
 

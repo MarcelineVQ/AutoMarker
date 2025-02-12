@@ -12,6 +12,9 @@ if GetLocale() == "enUS" then
         ["Blackrock Spire"] = "Blackrock Spire",
         ["The Upper Necropolis"] = "The Upper Necropolis",
         ["Blackrock Depths"] = "Blackrock Depths",
+        ["The Lyceum"] = "The Lyceum",
+        ["Dire Maul"] = "Dire Maul",
+        ["Capital Gardens"] = "Capital Gardens",
 
         ["Solnius"] = "Solnius",
         ["Sanctum Supressor"] = "Sanctum Supressor",
@@ -22,6 +25,7 @@ if GetLocale() == "enUS" then
         ["Lord Victor Nefarius"] = "Lord Victor Nefarius",
         ["Soldier of the Frozen Wastes"] = "Soldier of the Frozen Wastes",
         ["Shadowforge Flame Keeper"] = "Shadowforge Flame Keeper",
+        ["Ironbark Protector"] = "Ironbark Protector",
         ["Buru Egg"] = "Buru Egg",
         ["Spawn of Fankriss"] = "Spawn of Fankriss",
         ["Flamewaker Healer"] = "Flamewaker Healer",

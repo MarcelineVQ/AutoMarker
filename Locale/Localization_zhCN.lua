@@ -12,6 +12,9 @@ if GetLocale() == "zhCN" then
         ["Blackrock Spire"] = "黑石塔",
         ["The Upper Necropolis"] = "The Upper Necropolis",  -- 未知副本
         ["Blackrock Depths"] = "黑石深渊",
+        ["The Lyceum"] = "The Lyceum", -- needs localizing
+        ["Dire Maul"] = "Dire Maul", -- needs localizing
+        ["Capital Gardens"] = "Capital Gardens", -- needs localizing
 
         -- TODO these need localising!
         ["Solnius"] = "Solnius",
@@ -23,6 +26,7 @@ if GetLocale() == "zhCN" then
         ["Lord Victor Nefarius"] = "Lord Victor Nefarius",
         ["Soldier of the Frozen Wastes"] = "Soldier of the Frozen Wastes",
         ["Shadowforge Flame Keeper"] = "Shadowforge Flame Keeper",
+        ["Ironbark Protector"] = "Ironbark Protector", -- needs localizing
         ["Buru Egg"] = "Buru Egg",
         ["Spawn of Fankriss"] = "Spawn of Fankriss",
         ["Flamewaker Healer"] = "Flamewaker Healer",
