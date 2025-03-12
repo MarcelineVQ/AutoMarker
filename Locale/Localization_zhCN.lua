@@ -14,7 +14,7 @@ if GetLocale() == "zhCN" then
         ["Blackrock Depths"] = "黑石深渊",
 
         -- TODO these need localising!
-        ["Solnius"] = "Solnius",
+        ["Solnius"] = "索尔纽斯",
         ["Sanctum Supressor"] = "Sanctum Supressor",
         ["Sanctum Dragonkin"] = "Sanctum Dragonkin",
         ["Sanctum Wyrmkin"] = "Sanctum Wyrmkin",
@@ -99,7 +99,7 @@ if GetLocale() == "zhCN" then
         ["/am clearmarks - Remove all active marks."] = "/am clearmarks - 移除所有标记。",
         ["/am next - Mark next pack."] = "/am next - 标记下一个组。",
         ["/am mark - Mark pack of current target or mouseover."] = "/am mark - 标记当前目标或鼠标悬停目标所属的组。",
-        ["/am markname - Mark all units of a given name."] = "/am markname - Mark all units of a given name.", -- needs localizing
+        ["/am markname - Mark all units of a given name."] = "/am markname - 标记给定名称的所有单位。",
         ["/am debug - Toggle debug mode."] = "/am debug - 切换调试模式。"
     }
 end
