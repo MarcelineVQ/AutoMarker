@@ -7,11 +7,14 @@ if GetLocale() == "zhCN" then
         ["Molten Core"] = "熔火之心",
         ["Ruins of Ahn'Qiraj"] = "安其拉废墟",
         ["Blackwing Lair"] = "黑翼之巢",
-        ["Karazhan"] = "卡拉赞",
+        ["Tower of Karazhan"] = "卡拉赞", -- TODO needs re-localising!
         ["Stratholme"] = "斯坦索姆",
         ["Blackrock Spire"] = "黑石塔",
         ["The Upper Necropolis"] = "The Upper Necropolis",  -- 未知副本
         ["Blackrock Depths"] = "黑石深渊",
+        ["The Lyceum"] = "The Lyceum", -- needs localizing
+        ["Dire Maul"] = "Dire Maul", -- needs localizing
+        ["Capital Gardens"] = "Capital Gardens", -- needs localizing
 
         -- TODO these need localising!
         ["Solnius"] = "索尔纽斯",
@@ -23,6 +26,7 @@ if GetLocale() == "zhCN" then
         ["Lord Victor Nefarius"] = "Lord Victor Nefarius",
         ["Soldier of the Frozen Wastes"] = "Soldier of the Frozen Wastes",
         ["Shadowforge Flame Keeper"] = "Shadowforge Flame Keeper",
+        ["Ironbark Protector"] = "Ironbark Protector", -- needs localizing
         ["Buru Egg"] = "Buru Egg",
         ["Spawn of Fankriss"] = "Spawn of Fankriss",
         ["Flamewaker Healer"] = "Flamewaker Healer",

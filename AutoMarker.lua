@@ -291,7 +291,7 @@ local currentPackName = nil
 local currentNpcsToMark = {}
 local last_pack_marked = nil
 local elapsed = 0
-local core_delay = 4
+local core_delay = 3
 local core_delay_elapsed = 0
 
 local solinus_prio = { L["Sanctum Supressor"], L["Sanctum Dragonkin"], L["Sanctum Wyrmkin"], L["Sanctum Scalebane"] }
@@ -302,13 +302,27 @@ local function guidToPack(id, zone)
   if not currentNpcsToMark or not currentNpcsToMark[zone] then
     return
   end
-  for packName, packInfo in pairs(currentNpcsToMark[zone]) do
+  -- scan for the id, but, we also want to prioritise custom markings
+  local rPackName,rPack
+  for packName, packInfo in pairs(currentNpcsToMark[zone] or {}) do
     for guid, _ in pairs(packInfo) do
-      if guid==id then
-        return packName, currentNpcsToMark[zone][packName]
+      if guid == id then
+        rPackName = packName
+        rPack = currentNpcsToMark[zone][packName]
+        break
       end
     end
   end
+  for packName, packInfo in pairs(AutoMarkerDB.customNpcsToMark[zone] or {}) do
+    for guid, _ in pairs(packInfo) do
+      if guid == id then
+        rPackName = packName
+        rPack = AutoMarkerDB.customNpcsToMark[zone][packName]
+        break
+      end
+    end
+  end
+  return rPackName,rPack
 end
 
 function AutoMarker_MarkGroup()
@@ -454,6 +468,10 @@ local function UpdateCorehound()
     AutoMarkerDB.corehounds = {}
     return
   end
+
+  -- skip marking hounds if we marked a boss for pull
+  if not UnitIsDead("mark8") and UnitName("mark8") ~= L["Core Hound"] then return end
+
   local t = {}
   for guid, _ in pairs(AutoMarkerDB.corehounds) do
     if not UnitExists(guid) then
@@ -510,10 +528,38 @@ local function UpdateKeepers()
     return
   end
 
-  if GetSubZoneText() == "The Lyceum" then
+  if GetSubZoneText() == L["The Lyceum"] then
     for guid, _ in pairs(AutoMarkerDB.keepers) do
       if not UnitExists(guid) then
         AutoMarkerDB.keepers[guid] = nil
+      elseif not GetRaidTargetIndex(guid) then
+        for i=8,1,-1 do
+          -- local m = "mark"..i
+          -- the "mark" unitid isn't performant, avoid using multiple times
+          local _,m = UnitExists("mark"..i)
+          if UnitExists(m) and not UnitIsDead(m) then
+            -- mark is used already
+          else
+            MarkUnit(guid,i)
+            break
+          end
+        end
+      end
+    end
+  end
+end
+
+local function UpdateProtectors()
+  if not next(AutoMarkerDB.protectors) or GetRealZoneText() ~= L["Dire Maul"] then
+    AutoMarkerDB.checkProtectors = false
+    AutoMarkerDB.protectors = {}
+    return
+  end
+
+  if GetSubZoneText() == L["Capital Gardens"] then
+    for guid, _ in pairs(AutoMarkerDB.protectors) do
+      if not UnitExists(guid) then
+        AutoMarkerDB.protectors[guid] = nil
       elseif not GetRaidTargetIndex(guid) then
         for i=8,1,-1 do
           -- local m = "mark"..i
@@ -543,6 +589,7 @@ local function AMUpdate()
     end
     if AutoMarkerDB.checkSoliders then UpdateSoldiers() end
     if AutoMarkerDB.checkKeepers then UpdateKeepers() end
+    if AutoMarkerDB.checkProtectors then UpdateProtectors() end
     if AutoMarkerDB.checkTemporaryMobs then UpdateTemporaryMobs() end
   end
 end
@@ -587,6 +634,7 @@ function autoMarker:Initialize()
   if not AutoMarkerDB.corehounds then AutoMarkerDB.corehounds = {} end
   if not AutoMarkerDB.soldiers then AutoMarkerDB.soldiers = {} end
   if not AutoMarkerDB.keepers then AutoMarkerDB.keepers = {} end
+  if not AutoMarkerDB.protectors then AutoMarkerDB.protectors = {} end
   if not AutoMarkerDB.unitCache then AutoMarkerDB.unitCache = {} end
   if not AutoMarkerDB.solnius_adds then AutoMarkerDB.solnius_adds = {} end
 
@@ -755,6 +803,12 @@ function autoMarker:UNIT_MODEL_CHANGED(guid)
     return
   end
 
+  if name == L["Ironbark Protector"] then
+    AutoMarkerDB.protectors[guid] = true
+    AutoMarkerDB.checkProtectors = true
+    return
+  end
+
   -- Solnius adds
   -- did solnius go dragonform
   if name == L["Solnius"] and UnitAffectingCombat(guid) then
@@ -795,6 +849,7 @@ end
 function autoMarker:PLAYER_REGEN_ENABLED()
   ClearTemps()
 end
+
 function autoMarker:PLAYER_ENTERING_WORLD()
   ClearTemps()
 end
