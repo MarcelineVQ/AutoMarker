@@ -1,37 +1,52 @@
 if GetLocale() == "enUS" then
     AutoMarkerLocale = {
-        ["Naxxramas"] = "Naxxramas",
+        -- locations: 5man
+        ["Stratholme"] = "Stratholme",
+        ["Dire Maul"] = "Dire Maul",
+            ["Capital Gardens"] = "Capital Gardens",
+        -- locations: aq
+        ["Ruins of Ahn'Qiraj"] = "Ruins of Ahn'Qiraj",
         ["Ahn'Qiraj"] = "Ahn'Qiraj",
+        -- locations: brm
+        ["Blackrock Depths"] = "Blackrock Depths",
+            ["The Lyceum"] = "The Lyceum",
+            ["Molten Core"] = "Molten Core",
+        ["Blackrock Spire"] = "Blackrock Spire",
+            ["Blackwing Lair"] = "Blackwing Lair",
+        -- locations: naxx
+        ["Naxxramas"] = "Naxxramas",
+            ["The Upper Necropolis"] = "The Upper Necropolis",
+        -- locations: misc
         ["Zul'Gurub"] = "Zul'Gurub",
         ["Emerald Sanctum"] = "Emerald Sanctum",
-        ["Molten Core"] = "Molten Core",
-        ["Ruins of Ahn'Qiraj"] = "Ruins of Ahn'Qiraj",
-        ["Blackwing Lair"] = "Blackwing Lair",
         ["Tower of Karazhan"] = "Tower of Karazhan",
-        ["Stratholme"] = "Stratholme",
-        ["Blackrock Spire"] = "Blackrock Spire",
-        ["The Upper Necropolis"] = "The Upper Necropolis",
-        ["Blackrock Depths"] = "Blackrock Depths",
-        ["The Lyceum"] = "The Lyceum",
-        ["Dire Maul"] = "Dire Maul",
-        ["Capital Gardens"] = "Capital Gardens",
 
+        -- mobs: dm
+        ["Ironbark Protector"] = "Ironbark Protector",
+        -- mobs: zg
+        ["High Priestess Arlokk"] = "High Priestess Arlokk",
+        -- mobs: es
         ["Solnius"] = "Solnius",
         ["Sanctum Supressor"] = "Sanctum Supressor",
         ["Sanctum Dragonkin"] = "Sanctum Dragonkin",
         ["Sanctum Wyrmkin"] = "Sanctum Wyrmkin",
         ["Sanctum Scalebane"] = "Sanctum Scalebane",
-        ["Core Hound"] = "Core Hound",
-        ["Lord Victor Nefarius"] = "Lord Victor Nefarius",
-        ["Soldier of the Frozen Wastes"] = "Soldier of the Frozen Wastes",
-        ["Shadowforge Flame Keeper"] = "Shadowforge Flame Keeper",
-        ["Ironbark Protector"] = "Ironbark Protector",
+        -- mobs: aq
         ["Buru Egg"] = "Buru Egg",
+        ["The Prophet Skeram"] = "The Prophet Skeram",
         ["Spawn of Fankriss"] = "Spawn of Fankriss",
-        ["Flamewaker Healer"] = "Flamewaker Healer",
+        -- mobs: brm
+        ["Shadowforge Flame Keeper"] = "Shadowforge Flame Keeper",
+        ["Core Hound"] = "Core Hound",
         ["Flamewaker Elite"] = "Flamewaker Elite",
+        ["Flamewaker Healer"] = "Flamewaker Healer",
+        ["Lord Victor Nefarius"] = "Lord Victor Nefarius",
+        -- mobs: naxx
+        ["Crypt Guard"] = "Crypt Guard",
+        ["Deathknight Understudy"] = "Deathknight Understudy",
         ["Naxxramas Follower"] = "Naxxramas Follower",
         ["Naxxramas Worshipper"] = "Naxxramas Worshipper",
+        ["Soldier of the Frozen Wastes"] = "Soldier of the Frozen Wastes",
 
         ["Unmarked"] = "Unmarked",
         ["Star"] = "Star",

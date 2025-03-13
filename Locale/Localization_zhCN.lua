@@ -1,38 +1,52 @@
 if GetLocale() == "zhCN" then
     AutoMarkerLocale = {
-        ["Naxxramas"] = "纳克萨玛斯",
+        -- locations: 5man
+        ["Stratholme"] = "斯坦索姆",
+        ["Dire Maul"] = "厄运之槌",
+            ["Capital Gardens"] = "Capital Gardens", -- needs localizing? couldn't find CN version in game files
+        -- locations: aq
+        ["Ruins of Ahn'Qiraj"] = "安其拉废墟",
         ["Ahn'Qiraj"] = "安其拉神殿",
+        -- locations: brm
+        ["Blackrock Depths"] = "黑石深渊",
+            ["The Lyceum"] = "讲学厅",
+            ["Molten Core"] = "熔火之心",
+        ["Blackrock Spire"] = "黑石塔",
+            ["Blackwing Lair"] = "黑翼之巢",
+        -- locations: naxx
+        ["Naxxramas"] = "纳克萨玛斯",
+            ["The Upper Necropolis"] = "浮空城",  -- 未知副本
+        -- locations: misc
         ["Zul'Gurub"] = "祖尔格拉布",
         ["Emerald Sanctum"] = "翡翠圣殿",
-        ["Molten Core"] = "熔火之心",
-        ["Ruins of Ahn'Qiraj"] = "安其拉废墟",
-        ["Blackwing Lair"] = "黑翼之巢",
-        ["Tower of Karazhan"] = "卡拉赞", -- TODO needs re-localising!
-        ["Stratholme"] = "斯坦索姆",
-        ["Blackrock Spire"] = "黑石塔",
-        ["The Upper Necropolis"] = "The Upper Necropolis",  -- 未知副本
-        ["Blackrock Depths"] = "黑石深渊",
-        ["The Lyceum"] = "The Lyceum", -- needs localizing
-        ["Dire Maul"] = "Dire Maul", -- needs localizing
-        ["Capital Gardens"] = "Capital Gardens", -- needs localizing
+        ["Tower of Karazhan"] = "卡拉赞", -- is this right still?
 
-        -- TODO these need localising!
+        -- mobs: dm
+        ["Ironbark Protector"] = "埃隆巴克保护者",
+        -- mobs: zg
+        ["High Priestess Arlokk"] = "哈卡莱先知",
+        -- mobs: es
         ["Solnius"] = "索尔纽斯",
-        ["Sanctum Supressor"] = "Sanctum Supressor",
-        ["Sanctum Dragonkin"] = "Sanctum Dragonkin",
-        ["Sanctum Wyrmkin"] = "Sanctum Wyrmkin",
-        ["Sanctum Scalebane"] = "Sanctum Scalebane",
-        ["Core Hound"] = "Core Hound",
-        ["Lord Victor Nefarius"] = "Lord Victor Nefarius",
-        ["Soldier of the Frozen Wastes"] = "Soldier of the Frozen Wastes",
-        ["Shadowforge Flame Keeper"] = "Shadowforge Flame Keeper",
-        ["Ironbark Protector"] = "Ironbark Protector", -- needs localizing
-        ["Buru Egg"] = "Buru Egg",
-        ["Spawn of Fankriss"] = "Spawn of Fankriss",
-        ["Flamewaker Healer"] = "Flamewaker Healer",
-        ["Flamewaker Elite"] = "Flamewaker Elite",
-        ["Naxxramas Follower"] = "Naxxramas Follower",
-        ["Naxxramas Worshipper"] = "Naxxramas Worshipper",
+        ["Sanctum Supressor"] = "圣所压制者",
+        ["Sanctum Dragonkin"] = "圣所龙人",
+        ["Sanctum Wyrmkin"] = "圣所龙族",
+        ["Sanctum Scalebane"] = "圣所麟龙人",
+        -- mobs: aq
+        ["Buru Egg"] = "布鲁的卵",
+        ["The Prophet Skeram"] = "预言者斯克拉姆",
+        ["Spawn of Fankriss"] = "范克瑞斯的爪牙",
+        -- mobs: brm
+        ["Shadowforge Flame Keeper"] = "暗炉持火者",
+        ["Core Hound"] = "熔火恶犬",
+        ["Flamewaker Healer"] = "烈焰行者医师",
+        ["Flamewaker Elite"] = "烈焰行者精英",
+        ["Lord Victor Nefarius"] = "维克多·奈法里奥斯",
+        -- mobs: naxx
+        ["Crypt Guard"] = "地穴卫士",
+        ["Deathknight Understudy"] = "死亡骑士实习者",
+        ["Naxxramas Follower"] = "纳克萨玛斯追随者",
+        ["Naxxramas Worshipper"] = "纳克萨玛斯信奉者",
+        ["Soldier of the Frozen Wastes"] = "冰冻荒地士兵",
 
         ["Unmarked"] = "未标记",
         ["Star"] = "星星",

@@ -772,8 +772,11 @@ addToDefaultNpcsToMark(L["Ahn'Qiraj"], "scorpions", {
   ["0xF130003B88015799"]  = CROSS, -- Vekniss Hive Crawler
   ["0xF130003B881307A3"]  = MOON, -- Vekniss Hive Crawler
   ["0xF130003B881307A4"]  = SQUARE, -- Vekniss Hive Crawler
-  ["0xF130003B8801578F"]  = DIAMOND, -- Vekniss Hive Crawler
-  ["0xF130003B8801578E"]  = CIRCLE, -- Vekniss Hive Crawler
+})
+
+addToDefaultNpcsToMark(L["Ahn'Qiraj"], "scorpions2", {
+  ["0xF130003B8801578E"]  = SKULL, -- Vekniss Hive Crawler
+  ["0xF130003B8801578F"]  = CROSS, -- Vekniss Hive Crawler
 })
 
 addToDefaultNpcsToMark(L["Ahn'Qiraj"], "lashers", {
@@ -841,6 +844,8 @@ addToDefaultNpcsToMark(L["Zul'Gurub"], "jindo_misress_1_patrol", {
   ["0xF130003A2200C0F7"] = UNMARKED,
   ["0xF1300039E911E656"] = UNMARKED,
   ["0xF130003A2200C0F8"] = UNMARKED,
+  ["0xF130003A2200C1A8"] = DIAMOND, -- jindo pull 2nd from back, left
+  ["0xF130003A2200C1A9"] = CIRCLE, -- jindo pull 2nd from back, right
 })
 
 addToDefaultNpcsToMark(L["Zul'Gurub"], "jindo_mistress_2", {
@@ -861,8 +866,8 @@ addToDefaultNpcsToMark(L["Zul'Gurub"], "jindo_boss_pack", {
   ["0xF130003A2200C1A7"] = UNMARKED,
   ["0xF130002C7400C1F7"] = SKULL,
   ["0xF1300039E900C0FB"] = UNMARKED,
-  ["0xF130003A2200C1A8"] = UNMARKED,
-  ["0xF130003A2200C1A9"] = CIRCLE,
+  ["0xF130003A2200C1A8"] = DIAMOND, -- 2nd from back, left
+  ["0xF130003A2200C1A9"] = CIRCLE, -- 2nd from back, right
   ["0xF1300039E900C10D"] = UNMARKED,
   ["0xF130003A2300C1F2"] = SQUARE,
   ["0xF130003A2200C1A6"] = UNMARKED,
@@ -1658,37 +1663,37 @@ addToDefaultNpcsToMark(L["Blackwing Lair"], "supress1", {
   ["0xF1300030AA104BD1"] = CROSS, -- taskmaster
   ["0xF1300030AA104BD0"] = SQUARE, -- taskmaster
   ["0xF1300030AA104BCF"] = SKULL, -- taskmaster
-  ["0xF1300030B40BA218"] = UNMARKED, -- hatcher
-  ["0xF1300030B40BA216"] = UNMARKED, -- hatcher
-  ["0xF1300030B40BA08B"] = UNMARKED, -- hatcher
+  ["0xF1300030B40BA218"] = TRIANGLE, -- hatcher
+  ["0xF1300030B40BA216"] = DIAMOND, -- hatcher
+  ["0xF1300030B40BA08B"] = STAR, -- hatcher
 })
 
 addToDefaultNpcsToMark(L["Blackwing Lair"], "supress1_2", {
   ["0xF1300030AA104BD5"] = CROSS, -- taskmaster
   ["0xF1300030AA104BD4"] = SQUARE, -- taskmaster
   ["0xF1300030AA104BD3"] = SKULL, -- taskmaster
-  ["0xF1300030B40BA43A"] = UNMARKED, -- hatcher
-  ["0xF1300030B40BA3BF"] = UNMARKED, -- hatcher
-  ["0xF1300030B40BA395"] = UNMARKED, -- hatcher
+  ["0xF1300030B40BA43A"] = TRIANGLE, -- hatcher
+  ["0xF1300030B40BA3BF"] = DIAMOND, -- hatcher
+  ["0xF1300030B40BA395"] = STAR, -- hatcher
 })
 
 addToDefaultNpcsToMark(L["Blackwing Lair"], "supress2", {
   ["0xF1300030AA104BD8"] = CROSS, -- taskmaster
   ["0xF1300030AA104BD7"] = SQUARE, -- taskmaster
   ["0xF1300030AA104BD6"] = SKULL, -- taskmaster
-  ["0xF1300030B40BA632"] = UNMARKED, -- hatcher
-  ["0xF1300030B40BA630"] = UNMARKED, -- hatcher
-  ["0xF1300030B40BA62E"] = UNMARKED, -- hatcher
+  ["0xF1300030B40BA441"] = TRIANGLE, -- hatcher
+  ["0xF1300030B40BA43F"] = DIAMOND, -- hatcher
+  ["0xF1300030B40BA43D"] = STAR, -- hatcher
 })
 
 addToDefaultNpcsToMark(L["Blackwing Lair"], "supress2_2", {
   ["0xF1300030AA104BDB"] = CROSS, -- taskmaster
   ["0xF1300030AA104BDA"] = SQUARE, -- taskmaster
   ["0xF1300030AA104BD9"] = SKULL, -- taskmaster
-  ["0xF1300030B40BA441"] = UNMARKED, -- hatcher
-  ["0xF1300030B40BA43F"] = UNMARKED, -- hatcher
-  ["0xF1300030B40BA43D"] = UNMARKED, -- hatcher
-  ["0xF130002EF10149A3"] = UNMARKED, -- lashlayer
+  ["0xF1300030B40BA632"] = TRIANGLE, -- hatcher
+  ["0xF1300030B40BA630"] = DIAMOND, -- hatcher
+  ["0xF1300030B40BA62E"] = STAR, -- hatcher
+  ["0xF130002EF10149A3"] = CIRCLE, -- lashlayer
 })
 
 addToDefaultNpcsToMark(L["Blackwing Lair"], "lab1", {

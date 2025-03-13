@@ -398,13 +398,13 @@ end
 
 -- Certain bosses have script spawned adds, so their id's are not consistent, this mechanism is to assign them marks.
 local temporary_mobs = {
-  ["Deathknight Understudy"] = {
+  [L["Deathknight Understudy"]] = {
     minCount = 4,
     pack = "military_razuvious",
     raid = L["Naxxramas"],
     queue = {},
   },
-  ["Crypt Guard"] = {
+  [L["Crypt Guard"]] = {
     minCount = 2,
     pack = "spider_anubrekhan",
     raid = L["Naxxramas"],
@@ -423,21 +423,21 @@ local temporary_mobs = {
     queue = {},
     reverse = true, -- domo is the one boss so far where his adds have a lower id than him
   },
-  ["The Prophet Skeram"] = {
+  [L["The Prophet Skeram"]] = {
     minCount = 3,
     pack = "skeram",
     raid = L["Ahn'Qiraj"],
     live_mark = true, -- do the mobs change in combat
     queue = {},
   },
-  ["High Priestess Arlokk"] = {
+  [L["High Priestess Arlokk"]] = {
     minCount = 1,
     pack = "arlokk",
     raid = L["Zul'Gurub"],
     live_mark = true, -- do the mobs change in combat
     queue = {},
   },
-  ["Buru Egg"] = {
+  [L["Buru Egg"]] = {
     minCount = 6,
     pack = "buru_eggs",
     raid = L["Ruins of Ahn'Qiraj"],
@@ -759,7 +759,7 @@ function autoMarker:UNIT_MODEL_CHANGED(guid)
   end
 
   if name == L["Lord Victor Nefarius"] then
-    MarkUnit(guid,4)
+    MarkUnit(guid,2)
   end
 
   if temporary_mobs[name] then
