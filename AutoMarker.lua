@@ -1,6 +1,6 @@
 -- || Made by and for Weird Vibes of Turtle WoW || --
 local L = AutoMarkerLocale
-BINDING_HEADER_AUTOMARK = "|cff22CC00 - AutoMark Bindings -";
+BINDING_HEADER_AUTOMARK = L["|cff22CC00 - AutoMark Bindings -"];
 BINDING_NAME_MOUSEOVERKEY = L["Keys to hold to activate mouseover mark"];
 BINDING_NAME_RUNKEY = L["Mark mouseover or target"];
 BINDING_NAME_NEXTKEY =L["Mark next group based on default order"];

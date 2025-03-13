@@ -43,6 +43,7 @@ if GetLocale() == "enUS" then
         ["Cross"] = "Cross",
         ["Skull"] = "Skull",
 
+        ["|cff22CC00 - AutoMark Bindings -"] = "|cff22CC00 - AutoMark Bindings -",
         ["AutoMarker loaded!"] = "AutoMarker loaded!",
         [" Type "] = " Type ",
         [" to see commands."] = " to see commands.",

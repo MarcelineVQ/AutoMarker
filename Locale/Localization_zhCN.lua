@@ -17,7 +17,7 @@ if GetLocale() == "zhCN" then
         ["Capital Gardens"] = "Capital Gardens", -- needs localizing
 
         -- TODO these need localising!
-        ["Solnius"] = "Solnius",
+        ["Solnius"] = "索尔纽斯",
         ["Sanctum Supressor"] = "Sanctum Supressor",
         ["Sanctum Dragonkin"] = "Sanctum Dragonkin",
         ["Sanctum Wyrmkin"] = "Sanctum Wyrmkin",
@@ -44,13 +44,14 @@ if GetLocale() == "zhCN" then
         ["Cross"] = "红叉",
         ["Skull"] = "骷髅",
 
+        ["|cff22CC00 - AutoMark Bindings -"] = "|cff22CC00 - 自动标记 -",
         ["AutoMarker loaded!"] = "AutoMarker 已加载！",
         [" Type "] = " 输入 ",
         [" to see commands."] = " 查看命令。",
 
         ["Keys to hold to activate mouseover mark"] = "激活鼠标悬停标记需要按住的键",
-        ["Mark mouseover or target"] = "标记鼠标指向的目标或当前目标",
-        ["Mark next group based on default order"] = "根据默认顺序标记下一组",
+        ["Mark mouseover or target"] = "标记指向目标或当前目标",
+        ["Mark next group based on default order"] = "标记下一组",
         ["Clear all current marks"] = "清除所有当前标记",
         ["Warning:"] = "警告：",
         [" a mark set while not a leader/assistant is not visible to others"] = "非领导者/助手设置的标记对其他人不可见",
@@ -88,22 +89,22 @@ if GetLocale() == "zhCN" then
 
         ["on"] = "开启",
         ["off"] = "关闭",
-        [" ] sweep your mouse over enemies to add them to pack: "] = " ] 扫描鼠标指向以将敌人添加到组：",
+        [" ] sweep your mouse over enemies to add them to pack: "] = " ] 将鼠标滑过的目标添加到组：",
         ["You must provide a name as well when using markname."] = "在使用 markname 命令时，还必须提供名称。",
 
         ["Debug mode set to: "] = "调试模式设置为：",
         ["Commands:"] = "命令：\n|cffffff00尖括号<>为必须项，中括号[]为可选项",
         ["nable - enabled or disable addon."] = "nable - 开启或关闭插件。",
-        ["et <packname> - Set the current pack name."] = "et <packname> - 设置当前组的名称。",
+        ["et <packname> - Set the current pack name."] = "et <packname> - 设置当前组的名称。例如 /am set 第一波",
         ["et - Get the current pack name and information about the targeted mob."] = "et - 获取当前组的名称以及目标生物的信息。",
         ["lear - Clear all mobs in the current pack."] = "lear - 清除当前组中的所有生物。",
-        [" [packname] - Toggle sweep mode to add mobs to a specified pack. If no pack name is provided, use the current pack name."] = " [packname] - 切换扫荡模式，将生物添加到指定的组中。如果没有提供组名，则使用当前组名。",
-        ["dd [packname] - Add the targeted mob to a specified pack. If no pack name is provided, use the current pack name."] = "dd [packname] - 将目标生物添加到指定的组中。如果没有提供组名，则使用当前组名。",
+        [" [packname] - Toggle sweep mode to add mobs to a specified pack. If no pack name is provided, use the current pack name."] = " [packname] - 切换扫描模式，将鼠标滑过的目标添加到指定的组中。如果没有提供组名，则使用当前组名。用于记录当前标记设置。例如/am sweep 第一波",
+        ["dd [packname] - Add the targeted mob to a specified pack. If no pack name is provided, use the current pack name."] = "dd [packname] - 将目标生物添加到指定的组中。如果没有提供组名，则使用当前组名。例如/am add 第一波",
         ["emove - Remove the targeted mob from its current pack."] = "emove - 从当前组中移除目标生物。",
         ["/am clearmarks - Remove all active marks."] = "/am clearmarks - 移除所有标记。",
         ["/am next - Mark next pack."] = "/am next - 标记下一个组。",
         ["/am mark - Mark pack of current target or mouseover."] = "/am mark - 标记当前目标或鼠标悬停目标所属的组。",
-        ["/am markname - Mark all units of a given name."] = "/am markname - Mark all units of a given name.", -- needs localizing
+        ["/am markname - Mark all units of a given name."] = "/am markname <unit name> - 标记给定名称的所有单位。",
         ["/am debug - Toggle debug mode."] = "/am debug - 切换调试模式。"
     }
 end
