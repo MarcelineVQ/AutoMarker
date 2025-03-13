@@ -46,7 +46,7 @@ if GetLocale() == "zhCN" then
         ["Deathknight Understudy"] = "死亡骑士实习者",
         ["Naxxramas Follower"] = "纳克萨玛斯追随者",
         ["Naxxramas Worshipper"] = "纳克萨玛斯信奉者",
-        ["Soldier of the Frozen Wastes"] = "冰冻荒地士兵",
+        ["Soldier of the Frozen Wastes"] = "冰冻荒原士兵",
 
         ["Unmarked"] = "未标记",
         ["Star"] = "星星",
