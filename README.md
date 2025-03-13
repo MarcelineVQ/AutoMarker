@@ -4,7 +4,7 @@ AutoMarker for [SuperWow](https://github.com/balakethelock/SuperWoW/) on the 1.1
 * Default values are (so far) calibrated for Turtle WoW specifically.
 ___
 
-* Hold `shift then ctrl or alt` to and mouseover a mob to mark the group.  
+* Hold `shift then ctrl or alt` and mouseover a mob to mark the group.  
 * Enables setting marks on units without needing to be in a party.  
 
 ### Keybinds:
