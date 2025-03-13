@@ -3,7 +3,7 @@ if GetLocale() == "zhCN" then
         -- locations: 5man
         ["Stratholme"] = "斯坦索姆",
         ["Dire Maul"] = "厄运之槌",
-            ["Capital Gardens"] = "Capital Gardens", -- needs localizing? couldn't find CN version in game files
+            ["Capital Gardens"] = "中心花园", -- needs localizing? couldn't find CN version in game files
         -- locations: aq
         ["Ruins of Ahn'Qiraj"] = "安其拉废墟",
         ["Ahn'Qiraj"] = "安其拉神殿",
@@ -15,7 +15,7 @@ if GetLocale() == "zhCN" then
             ["Blackwing Lair"] = "黑翼之巢",
         -- locations: naxx
         ["Naxxramas"] = "纳克萨玛斯",
-            ["The Upper Necropolis"] = "浮空城",  -- 未知副本
+            ["The Upper Necropolis"] = "上层大墓地",  -- 未知副本
         -- locations: misc
         ["Zul'Gurub"] = "祖尔格拉布",
         ["Emerald Sanctum"] = "翡翠圣殿",
