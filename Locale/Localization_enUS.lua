@@ -19,7 +19,17 @@ if GetLocale() == "enUS" then
         -- locations: misc
         ["Zul'Gurub"] = "Zul'Gurub",
         ["Emerald Sanctum"] = "Emerald Sanctum",
+        -- locations: kara
         ["Tower of Karazhan"] = "Tower of Karazhan",
+        ["???"] = "???",
+
+        ["You have Corruption, get OUT of the raid!"] = "You have Corruption, get OUT of the raid!",
+        ["You are targeted for Dark Subservience, go /bow to the queen!"] = "Targeted for Dark Subservience, go /bow to the queen!",
+        ["You have Dark Subservience, go /bow to the queen!"] = "You have Dark Subservience, go /bow to the queen!",
+        ["Shadow damage from (.-)'s Corruption of Medivh%.$"] = "Shadow damage from (.-)'s Corruption of Medivh%.$",
+        ["Dark Subservience fades from (.-).$"] = "Dark Subservience fades from (.-).$",
+        ["^My patience has come to an end."] = "^My patience has come to an end.",
+        
 
         -- mobs: dm
         ["Ironbark Protector"] = "Ironbark Protector",
@@ -47,6 +57,19 @@ if GetLocale() == "enUS" then
         ["Naxxramas Follower"] = "Naxxramas Follower",
         ["Naxxramas Worshipper"] = "Naxxramas Worshipper",
         ["Soldier of the Frozen Wastes"] = "Soldier of the Frozen Wastes",
+        -- mobs: upper kara
+        ["Red Owl"] = "Red Owl",
+        ["Blue Owl"] = "Blue Owl",
+        ["Ley-Watcher Incantagos"] = "Ley-Watcher Incantagos",
+        ["Manascale Ley-Seeker"] = "Manascale Ley-Seeker",
+        ["Green Affinity"] = "Green Affinity",
+        ["Blue Affinity"] = "Blue Affinity",
+        ["Black Affinity"] = "Black Affinity",
+        ["Red Affinity"] = "Red Affinity",
+        ["Mana Affinity"] = "Mana Affinity",
+        ["Crystal Affinity"] = "Crystal Affinity",
+        ["Echo of Medivh"] = "Echo of Medivh",
+        ["Queen"] = "Queen",
 
         ["Unmarked"] = "Unmarked",
         ["Star"] = "Star",

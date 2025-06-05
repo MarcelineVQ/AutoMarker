@@ -25,9 +25,11 @@ local function c(text, color)
   return color..text.."|r"
 end
 
+local super_ver = SUPERWOW_VERSION and tonumber(SUPERWOW_VERSION)
+-- if not (super_ver and super_ver >= 1.4) then -- don't need to be so strict if we're not using raw combatlog
 if not SetAutoloot then
   StaticPopupDialogs["NO_SUPERWOW_AUTOLOOT"] = {
-    text = (c("AutoMarker",color.yellow)..c(" requires SuperWoW to operate.",color.red)),
+    text = (c("AutoMarker",color.yellow)..c(" requires SuperWoW 1.4 or greater to operate.",color.red)),
     button1 = TEXT(OKAY),
     timeout = 0,
     whileDead = 1,
@@ -39,8 +41,37 @@ if not SetAutoloot then
   return
 end
 
+-- localise global fucntions to reduce function lookup cpu use
+local GetPlayerBuff = GetPlayerBuff
+local GetPlayerBuffID = GetPlayerBuffID
+local UnitExists = UnitExists
+local UnitName = UnitName
+local UnitIsDead = UnitIsDead
+local UnitHealth = UnitHealth
+local SetRaidTarget = SetRaidTarget
+local GetRaidTargetIndex = GetRaidTargetIndex
+local GetRealZoneText = GetRealZoneText
+local IsShiftKeyDown = IsShiftKeyDown
+local IsControlKeyDown = IsControlKeyDown
+local IsAltKeyDown = IsAltKeyDown
+local UnitAffectingCombat = UnitAffectingCombat
+local sfind = string.find
+-- local sgfind = string.gfind -- overkill
+local ssub = string.sub
+local tinsert = table.insert
+local tsort = table.sort
+local tremove = table.remove
+local pairs = pairs
+local ipairs = ipairs
+local next = next
+local SendAddonMessage = SendAddonMessage
+local GetNumPartyMembers = GetNumPartyMembers
+local GetNumRaidMembers = GetNumRaidMembers
+local CheckInteractDistance = CheckInteractDistance
+local chat_add_msg = DEFAULT_CHAT_FRAME.AddMessage
+
 local function auto_print(msg)
-  DEFAULT_CHAT_FRAME:AddMessage(msg)
+  if DEFAULT_CHAT_FRAME then chat_add_msg(DEFAULT_CHAT_FRAME,msg) end
 end
 
 local function elem(t,item)
@@ -61,9 +92,9 @@ end
 local function sortTableByKey(tbl)
   local sortedKeys = {}
   for key in pairs(tbl) do
-      table.insert(sortedKeys, key)
+      tinsert(sortedKeys, key)
   end
-  table.sort(sortedKeys)
+  tsort(sortedKeys)
 
   local sortedTable = {}
   for _, key in ipairs(sortedKeys) do
@@ -95,7 +126,7 @@ We get
 local function sortAndReplaceKeys(defaultTable, updateTable, reverse)
   local keys = {}
   for key in pairs(defaultTable) do
-      table.insert(keys, key)
+      tinsert(keys, key)
   end
 
   local comp = function (a,b)
@@ -106,13 +137,13 @@ local function sortAndReplaceKeys(defaultTable, updateTable, reverse)
     end
   end
 
-  table.sort(keys, comp)
+  tsort(keys, comp)
 
   local values = {}
   for _, value in pairs(updateTable) do
-      table.insert(values, value)
+      tinsert(values, value)
   end
-  table.sort(values, comp)
+  tsort(values, comp)
 
   local updatedTable = {}
   local i = 1
@@ -189,11 +220,11 @@ end
 function AutoMarker_MarkName(name)
   local sortedCache = {}
   for guid,name in pairs(AutoMarkerDB.unitCache) do
-    table.insert(sortedCache, { guid = guid, name = name })
+    tinsert(sortedCache, { guid = guid, name = name })
   end
 
   local function sortUnitsByInteractDistance(units)
-    table.sort(units, function(a, b)
+    tsort(units, function(a, b)
         local aInRange = CheckInteractDistance(a.guid,4)
         local bInRange = CheckInteractDistance(b.guid,4)
         if aInRange and not bInRange then
@@ -421,7 +452,7 @@ local temporary_mobs = {
     pack = "domo",
     raid = L["Molten Core"],
     queue = {},
-    reverse = true, -- domo is the one boss so far where his adds have a lower id than him
+    reverse = true, -- adds have lower id than boss
   },
   [L["The Prophet Skeram"]] = {
     minCount = 3,
@@ -436,6 +467,44 @@ local temporary_mobs = {
     raid = L["Zul'Gurub"],
     live_mark = true, -- do the mobs change in combat
     queue = {},
+  },
+  ["Gnarlmoon Owl"] = {
+    minCount = 4,
+    pack = "gnarlmoon",
+    raid = L["Tower of Karazhan"],
+    live_mark = true, -- do the mobs change in combat
+    queue = {},
+    reverse = true, -- adds have lower id than boss
+  },
+  [L["Manascale Ley-Seeker"]] = {
+    minCount = 4,
+    pack = "incantagos",
+    raid = L["Tower of Karazhan"],
+    queue = {},
+    reverse = true, -- adds have lower id than boss
+  },
+  ["Fragment of Rupturan"] = {
+    minCount = 3,
+    pack = "rupturan_fragments",
+    raid = L["???"],
+    live_mark = true,
+    queue = {},
+  },
+  ["Crumbling Exile"] = {
+    minCount = 4,
+    pack = "rupturan_exile",
+    raid = L["???"],
+    live_mark = false,
+    queue = {},
+    reverse = true,
+  },
+  ["Hellfire Doomguard"] = {
+    minCount = 2,
+    pack = "mephistroth",
+    raid = L["???"],
+    live_mark = true,
+    queue = {},
+    -- reverse = true,
   },
   [L["Buru Egg"]] = {
     minCount = 6,
@@ -463,9 +532,9 @@ end
 
 -- make it obvious what is the high hp hound
 local function UpdateCorehound()
-  if not next(AutoMarkerDB.corehounds) or GetRealZoneText() ~= L["Molten Core"] then
+  if not next(AutoMarkerDB.temp_values.corehounds) or GetRealZoneText() ~= L["Molten Core"] then
     AutoMarkerDB.checkCoreHounds = false
-    AutoMarkerDB.corehounds = {}
+    AutoMarkerDB.temp_values.corehounds = {}
     return
   end
 
@@ -473,15 +542,15 @@ local function UpdateCorehound()
   if not UnitIsDead("mark8") and UnitName("mark8") ~= L["Core Hound"] then return end
 
   local t = {}
-  for guid, _ in pairs(AutoMarkerDB.corehounds) do
+  for guid, _ in pairs(AutoMarkerDB.temp_values.corehounds) do
     if not UnitExists(guid) then
-      AutoMarkerDB.corehounds[guid] = nil
+      AutoMarkerDB.temp_values.corehounds[guid] = nil
     elseif UnitAffectingCombat(guid) then
-      table.insert(t, guid)
+      tinsert(t, guid)
     end
   end
   -- if hp are the same, e.g. fight start, use lexigraphical sorting to keep mark stable
-  table.sort(t, function(a, b)
+  tsort(t, function(a, b)
     if UnitHealth(a) == UnitHealth(b) then
       return a < b
     else
@@ -496,82 +565,52 @@ end
 
 -- keep close soliders visible using any spare marks
 local function UpdateSoldiers()
-  if not next(AutoMarkerDB.soldiers) or GetRealZoneText() ~= L["The Upper Necropolis"] then
+  if not next(AutoMarkerDB.temp_values.soldiers) or GetRealZoneText() ~= L["The Upper Necropolis"] then
     AutoMarkerDB.checkSoliders = false
-    AutoMarkerDB.soldiers = {}
+    AutoMarkerDB.temp_values.soldiers = {}
     return
   end
 
-  for guid, _ in pairs(AutoMarkerDB.soldiers) do
+  for guid, _ in pairs(AutoMarkerDB.temp_values.soldiers) do
     if not UnitExists(guid) then
-      AutoMarkerDB.soldiers[guid] = nil
+      AutoMarkerDB.temp_values.soldiers[guid] = nil
     elseif not GetRaidTargetIndex(guid) and UnitAffectingCombat(guid) and CheckInteractDistance(guid,4) then
-      for i=8,1,-1 do
-        -- local m = "mark"..i
-        -- the "mark" unitid isn't performant, avoid using multiple times
-        local _,m = UnitExists("mark"..i)
-        if UnitExists(m) and not UnitIsDead(m) then
-          -- mark is used already
-        else
-          MarkUnit(guid,i)
-          break
-        end
-      end
+      autoMarker:ApplyNextMark(guid)
     end
   end
 end
 
 local function UpdateKeepers()
-  if not next(AutoMarkerDB.keepers) or GetRealZoneText() ~= L["Blackrock Depths"] then
+  if not next(AutoMarkerDB.temp_values.keepers) or GetRealZoneText() ~= L["Blackrock Depths"] then
     AutoMarkerDB.checkKeepers = false
-    AutoMarkerDB.keepers = {}
+    AutoMarkerDB.temp_values.keepers = {}
     return
   end
 
   if GetSubZoneText() == L["The Lyceum"] then
-    for guid, _ in pairs(AutoMarkerDB.keepers) do
+    for guid, _ in pairs(AutoMarkerDB.temp_values.keepers) do
       if not UnitExists(guid) then
-        AutoMarkerDB.keepers[guid] = nil
+        AutoMarkerDB.temp_values.keepers[guid] = nil
       elseif not GetRaidTargetIndex(guid) then
-        for i=8,1,-1 do
-          -- local m = "mark"..i
-          -- the "mark" unitid isn't performant, avoid using multiple times
-          local _,m = UnitExists("mark"..i)
-          if UnitExists(m) and not UnitIsDead(m) then
-            -- mark is used already
-          else
-            MarkUnit(guid,i)
-            break
-          end
-        end
+        autoMarker:ApplyNextMark(guid)
       end
     end
   end
 end
 
 local function UpdateProtectors()
-  if not next(AutoMarkerDB.protectors) or GetRealZoneText() ~= L["Dire Maul"] then
+  if not next(AutoMarkerDB.temp_values.protectors) or GetRealZoneText() ~= L["Dire Maul"] then
     AutoMarkerDB.checkProtectors = false
-    AutoMarkerDB.protectors = {}
+    AutoMarkerDB.temp_values.protectors = {}
     return
   end
 
   if GetSubZoneText() == L["Capital Gardens"] then
-    for guid, _ in pairs(AutoMarkerDB.protectors) do
+    for guid, _ in pairs(AutoMarkerDB.temp_values.protectors) do
       if not UnitExists(guid) then
-        AutoMarkerDB.protectors[guid] = nil
+        AutoMarkerDB.temp_values.protectors[guid] = nil
       elseif not GetRaidTargetIndex(guid) then
-        for i=8,1,-1 do
-          -- local m = "mark"..i
-          -- the "mark" unitid isn't performant, avoid using multiple times
-          local _,m = UnitExists("mark"..i)
-          if UnitExists(m) and not UnitIsDead(m) then
-            -- mark is used already
-          else
-            MarkUnit(guid,i)
-            break
-          end
-        end
+        autoMarker:ApplyNextMark(guid)
       end
     end
   end
@@ -605,6 +644,8 @@ autoMarker:RegisterEvent("PLAYER_ENTERING_WORLD") -- mob respawn
 autoMarker:RegisterEvent("PLAYER_REGEN_ENABLED") -- mob respawn
 autoMarker:RegisterEvent("UNIT_CASTEVENT") -- mob respawn
 autoMarker:RegisterEvent("ZONE_CHANGED_NEW_AREA") -- mob respawn
+-- autoMarker:RegisterEvent("CHAT_MSG_MONSTER_YELL") -- bigwigs should handle this instead
+-- autoMarker:RegisterEvent("RAW_COMBATLOG") -- bigwigs should handle this instead
 autoMarker:RegisterEvent("CHAT_MSG_ADDON") -- slow corehound mark swap
 
 autoMarker.TriggerEvent = function (self,event,a1,a2,a3,a4,a5,a6,a7,a8,a9,a10)
@@ -618,8 +659,8 @@ autoMarker:SetScript("OnEvent", function ()
   if event == "ADDON_LOADED" and arg1 == "AutoMarker" then
     autoMarker:Initialize()
     autoMarker:SetScript("OnEvent", function ()
-      if AutoMarkerDB.settings.enabled then
-        autoMarker:TriggerEvent(event,arg1,arg2,arg3,arg4,arg5,arg6,arg7,arg8,arg9,arg10)
+      if AutoMarkerDB.settings.enabled and autoMarker[event]then
+        autoMarker[event](autoMarker,arg1,arg2,arg3,arg4,arg5,arg6,arg7,arg8,arg9,arg10)
       end
     end)
   end
@@ -630,17 +671,26 @@ function autoMarker:Initialize()
   -- init vars
   if not AutoMarkerDB then AutoMarkerDB = {} end
   if not AutoMarkerDB.customNpcsToMark then AutoMarkerDB.customNpcsToMark = {} end
-  if not AutoMarkerDB.buru_egg_queue then AutoMarkerDB.buru_egg_queue = {} end
-  if not AutoMarkerDB.corehounds then AutoMarkerDB.corehounds = {} end
-  if not AutoMarkerDB.soldiers then AutoMarkerDB.soldiers = {} end
-  if not AutoMarkerDB.keepers then AutoMarkerDB.keepers = {} end
-  if not AutoMarkerDB.protectors then AutoMarkerDB.protectors = {} end
-  if not AutoMarkerDB.unitCache then AutoMarkerDB.unitCache = {} end
-  if not AutoMarkerDB.solnius_adds then AutoMarkerDB.solnius_adds = {} end
+  if not AutoMarkerDB.temp_values then
+    AutoMarkerDB.temp_values = {
+      buru_egg_queue = {},
+      corehounds = {},
+      soldiers = {},
+      keepers = {},
+      protectors = {},
+      unitCache = {},
+      solnius_adds = { count = 0 },
+    }
+  end
 
   if not AutoMarkerDB.started_solnius then AutoMarkerDB.started_solnius = false end
+  if not AutoMarkerDB.started_queen then AutoMarkerDB.started_queen = false end
+  if not AutoMarkerDB.started_medivh then AutoMarkerDB.started_medivh = false end
   if not AutoMarkerDB.checkCoreHounds then AutoMarkerDB.checkCoreHounds = false end
   if not AutoMarkerDB.checkSoliders then AutoMarkerDB.checkSoliders = false end
+  if not AutoMarkerDB.checkKeepers then AutoMarkerDB.checkKeepers = false end
+  if not AutoMarkerDB.checkProtectors then AutoMarkerDB.checkProtectors = false end
+  if not AutoMarkerDB.checkTemporaryMobs then AutoMarkerDB.checkTemporaryMobs = false end
 
   -- clear unit cache
   -- TODO: do this on logout instead?
@@ -707,10 +757,26 @@ local function ClearTemps()
       end
     end
   end
-  AutoMarkerDB.buru_egg_queue = nil
+
+  AutoMarkerDB.temp_values = {
+    buru_egg_queue = {},
+    corehounds = {},
+    soldiers = {},
+    keepers = {},
+    protectors = {},
+    unitCache = {},
+    solnius_adds = {},
+    solnius_adds = { count = 0 },
+  }
+
   AutoMarkerDB.started_solnius = false
-  AutoMarkerDB.solnius_adds = {}
-  AutoMarkerDB.solnius_adds.count = 0
+  AutoMarkerDB.started_queen = false
+  AutoMarkerDB.started_medivh = false
+  -- AutoMarkerDB.checkCoreHounds = false
+  -- AutoMarkerDB.checkSoliders = false
+  -- AutoMarkerDB.checkKeepers = false
+  -- AutoMarkerDB.checkProtectors = false
+  -- AutoMarkerDB.checkTemporaryMobs = false
 end
 
 function autoMarker:UPDATE_MOUSEOVER_UNIT()
@@ -724,42 +790,246 @@ function autoMarker:UPDATE_MOUSEOVER_UNIT()
   end
 end
 
--- TODO only use of cast event, consider finding another way to detect this
+function autoMarker:CHAT_MSG_MONSTER_YELL(msg,from)
+  if from == L["Echo of Medivh"] and sfind(msg, L["^My patience has come to an end."]) then
+    AutoMarkerDB.started_medivh = true
+  end
+  if from == L["Queen"] then
+    AutoMarkerDB.started_queen = true
+  end
+end
+
+function autoMarker:RAW_COMBATLOG(event, msg)
+  if AutoMarkerDB.started_medivh and
+  (event == "CHAT_MSG_SPELL_PERIODIC_SELF_DAMAGE" or
+   event == "CHAT_MSG_SPELL_PERIODIC_FRIENDLYPLAYER_DAMAGE" or
+   event == "CHAT_MSG_SPELL_PERIODIC_PARTY_DAMAGE") then
+    if sfind(msg, L["Shadow damage from (.-)'s Corruption of Medivh%.$"]) then
+      autoMarker.corruption_damage = GetTime()
+    end
+    return
+  end
+
+  if AutoMarkerDB.started_queen and
+  (event == "CHAT_MSG_AURA_GONE_SELF" or
+   event == "CHAT_MSG_AURA_GONE_PARTY" or
+   event == "CHAT_MSG_AURA_GONE_OTHER") then
+    local _,_,unit = sfind(msg, L["Dark Subservience fades from (.-).$"])
+    if unit then
+      -- clear mark from that unit
+      MarkUnit(unit,autoMarker.old_queen_mark or 0)
+      autoMarker.old_queen_mark = nil
+    end
+    return
+  end
+end
+
+--[[
+/run AutoMarkerFrame:CHAT_MSG_MONSTER_YELL("More uninvited guests? I have no time for intrusions.","Echo of Medivh")
+/run AutoMarkerFrame:RAW_COMBATLOG("CHAT_MSG_SPELL_PERIODIC_SELF_DAMAGE","You take 800 Shadow damage from player's Corruption of Medivh.")
+/run AutoMarkerFrame:UNIT_CASTEVENT("player","player","CAST", 52674,0)
+
+/run AutoMarkerFrame:CHAT_MSG_MONSTER_YELL("","Queen")
+/run AutoMarkerFrame:UNIT_CASTEVENT("player","player","CAST", 41647,0)
+/run AutoMarkerFrame:RAW_COMBATLOG("CHAT_MSG_AURA_GONE_SELF","Dark Subservience fades from player.")
+
+--]]
+
 function autoMarker:UNIT_CASTEVENT(caster,target,action,spell_id,cast_time)
   -- if buru egg exploded
   if spell_id == 19593 then
-    if not AutoMarkerDB.buru_egg_queue then AutoMarkerDB.buru_egg_queue = {} end
-    table.insert(AutoMarkerDB.buru_egg_queue, GetRaidTargetIndex(arg1))
+    if not AutoMarkerDB.temp_values.buru_egg_queue then AutoMarkerDB.temp_values.buru_egg_queue = {} end
+    tinsert(AutoMarkerDB.temp_values.buru_egg_queue, GetRaidTargetIndex(arg1))
+    return
+  end
+
+  -- incantagos affinity, channels on an affinity on spawn we can use to mark it
+  if action == "CHANNEL" and spell_id == 51187 then
+    MarkUnit(target,8)
+    return
+  end
+end
+
+-- todo, separate this into zones and load only each zone
+local patterns = {
+  flamewaker_healer           = "^0xF130002D8F27",
+  flamewaker_elite            = "^0xF130002D9027",
+  gnarlmoon_owl_blue          = "^0xF13000EA5E27",
+  gnarlmoon_owl_red           = "^0xF13000EA5D27",
+  incantagos_seekers          = "^0xF13000EA5527",
+  incantagos_affinity_mana    = "^0xF13000EA4E27",
+  incantagos_affinity_black   = "^0xF13000EA4F27",
+  incantagos_affinity_blue    = "^0xF13000EA5027",
+  incantagos_affinity_green   = "^0xF13000EA5127",
+  incantagos_affinity_red     = "^0xF13000EA5227",
+  incantagos_affinity_crystal = "^0xF13000EA5327",
+  sanv_riftstalker            = "^0xF13000EA4827",
+  rupturan_fragment           = "^0xF13000EA3527",
+  rupturan_exile              = "^0xF13000EA3807",
+  mephistroth_doomguards      = "^0xF130016C9827",
+  rupturan_dirt_mound         = "^0xF13000EA3427",
+  naxx_plague_gargs           = "^0xF130003F2801",
+}
+
+-- start with skull unless reversed
+function autoMarker:ApplyNextMark(guid,reverse)
+  local start,stop,step = 8,1,-1
+  if reverse then start,stop,step = 1,8,1 end
+
+  for i=start,stop,step do
+    -- the "mark" unitid isn't performant, avoid using multiple times
+    local _,m = UnitExists("mark"..i)
+    if not (UnitExists(m) and not UnitIsDead(m)) then
+      -- if mark isn't active, use it
+      MarkUnit(guid,i)
+      break
+    end
+  end
+end
+
+local function TryPatterns(guid,...)
+  for i = 1, arg.n do
+    if sfind(guid, arg[i]) then return true end
   end
 end
 
 -- Workhorse, detects when a unit model is loaded in the client.
 -- Units can technically be checked for exsitence before this but this event lets us do it on the fly.
-function autoMarker:UNIT_MODEL_CHANGED(guid)
+function autoMarker:UNIT_MODEL_CHANGED(guid,debug_id,debug_name)
   -- Certain mobs are script spawned so their IDs need to be fetched
 
   local name = UnitName(guid)
+  local zone = AutoMarkerDB.zone
 
   -- store found guid, this is only for `/am markname` so far
   AutoMarkerDB.unitCache[guid] = name
 
   if AutoMarkerDB.settings.debug then
+    _,guid = UnitExists(debug_id or guid)
+    name = debug_name or UnitName(guid)
     auto_print(guid .. " " .. name)
   end
 
   -- player unit models change _often_, exit early if it's not a mob guid
-  if string.sub(guid,3,3) ~= "F" then return end
+  if ssub(guid,3,3) ~= "F" then return end
 
-  if name == L["Naxxramas Follower"] or name == L["Naxxramas Worshipper"] then
-    name = "Faerlina Add"
-  end
+  if zone == L["Tower of Karazhan"] or zone == L["???"] then
+    -- if UnitAffectingCombat("player") then
+      -- auto_print(guid .. " " .. name) -- todo, remove these
+    -- end
 
-  if name == L["Flamewaker Healer"] or name == L["Flamewaker Elite"] then
-    name = "Domo Add"
-  end
+    if TryPatterns(guid,patterns.gnarlmoon_owl_blue,patterns.gnarlmoon_owl_red) then
+      -- name = "Gnarlmoon Owl"
+      self:ApplyNextMark(guid, true)
+      return
 
-  if name == L["Lord Victor Nefarius"] then
+    elseif TryPatterns(guid,patterns.rupturan_fragment) then
+      name = "Fragment of Rupturan"
+
+    elseif TryPatterns(guid, patterns.rupturan_exile) then
+      name = "Crumbling Exile"
+
+    elseif TryPatterns(guid,patterns.rupturan_dirt_mound) then
+      MarkUnit(guid,4)
+      return
+
+    elseif TryPatterns(guid, patterns.mephistroth_doomguards) then
+      name = "Hellfire Doomguard"
+
+    -- mid-fight ley-seekers have a different guid base of 0xF14
+    elseif name == L["Manascale Ley-Seeker"] and ssub(guid,5,5) ~= "3" then
+      return
+
+    -- sanv stalkers
+    elseif not GetRaidTargetIndex(guid) and TryPatterns(guid, patterns.sanv_riftstalker) then
+      self:ApplyNextMark(guid)
+      return
+    end
+
+  elseif zone == L["Naxxramas"] or zone == L["The Upper Necropolis"] then
+    if name == L["Naxxramas Follower"] or name == L["Naxxramas Worshipper"] then
+      name = "Faerlina Add"
+    elseif name == L["Soldier of the Frozen Wastes"] then
+      AutoMarkerDB.temp_values.soldiers[guid] = true
+      AutoMarkerDB.checkSoliders = true
+      return
+    end
+    -- ignore patrol garg
+    if TryPatterns(guid,patterns.naxx_plague_gargs) and guid ~= "0xF130003F2801581E" then
+      -- register for unit flag changes here, mark on flag change for these gargs
+    end
+
+  elseif zone == L["Blackrock Depths"] or zone == L["The Lyceum"] then
+    if name == L["Shadowforge Flame Keeper"] then
+      AutoMarkerDB.temp_values.keepers[guid] = true
+      AutoMarkerDB.checkKeepers = true
+      return
+    end
+
+  elseif zone == L["Dire Maul"] or zone == L["Capital Gardens"] then
+    if name == L["Ironbark Protector"] then
+      AutoMarkerDB.temp_values.protectors[guid] = true
+      AutoMarkerDB.checkProtectors = true
+      return
+    end
+
+  elseif zone == L["Ahn'Qiraj"] then
+    -- fangkriss adds
+    if name == L["Spawn of Fankriss"] and not GetRaidTargetIndex(guid) then
+      self:ApplyNextMark(guid)
+      return
+    end
+
+  elseif zone == L["Ruins of Ahn'Qiraj"] then
+    -- buru eggs respawn throughout the fight but we want them marked still
+    if AutoMarkerDB.temp_values.buru_egg_queue and name == L["Buru Egg"] then
+      local next_egg_mark = tremove(AutoMarkerDB.temp_values.buru_egg_queue,1)
+      if next_egg_mark then
+        MarkUnit(guid, next_egg_mark)
+      end
+      return
+    end
+
+  elseif zone == L["Emerald Sanctum"] then
+    -- Solnius adds
+    -- did solnius go dragonform
+    if name == L["Solnius"] and UnitAffectingCombat(guid) then
+      -- print("started")
+      AutoMarkerDB.started_solnius = true
+    end
+    if AutoMarkerDB.started_solnius and elem(solinus_prio,name) then
+      AutoMarkerDB.temp_values.solnius_adds[name] = AutoMarkerDB.temp_values.solnius_adds[name] or {}
+      tinsert(AutoMarkerDB.temp_values.solnius_adds[name], guid)
+      AutoMarkerDB.temp_values.solnius_adds.count = (AutoMarkerDB.temp_values.solnius_adds.count or 0) + 1
+
+      if AutoMarkerDB.temp_values.solnius_adds.count >= 3 then
+        -- check each entry by prio and assign marks
+        local ix = 1
+        for _,mobtype in ipairs(solinus_prio) do
+          for _,guid in ipairs(AutoMarkerDB.temp_values.solnius_adds[mobtype] or {}) do
+            local mark_id = 9-ix
+            MarkUnit(guid,mark_id)
+            ix = ix + 1
+          end
+        end
+        ClearTemps()
+      end
+      return
+    end
+
+  elseif zone == L["Molten Core"] then
+    if TryPatterns(guid, patterns.flamewaker_healer, patterns.flamewaker_elite) then
+    -- if name == L["Flamewaker Healer"] or name == L["Flamewaker Elite"] then
+      name = "Domo Add"
+    elseif name == L["Core Hound"] then
+      AutoMarkerDB.temp_values.corehounds[guid] = true
+      AutoMarkerDB.checkCoreHounds = true
+      return
+    end
+
+  elseif zone == L["Blackwing Lair"] and name == L["Lord Victor Nefarius"] then
     MarkUnit(guid,2)
+    return
   end
 
   if temporary_mobs[name] then
@@ -769,98 +1039,27 @@ function autoMarker:UNIT_MODEL_CHANGED(guid)
     return
   end
 
-  -- fangkriss adds
-  if name == L["Spawn of Fankriss"] and not GetRaidTargetIndex(guid) then
-    -- mark from skull on down, any worms around
-    for i=8,1,-1 do
-      -- the "mark" unitid isn't performant, avoid using multiple times
-      local _,m = UnitExists("mark"..i)
-      if UnitExists(m) and not UnitIsDead(m) then
-        -- mark is a marked worm already
-      else
-        MarkUnit(guid,i)
-        break
-      end
-    end
-    return
-  end
-
-  if name == L["Core Hound"] then
-    AutoMarkerDB.corehounds[guid] = true
-    AutoMarkerDB.checkCoreHounds = true
-    return
-  end
-
-  if name == L["Soldier of the Frozen Wastes"] then
-    AutoMarkerDB.soldiers[guid] = true
-    AutoMarkerDB.checkSoliders = true
-    return
-  end
-
-  if name == L["Shadowforge Flame Keeper"] then
-    AutoMarkerDB.keepers[guid] = true
-    AutoMarkerDB.checkKeepers = true
-    return
-  end
-
-  if name == L["Ironbark Protector"] then
-    AutoMarkerDB.protectors[guid] = true
-    AutoMarkerDB.checkProtectors = true
-    return
-  end
-
-  -- Solnius adds
-  -- did solnius go dragonform
-  if name == L["Solnius"] and UnitAffectingCombat(guid) then
-    -- print("started")
-    AutoMarkerDB.started_solnius = true
-  end
-  if AutoMarkerDB.started_solnius and elem(solinus_prio,name) then
-    AutoMarkerDB.solnius_adds[name] = AutoMarkerDB.solnius_adds[name] or {}
-    table.insert(AutoMarkerDB.solnius_adds[name], guid)
-    AutoMarkerDB.solnius_adds.count = (AutoMarkerDB.solnius_adds.count or 0) + 1
-
-    if AutoMarkerDB.solnius_adds.count >= 3 then
-      -- check each entry by prio and assign marks
-      local ix = 1
-      for _,mobtype in ipairs(solinus_prio) do
-        for _,guid in ipairs(AutoMarkerDB.solnius_adds[mobtype] or {}) do
-          local mark_id = 9-ix
-          MarkUnit(guid,mark_id)
-          ix = ix + 1
-        end
-      end
-      ClearTemps()
-    end
-    return
-  end
-
-  -- buru eggs respawn throughout the fight but we want them marked still
-  if AutoMarkerDB.buru_egg_queue and name == L["Buru Egg"] then
-    local next_egg_mark = table.remove(AutoMarkerDB.buru_egg_queue,1)
-    if next_egg_mark then
-      MarkUnit(guid, next_egg_mark)
-    end
-    return
-  end
 end
 
 -- clear solnius etc
 function autoMarker:PLAYER_REGEN_ENABLED()
+  -- As far as I know fd/vanish won't trigger this while the raid is still fighting.
+  -- Combat ended, reset relevant model queues
   ClearTemps()
 end
 
 function autoMarker:PLAYER_ENTERING_WORLD()
+  AutoMarkerDB.zone = GetRealZoneText()
   ClearTemps()
 end
 
 function autoMarker:PLAYER_REGEN_DISABLED()
-  -- As far as I know fd/vanish won't trigger this while the raid is still fighting.
   -- Combat started, reset relevant model queues in case of incomplete loads
-  ClearTemps()
+  -- ClearTemps()
 end
 
 function autoMarker:ZONE_CHANGED_NEW_AREA()
+  AutoMarkerDB.zone = GetRealZoneText()
   if GetRealZoneText() == L["Blackrock Spire"] and IsInInstance() and UnitExists("0xF13000290D104DD6") then
     UIErrorsFrame:AddMessage(L["Jed is in the instance!"],0,1,0)
   end
@@ -881,7 +1080,7 @@ local function handleCommands(msg, editbox)
   local args = {}
   for word in string.gfind(msg, '%S+') do
     if word ~= "" then
-      table.insert(args, word)
+      tinsert(args, word)
     end
   end
 
@@ -978,7 +1177,7 @@ local function handleCommands(msg, editbox)
       auto_print(L["You must provide a name as well when using markname."])
       return
     end
-    table.remove(args,1)
+    tremove(args,1)
     AutoMarker_MarkName(table.concat(args, " "))
   elseif command == "debug" then
     AutoMarkerDB.settings.debug = not AutoMarkerDB.settings.debug
