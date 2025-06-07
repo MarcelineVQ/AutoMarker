@@ -476,7 +476,7 @@ local temporary_mobs = {
     queue = {},
     reverse = true, -- adds have lower id than boss
   },
-  [L["Manascale Ley-Seeker"]] = {
+  ["Manascale Ley-Seeker"] = {
     minCount = 4,
     pack = "incantagos",
     raid = L["Tower of Karazhan"],
@@ -936,9 +936,9 @@ function autoMarker:UNIT_MODEL_CHANGED(guid,debug_id,debug_name)
     elseif TryPatterns(guid, patterns.mephistroth_doomguards) then
       name = "Hellfire Doomguard"
 
+    elseif TryPatterns(guid, patterns.incantagos_seekers) then
+      name = "Manascale Ley-Seeker"
     -- mid-fight ley-seekers have a different guid base of 0xF14
-    elseif name == L["Manascale Ley-Seeker"] and ssub(guid,5,5) ~= "3" then
-      return
 
     -- sanv stalkers
     elseif not GetRaidTargetIndex(guid) and TryPatterns(guid, patterns.sanv_riftstalker) then

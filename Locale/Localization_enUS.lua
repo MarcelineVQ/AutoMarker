@@ -58,16 +58,6 @@ if GetLocale() == "enUS" then
         ["Naxxramas Worshipper"] = "Naxxramas Worshipper",
         ["Soldier of the Frozen Wastes"] = "Soldier of the Frozen Wastes",
         -- mobs: upper kara
-        ["Red Owl"] = "Red Owl",
-        ["Blue Owl"] = "Blue Owl",
-        ["Ley-Watcher Incantagos"] = "Ley-Watcher Incantagos",
-        ["Manascale Ley-Seeker"] = "Manascale Ley-Seeker",
-        ["Green Affinity"] = "Green Affinity",
-        ["Blue Affinity"] = "Blue Affinity",
-        ["Black Affinity"] = "Black Affinity",
-        ["Red Affinity"] = "Red Affinity",
-        ["Mana Affinity"] = "Mana Affinity",
-        ["Crystal Affinity"] = "Crystal Affinity",
         ["Echo of Medivh"] = "Echo of Medivh",
         ["Queen"] = "Queen",
 

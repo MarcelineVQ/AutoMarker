@@ -2243,11 +2243,11 @@ addToDefaultNpcsToMark(L["Tower of Karazhan"], "kara_library_7", {
 })
 
 addToDefaultNpcsToMark(L["Tower of Karazhan"], "kara_library_8", {
-  ["0xF13000F1F7276BAF"] = SKULL, -- Manascale Suppressor
+  ["0xF13000F1F7276BAF"] = CROSS, -- Manascale Suppressor
   ["0xF13000F1F8276BB0"] = SQUARE, -- Manascale Mageweaver
   ["0xF13000F1F6276BB1"] = TRIANGLE, -- Manascale Dragon Guard
   ["0xF13000F1F6276BB2"] = MOON, -- Manascale Dragon Guard
-  ["0xF13000F1F4276BAE"] = CROSS, -- Manascale Drake
+  ["0xF13000F1F4276BAE"] = SKULL, -- Manascale Drake
 })
 
 addToDefaultNpcsToMark(L["Tower of Karazhan"], "incantagos", {
@@ -2529,7 +2529,7 @@ addToDefaultNpcsToMark(L["???"], "rupturan_exile", {
   ["0xF13000EA38073D38"] = CROSS, -- crumbling exile
   ["0xF13000EA38073D37"] = SQUARE, -- crumbling exile
   ["0xF13000EA38073D36"] = MOON, -- crumbling exile
-  ["0xF13000EA39073D35"] = NONE,-- Rupturan the Broken
+  ["0xF13000EA39073D35"] = UNMARKED,-- Rupturan the Broken
 })
 
 addToDefaultNpcsToMark(L["???"], "rupturan_fragments", {
