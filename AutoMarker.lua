@@ -678,10 +678,10 @@ function autoMarker:Initialize()
       soldiers = {},
       keepers = {},
       protectors = {},
-      unitCache = {},
       solnius_adds = { count = 0 },
     }
   end
+  if not AutoMarkerDB.unitCache then AutoMarkerDB.unitCache = {} end
 
   if not AutoMarkerDB.started_solnius then AutoMarkerDB.started_solnius = false end
   if not AutoMarkerDB.started_queen then AutoMarkerDB.started_queen = false end
@@ -764,7 +764,6 @@ local function ClearTemps()
     soldiers = {},
     keepers = {},
     protectors = {},
-    unitCache = {},
     solnius_adds = {},
     solnius_adds = { count = 0 },
   }
@@ -911,7 +910,7 @@ function autoMarker:UNIT_MODEL_CHANGED(guid,debug_id,debug_name)
   end
 
   -- player unit models change _often_, exit early if it's not a mob guid
-  if ssub(guid,3,3) ~= "F" then return end
+  if ssub(guid,3,3) ~= "F" then return end -- use IsPlayer(guid) ?
 
   if zone == L["Tower of Karazhan"] or zone == L["???"] then
     -- if UnitAffectingCombat("player") then

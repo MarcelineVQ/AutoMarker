@@ -19,8 +19,9 @@ if GetLocale() == "zhCN" then
         -- locations: misc
         ["Zul'Gurub"] = "祖尔格拉布",
         ["Emerald Sanctum"] = "翡翠圣殿",
-        ["Tower of Karazhan"] = "卡拉赞", -- is this right still?
-        ["???"] = "???",
+        -- locations: kara
+        ["Tower of Karazhan"] = "卡拉赞",
+        ["???"] = "外域",
 
         -- mobs: dm
         ["Ironbark Protector"] = "埃隆巴克保护者",
