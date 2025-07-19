@@ -2148,14 +2148,12 @@ addToDefaultNpcsToMark(L["Tower of Karazhan"], "kara_entrance_inner_1", {
   ["0xF13000F1F1276B46"] = SKULL,
 })
 
-addToDefaultNpcsToMark(L["Tower of Karazhan"], "gnarlmoon", {
-  ["0xF13000EA5E278C14"] = STAR, -- blue owl 1
-  ["0xF13000EA5E278C15"] = CIRCLE, -- blue owl 2
-  ["0xF13000EA5D278C16"] = DIAMOND, -- red owl 1
-  ["0xF13000EA5D278C17"] = TRIANGLE, -- red owl 2
-  ["0xF13000F1F3276A33"] = UNMARKED, -- Keeper Gnarlmoon
+addToDefaultNpcsToMark(L["Tower of Karazhan"], "gnarlmoon_owls", {
+  ["0xF13000EA5E278C14"] = STAR,     -- blue owl 1, fake id
+  ["0xF13000EA5E278C15"] = CIRCLE,   -- blue owl 2, fake id
+  ["0xF13000EA5D278C16"] = DIAMOND,  -- red owl 1, fake id
+  ["0xF13000EA5D278C17"] = TRIANGLE, -- red owl 2, fake id
 })
-
 
 addToDefaultNpcsToMark(L["Tower of Karazhan"], "kara_library_1", {
   ["0xF13000F1F8276B9C"] = CROSS, -- Manascale Mageweaver
@@ -2250,12 +2248,11 @@ addToDefaultNpcsToMark(L["Tower of Karazhan"], "kara_library_8", {
   ["0xF13000F1F4276BAE"] = SKULL, -- Manascale Drake
 })
 
-addToDefaultNpcsToMark(L["Tower of Karazhan"], "incantagos", {
+addToDefaultNpcsToMark(L["Tower of Karazhan"], "incantagos_seekers", {
   ["0xF13000EA55278B84"] = MOON, -- Manascale Ley-Seeker
   ["0xF13000EA55278B83"] = CROSS, -- Manascale Ley-Seeker
   ["0xF13000EA55278B82"] = SQUARE, -- Manascale Ley-Seeker
   ["0xF13000EA55278B81"] = SKULL, -- Manascale Ley-Seeker
-  ["0xF13000F1FA276A32"] = UNMARKED, -- Ley-Watcher Incantagos
 })
 
 addToDefaultNpcsToMark(L["Tower of Karazhan"], "kara_library_upper_1", {

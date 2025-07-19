@@ -470,18 +470,18 @@ local temporary_mobs = {
   },
   ["Gnarlmoon Owl"] = {
     minCount = 4,
-    pack = "gnarlmoon",
+    pack = "gnarlmoon_owls",
     raid = L["Tower of Karazhan"],
     live_mark = true, -- do the mobs change in combat
     queue = {},
-    reverse = true, -- adds have lower id than boss
+    reverse = true,
   },
   ["Manascale Ley-Seeker"] = {
     minCount = 4,
     pack = "incantagos",
     raid = L["Tower of Karazhan"],
     queue = {},
-    reverse = true, -- adds have lower id than boss
+    reverse = true,
   },
   ["Fragment of Rupturan"] = {
     minCount = 3,
@@ -918,8 +918,8 @@ function autoMarker:UNIT_MODEL_CHANGED(guid,debug_id,debug_name)
     -- end
 
     if TryPatterns(guid,patterns.gnarlmoon_owl_blue,patterns.gnarlmoon_owl_red) then
-      -- name = "Gnarlmoon Owl"
-      self:ApplyNextMark(guid, true)
+      name = "Gnarlmoon Owl"
+      -- self:ApplyNextMark(guid, true) -- you can't use this bare like this here, not sure why, maybe due to the owls spawning too close together
       return
 
     elseif TryPatterns(guid,patterns.rupturan_fragment) then
@@ -941,7 +941,7 @@ function autoMarker:UNIT_MODEL_CHANGED(guid,debug_id,debug_name)
 
     -- sanv stalkers
     elseif not GetRaidTargetIndex(guid) and TryPatterns(guid, patterns.sanv_riftstalker) then
-      self:ApplyNextMark(guid)
+      self:ApplyNextMark(guid) -- might have similar issue to owls
       return
     end
 
