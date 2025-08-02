@@ -324,6 +324,7 @@ local last_pack_marked = nil
 local elapsed = 0
 local core_delay = 3
 local core_delay_elapsed = 0
+local aggro_tracker = {}
 
 local solinus_prio = { L["Sanctum Supressor"], L["Sanctum Dragonkin"], L["Sanctum Wyrmkin"], L["Sanctum Scalebane"] }
 
@@ -610,7 +611,7 @@ local function UpdateProtectors()
       if not UnitExists(guid) then
         AutoMarkerDB.temp_values.protectors[guid] = nil
       elseif not GetRaidTargetIndex(guid) then
-        autoMarker:ApplyNextMark(guid)
+        autoMarker:ApplyNextMark(guid) -- this might need a proper temp mob entry, depends if they all load at once
       end
     end
   end
@@ -863,6 +864,7 @@ local patterns = {
   incantagos_affinity_red     = "^0xF13000EA5227",
   incantagos_affinity_crystal = "^0xF13000EA5327",
   sanv_riftstalker            = "^0xF13000EA4827",
+  sanv_netherwalker           = "^0xF13000EA4A27",
   rupturan_fragment           = "^0xF13000EA3527",
   rupturan_exile              = "^0xF13000EA3807",
   mephistroth_doomguards      = "^0xF130016C9827",
@@ -898,7 +900,7 @@ function autoMarker:UNIT_MODEL_CHANGED(guid,debug_id,debug_name)
   -- Certain mobs are script spawned so their IDs need to be fetched
 
   local name = UnitName(guid)
-  local zone = AutoMarkerDB.zone
+  local zone = GetRealZoneText()
 
   -- store found guid, this is only for `/am markname` so far
   AutoMarkerDB.unitCache[guid] = name
@@ -919,8 +921,6 @@ function autoMarker:UNIT_MODEL_CHANGED(guid,debug_id,debug_name)
 
     if TryPatterns(guid,patterns.gnarlmoon_owl_blue,patterns.gnarlmoon_owl_red) then
       name = "Gnarlmoon Owl"
-      -- self:ApplyNextMark(guid, true) -- you can't use this bare like this here, not sure why, maybe due to the owls spawning too close together
-      return
 
     elseif TryPatterns(guid,patterns.rupturan_fragment) then
       name = "Fragment of Rupturan"
@@ -941,7 +941,10 @@ function autoMarker:UNIT_MODEL_CHANGED(guid,debug_id,debug_name)
 
     -- sanv stalkers
     elseif not GetRaidTargetIndex(guid) and TryPatterns(guid, patterns.sanv_riftstalker) then
-      self:ApplyNextMark(guid) -- might have similar issue to owls
+      self:ApplyNextMark(guid) -- might have similar issue to owls if 2 spawn at once
+      return
+    elseif not GetRaidTargetIndex(guid) and TryPatterns(guid, patterns.sanv_netherwalker) then
+      self:ApplyNextMark(guid,true) -- reverse, to hopefully leave skull/x for stalkers
       return
     end
 
@@ -1048,7 +1051,7 @@ function autoMarker:PLAYER_REGEN_ENABLED()
 end
 
 function autoMarker:PLAYER_ENTERING_WORLD()
-  AutoMarkerDB.zone = GetRealZoneText()
+  self:ZONE_CHANGED_NEW_AREA()
   ClearTemps()
 end
 
@@ -1058,9 +1061,26 @@ function autoMarker:PLAYER_REGEN_DISABLED()
 end
 
 function autoMarker:ZONE_CHANGED_NEW_AREA()
-  AutoMarkerDB.zone = GetRealZoneText()
-  if GetRealZoneText() == L["Blackrock Spire"] and IsInInstance() and UnitExists("0xF13000290D104DD6") then
+  local zone = GetRealZoneText()
+  AutoMarkerDB.zone = zone
+  if zone == L["Blackrock Spire"] and IsInInstance() and UnitExists("0xF13000290D104DD6") then
     UIErrorsFrame:AddMessage(L["Jed is in the instance!"],0,1,0)
+  elseif zone == L["Naxxramas"] then
+    -- enable garg checker
+    autoMarker:RegisterEvent("UNIT_FLAGS")
+  end
+end
+
+-- scan for gargoyles going 'live'
+function autoMarker:UNIT_FLAGS(guid)
+  if string.sub(guid, 3, 3) ~= "F" then return end -- only track mob guids
+
+  -- Aggroed for the first time
+  if UnitAffectingCombat(guid) and UnitCanAttack("player", guid) and not aggro_tracker[guid] and TryPatterns(guid, patterns.naxx_plague_gargs) then
+    aggro_tracker[guid] = true
+    local pack, packMobs = guidToPack(guid, GetRealZoneText())
+    MarkPack(packMobs or {})
+    return
   end
 end
 

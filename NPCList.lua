@@ -538,8 +538,11 @@ addToDefaultNpcsToMark(L["Naxxramas"], "plague_2", {
   ["0xF130003F74015818"] = SKULL, -- Infectious Ghoul
 })
 
-addToDefaultNpcsToMark(L["Naxxramas"], "plague_gargs1", {
+addToDefaultNpcsToMark(L["Naxxramas"], "plague_gargs1_pat", {
   ["0xF130003F2801581E"] = STAR, -- pat
+})
+
+addToDefaultNpcsToMark(L["Naxxramas"], "plague_gargs1", {
   ["0xF130003F2801581C"] = SKULL, -- stone1_right
   ["0xF130003F2801581D"] = CROSS,
 })
