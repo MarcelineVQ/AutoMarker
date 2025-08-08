@@ -1,9 +1,9 @@
 ## Interface: 11200
-## Title: [SuperWoW] AutoMarker 1.20.0 |cff7fff7fSuper-WoW|r
+## Title: [SuperWoW] AutoMarker 1.20.1 |cff7fff7fSuper-WoW|r
 ## Notes: Automatically mark raid mobs
 ## Author: Weird Vibes
 ## SavedVariables: AutoMarkerDB
-## Version: 1.20.0
+## Version: 1.20.1
 
 Locale\Localization.xml
 NPCList.lua

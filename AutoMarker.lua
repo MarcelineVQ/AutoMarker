@@ -479,7 +479,7 @@ local temporary_mobs = {
   },
   ["Manascale Ley-Seeker"] = {
     minCount = 4,
-    pack = "incantagos",
+    pack = "incantagos_seekers",
     raid = L["Tower of Karazhan"],
     queue = {},
     reverse = true,
@@ -507,7 +507,7 @@ local temporary_mobs = {
     queue = {},
     -- reverse = true,
   },
-  [L["Buru Egg"]] = {
+  ["Buru Egg"] = {
     minCount = 6,
     pack = "buru_eggs",
     raid = L["Ruins of Ahn'Qiraj"],
@@ -520,6 +520,11 @@ local temporary_mobs = {
 local function UpdateTemporaryMobs()
   for mob, config in pairs(temporary_mobs) do
     if GetRealZoneText() == config.raid and tsize(config.queue) >= config.minCount then
+      -- print(config.raid)
+      -- print(config.pack)
+      -- for k,_ in defaultNpcsToMark[config.raid][config.pack] do
+        -- print(k .. " " .. UnitName(k))
+      -- end
       currentNpcsToMark[config.raid][config.pack] =
         sortAndReplaceKeys(defaultNpcsToMark[config.raid][config.pack], config.queue, config.reverse)
       if config.live_mark then
@@ -870,6 +875,7 @@ local patterns = {
   mephistroth_doomguards      = "^0xF130016C9827",
   rupturan_dirt_mound         = "^0xF13000EA3427",
   naxx_plague_gargs           = "^0xF130003F2801",
+  buru_eggs                   = "^0xF130003C9A27",
 }
 
 -- start with skull unless reversed
@@ -915,9 +921,6 @@ function autoMarker:UNIT_MODEL_CHANGED(guid,debug_id,debug_name)
   if ssub(guid,3,3) ~= "F" then return end -- use IsPlayer(guid) ?
 
   if zone == L["Tower of Karazhan"] or zone == L["???"] then
-    -- if UnitAffectingCombat("player") then
-      -- auto_print(guid .. " " .. name) -- todo, remove these
-    -- end
 
     if TryPatterns(guid,patterns.gnarlmoon_owl_blue,patterns.gnarlmoon_owl_red) then
       name = "Gnarlmoon Owl"
@@ -982,9 +985,10 @@ function autoMarker:UNIT_MODEL_CHANGED(guid,debug_id,debug_name)
       return
     end
 
-  elseif zone == L["Ruins of Ahn'Qiraj"] then
+  elseif zone == L["Ruins of Ahn'Qiraj"] and TryPatterns(guid, patterns.buru_eggs) then
+    name = "Buru Egg"
     -- buru eggs respawn throughout the fight but we want them marked still
-    if AutoMarkerDB.temp_values.buru_egg_queue and name == L["Buru Egg"] then
+    if AutoMarkerDB.temp_values.buru_egg_queue then
       local next_egg_mark = tremove(AutoMarkerDB.temp_values.buru_egg_queue,1)
       if next_egg_mark then
         MarkUnit(guid, next_egg_mark)

@@ -2252,9 +2252,9 @@ addToDefaultNpcsToMark(L["Tower of Karazhan"], "kara_library_8", {
 })
 
 addToDefaultNpcsToMark(L["Tower of Karazhan"], "incantagos_seekers", {
-  ["0xF13000EA55278B84"] = MOON, -- Manascale Ley-Seeker
+  ["0xF13000EA55278B84"] = SQUARE, -- Manascale Ley-Seeker
   ["0xF13000EA55278B83"] = CROSS, -- Manascale Ley-Seeker
-  ["0xF13000EA55278B82"] = SQUARE, -- Manascale Ley-Seeker
+  ["0xF13000EA55278B82"] = MOON, -- Manascale Ley-Seeker
   ["0xF13000EA55278B81"] = SKULL, -- Manascale Ley-Seeker
 })
 
@@ -2307,9 +2307,9 @@ addToDefaultNpcsToMark(L["Tower of Karazhan"], "kara_library_anomalus", {
 addToDefaultNpcsToMark(L["Tower of Karazhan"], "kara_observatory_1", {
   ["0xF13000F1FB276BE1"] = MOON, -- Arcane Overflow
   ["0xF13000F1FB276BDD"] = TRIANGLE, -- Arcane Overflow
-  ["0xF13000F1FE276BE0"] = SKULL, -- Arcane Anomaly
+  ["0xF13000F1FE276BE0"] = DIAMOND, -- Arcane Anomaly
   ["0xF13000F1FB276BDF"] = SQUARE, -- Arcane Overflow
-  ["0xF13000F1FC276BDE"] = DIAMOND, -- Unstable Arcane Elemental
+  ["0xF13000F1FC276BDE"] = SKULL, -- Unstable Arcane Elemental
   ["0xF13000F1FD2783E1"] = CROSS, -- Disrupted Arcane Elemental
 })
 
@@ -2341,11 +2341,11 @@ addToDefaultNpcsToMark(L["Tower of Karazhan"], "kara_observatory_3", {
 })
 
 addToDefaultNpcsToMark(L["Tower of Karazhan"], "kara_observatory_6", {
-  ["0xF13000F200276D68"] = SKULL,
-  ["0xF13000F203276D52"] = TRIANGLE,
-  ["0xF13000F201276D66"] = CROSS,
-  ["0xF13000F201276D67"] = SQUARE,
-  ["0xF13000F202276D51"] = MOON,
+  ["0xF13000F200276D68"] = SQUARE,
+  ["0xF13000F203276D52"] = CROSS,
+  ["0xF13000F201276D66"] = TRIANGLE,
+  ["0xF13000F202276D51"] = SKULL,
+  ["0xF13000F201276D67"] = MOON,
 })
 
 addToDefaultNpcsToMark(L["Tower of Karazhan"], "kara_echo_pre_1", {
@@ -2363,32 +2363,32 @@ addToDefaultNpcsToMark(L["Tower of Karazhan"], "kara_echo_pre_2_1", {
 })
 
 addToDefaultNpcsToMark(L["Tower of Karazhan"], "kara_echo_pre_2_2", {
-  ["0xF13000F200276D63"] = MOON, -- Crumbling Protector
+  ["0xF13000F200276D63"] = SQUARE, -- Crumbling Protector
   ["0xF13000F204276D2B"] = SKULL, -- Lingering Astrologist
-  ["0xF13000F205276D2C"] = SQUARE, -- Lingering Enchanter
+  ["0xF13000F205276D2C"] = MOON, -- Lingering Enchanter
   ["0xF13000F203276D2D"] = CROSS, -- Lingering Arcanist
 })
 
 addToDefaultNpcsToMark(L["Tower of Karazhan"], "kara_chess_1", {
   ["0xF13000F1FB276D47"] = TRIANGLE, -- Arcane Overflow
+  ["0xF13000F204276D43"] = SKULL, -- Lingering Astrologist
   ["0xF13000F200276D64"] = MOON, -- Crumbling Protector
+  ["0xF13000F205276D44"] = CROSS, -- Lingering Enchanter
   ["0xF13000F201276D65"] = SQUARE, -- Karazhan Protector Golem
+})
+
+addToDefaultNpcsToMark(L["Tower of Karazhan"], "kara_chess_2", {
+  ["0xF13000F1FD2783E0"] = SQUARE, -- Disrupted Arcane Elemental
   ["0xF13000F204276D4A"] = CROSS, -- Lingering Astrologist
   ["0xF13000F202276D49"] = SKULL, -- Lingering Magus
 })
 
-addToDefaultNpcsToMark(L["Tower of Karazhan"], "kara_chess_2", {
-  ["0xF13000F201276D67"] = TRIANGLE, -- Karazhan Protector Golem
-  ["0xF13000F201276D66"] = MOON, -- Karazhan Protector Golem
-  ["0xF13000F1FD2783E0"] = SQUARE, -- Disrupted Arcane Elemental
-  ["0xF13000F205276D44"] = CROSS, -- Lingering Enchanter
-  ["0xF13000F204276D43"] = SKULL, -- Lingering Astrologist
-})
-
 addToDefaultNpcsToMark(L["Tower of Karazhan"], "kara_chess_3", {
-  ["0xF13000F200276D68"] = SQUARE, -- Crumbling Protector
+  ["0xF13000F201276D66"] = TRIANGLE, -- Karazhan Protector Golem
   ["0xF13000F203276D52"] = CROSS, -- Lingering Arcanist
+  ["0xF13000F201276D67"] = MOON, -- Karazhan Protector Golem
   ["0xF13000F202276D51"] = SKULL, -- Lingering Magus
+  ["0xF13000F200276D68"] = SQUARE, -- Crumbling Protector
 })
 
 addToDefaultNpcsToMark(L["Tower of Karazhan"], "kara_chess", {
@@ -2478,6 +2478,14 @@ addToDefaultNpcsToMark(L["???"], "village_3", {
   ["0xF13000F245276CD6"] = SQUARE, -- Draenei Darkbinder
 })
 
+addToDefaultNpcsToMark(L["???"], "infernal_2", {
+  ["0xF13000F241276D0A"] = SKULL, -- infernal
+  ["0xF13000F242276D0C"] = UNMARKED, --imp
+  ["0xF13000F242276D0D"] = UNMARKED, --imp
+  ["0xF13000F242276D0B"] = UNMARKED, --imp
+  ["0xF13000F242276D0E"] = UNMARKED, --imp
+})
+
 addToDefaultNpcsToMark(L["???"], "sanv_1", {
   ["0xF13000F245276CDA"] = SKULL, -- Draenei Darkbinder
   ["0xF13000F244276CD9"] = CROSS, -- Outcast Souleater
@@ -2536,6 +2544,11 @@ addToDefaultNpcsToMark(L["???"], "rupturan_fragments", {
   ["0xF13000EA35279A2F"] = SKULL, -- Fragment of Rupturan, fake id
   ["0xF13000EA35279A30"] = CROSS, -- Fragment of Rupturan, fake id
   ["0xF13000EA35279A31"] = SQUARE, -- Fragment of Rupturan, fake id
+})
+
+addToDefaultNpcsToMark(L["???"], "outland_patrols", {
+  ["0xF13000F240276CB1"] = 3,
+  ["0xF13000F241276D09"] = 2,
 })
 
 addToDefaultNpcsToMark(L["???"], "pre_krull_1", {
