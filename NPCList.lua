@@ -2451,24 +2451,24 @@ addToDefaultNpcsToMark(L["Tower of Karazhan"], "kara_upper_demon_4", {
   ["0xF13000F48D27870C"] = CROSS, -- destroyer
 })
 
-addToDefaultNpcsToMark(L["???"], "darkbinders1", {
+addToDefaultNpcsToMark(L["The Rock of Desolation"], "darkbinders1", {
   ["0xF13000F243276CCD"] = SKULL, -- Warbringer Overseer
   ["0xF13000F245276CE7"] = CROSS, -- Draenei Darkbinder
   ["0xF13000F245276CE6"] = SQUARE, -- Draenei Darkbinder
   ["0xF13000F244276C76"] = MOON, -- souleater
 })
 
-addToDefaultNpcsToMark(L["???"], "village_1", {
+addToDefaultNpcsToMark(L["The Rock of Desolation"], "village_1", {
   ["0xF13000F243276CCC"] = SKULL, -- Warbringer Overseer
 })
 
-addToDefaultNpcsToMark(L["???"], "village_2", {
+addToDefaultNpcsToMark(L["The Rock of Desolation"], "village_2", {
   ["0xF13000F240276CCB"] = SKULL, -- Doomguard Annihilator
   ["0xF13000F242276CC9"] = CROSS, -- Darkflame Imp
   ["0xF13000F242276CC8"] = SQUARE, -- Darkflame Imp
 })
 
-addToDefaultNpcsToMark(L["???"], "village_3", {
+addToDefaultNpcsToMark(L["The Rock of Desolation"], "village_3", {
   ["0xF13000F245276CD7"] = SKULL, -- Draenei Darkbinder
   ["0xF13000F245276CE2"] = CROSS, -- Draenei Darkbinder
   ["0xF13000F246276CDF"] = UNMARKED, -- Draenei Worshipper
@@ -2478,7 +2478,7 @@ addToDefaultNpcsToMark(L["???"], "village_3", {
   ["0xF13000F245276CD6"] = SQUARE, -- Draenei Darkbinder
 })
 
-addToDefaultNpcsToMark(L["???"], "infernal_2", {
+addToDefaultNpcsToMark(L["The Rock of Desolation"], "infernal_2", {
   ["0xF13000F241276D0A"] = SKULL, -- infernal
   ["0xF13000F242276D0C"] = UNMARKED, --imp
   ["0xF13000F242276D0D"] = UNMARKED, --imp
@@ -2486,7 +2486,7 @@ addToDefaultNpcsToMark(L["???"], "infernal_2", {
   ["0xF13000F242276D0E"] = UNMARKED, --imp
 })
 
-addToDefaultNpcsToMark(L["???"], "sanv_1", {
+addToDefaultNpcsToMark(L["The Rock of Desolation"], "sanv_1", {
   ["0xF13000F245276CDA"] = SKULL, -- Draenei Darkbinder
   ["0xF13000F244276CD9"] = CROSS, -- Outcast Souleater
   ["0xF13000F244276CD8"] = SQUARE, -- Outcast Souleater
@@ -2494,7 +2494,7 @@ addToDefaultNpcsToMark(L["???"], "sanv_1", {
   ["0xF13000F246276CDB"] = UNMARKED, -- Draenei Worshipper
 })
 
-addToDefaultNpcsToMark(L["???"], "sanv_2", {
+addToDefaultNpcsToMark(L["The Rock of Desolation"], "sanv_2", {
   ["0xF13000F245276C92"] = SKULL, -- Draenei Darkbinder
   ["0xF13000F244276C94"] = CROSS, -- Outcast Souleater
   ["0xF13000F246276C85"] = UNMARKED, -- Draenei Worshipper
@@ -2505,7 +2505,7 @@ addToDefaultNpcsToMark(L["???"], "sanv_2", {
   ["0xF13000F246276C82"] = UNMARKED, -- Draenei Worshipper
   ["0xF13000F246276C83"] = UNMARKED, -- Draenei Worshipper
 })
-addToDefaultNpcsToMark(L["???"], "sanv_3", {
+addToDefaultNpcsToMark(L["The Rock of Desolation"], "sanv_3", {
   ["0xF13000F245276C8E"] = SKULL, -- Draenei Darkbinder
   ["0xF13000F245276C8F"] = CROSS, -- Draenei Darkbinder
   ["0xF13000F244276C8D"] = SQUARE, -- Outcast Souleater
@@ -2514,7 +2514,7 @@ addToDefaultNpcsToMark(L["???"], "sanv_3", {
   ["0xF13000F246276C90"] = UNMARKED, -- Draenei Worshipper
 })
 
-addToDefaultNpcsToMark(L["???"], "sanv_3", {
+addToDefaultNpcsToMark(L["The Rock of Desolation"], "sanv_3", {
   ["0xF13000F245276C87"] = SKULL, -- Draenei Darkbinder
   ["0xF13000F245276C86"] = CROSS, -- Draenei Darkbinder
   ["0xF13000F244276C88"] = SQUARE, -- Outcast Souleater
@@ -2523,7 +2523,7 @@ addToDefaultNpcsToMark(L["???"], "sanv_3", {
   ["0xF13000F246276C8B"] = UNMARKED, -- Draenei Worshipper
 })
 
-addToDefaultNpcsToMark(L["???"], "pre_rupturan_1", {
+addToDefaultNpcsToMark(L["The Rock of Desolation"], "pre_rupturan_1", {
   ["0xF13000F241276CBE"] = SKULL, -- Infernal Destroyer
   ["0xF13000F242276CC7"] = UNMARKED, -- Darkflame Imp
   ["0xF13000F242276CC4"] = UNMARKED, -- Darkflame Imp
@@ -2532,7 +2532,7 @@ addToDefaultNpcsToMark(L["???"], "pre_rupturan_1", {
   ["0xF13000F242276CC5"] = UNMARKED, -- Darkflame Imp
 })
 
-addToDefaultNpcsToMark(L["???"], "rupturan_exile", {
+addToDefaultNpcsToMark(L["The Rock of Desolation"], "rupturan_exile", {
   ["0xF13000EA38073D39"] = SKULL, -- crumbling exile
   ["0xF13000EA38073D38"] = CROSS, -- crumbling exile
   ["0xF13000EA38073D37"] = SQUARE, -- crumbling exile
@@ -2540,24 +2540,24 @@ addToDefaultNpcsToMark(L["???"], "rupturan_exile", {
   ["0xF13000EA39073D35"] = UNMARKED,-- Rupturan the Broken
 })
 
-addToDefaultNpcsToMark(L["???"], "rupturan_fragments", {
+addToDefaultNpcsToMark(L["The Rock of Desolation"], "rupturan_fragments", {
   ["0xF13000EA35279A2F"] = SKULL, -- Fragment of Rupturan, fake id
   ["0xF13000EA35279A30"] = CROSS, -- Fragment of Rupturan, fake id
   ["0xF13000EA35279A31"] = SQUARE, -- Fragment of Rupturan, fake id
 })
 
-addToDefaultNpcsToMark(L["???"], "outland_patrols", {
+addToDefaultNpcsToMark(L["The Rock of Desolation"], "outland_patrols", {
   ["0xF13000F240276CB1"] = 3,
   ["0xF13000F241276D09"] = 2,
 })
 
-addToDefaultNpcsToMark(L["???"], "pre_kruul_1", {
+addToDefaultNpcsToMark(L["The Rock of Desolation"], "pre_kruul_1", {
   ["0xF13000F240276D11"] = CROSS, -- Doomguard Annihilator
   ["0xF13000F240276D10"] = SQUARE, -- Doomguard Annihilator
   ["0xF13000F243276D0F"] = SKULL, -- Warbringer Overseer
 })
 
-addToDefaultNpcsToMark(L["???"], "pre_kruul_2", {
+addToDefaultNpcsToMark(L["The Rock of Desolation"], "pre_kruul_2", {
   ["0xF13000F23F276D12"] = SKULL, -- Dreadlord Doomseeker
   ["0xF13000F23F276D17"] = CROSS, -- Dreadlord Doomseeker
   ["0xF13000F23F276D14"] = SQUARE, -- Dreadlord Doomseeker
@@ -2566,7 +2566,7 @@ addToDefaultNpcsToMark(L["???"], "pre_kruul_2", {
   ["0xF13000F23F276D16"] = DIAMOND, -- Dreadlord Doomseeker
 })
 
-addToDefaultNpcsToMark(L["???"], "mephistroth", {
+addToDefaultNpcsToMark(L["The Rock of Desolation"], "mephistroth", {
   ["0xF130016C98271234"] = SKULL, -- hellfire doomguard, fake id
   ["0xF130016C98271235"] = CROSS, -- hellfire doomguard, fake id
 })

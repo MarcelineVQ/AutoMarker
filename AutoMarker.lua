@@ -487,14 +487,14 @@ local temporary_mobs = {
   ["Fragment of Rupturan"] = {
     minCount = 3,
     pack = "rupturan_fragments",
-    raid = L["???"],
+    raid = L["The Rock of Desolation"],
     live_mark = true,
     queue = {},
   },
   ["Crumbling Exile"] = {
     minCount = 4,
     pack = "rupturan_exile",
-    raid = L["???"],
+    raid = L["The Rock of Desolation"],
     live_mark = false,
     queue = {},
     reverse = true,
@@ -502,7 +502,7 @@ local temporary_mobs = {
   ["Hellfire Doomguard"] = {
     minCount = 2,
     pack = "mephistroth",
-    raid = L["???"],
+    raid = L["The Rock of Desolation"],
     live_mark = true,
     queue = {},
     -- reverse = true,
@@ -920,7 +920,7 @@ function autoMarker:UNIT_MODEL_CHANGED(guid,debug_id,debug_name)
   -- player unit models change _often_, exit early if it's not a mob guid
   if ssub(guid,3,3) ~= "F" then return end -- use IsPlayer(guid) ?
 
-  if zone == L["Tower of Karazhan"] or zone == L["???"] then
+  if zone == L["Tower of Karazhan"] or zone == L["The Rock of Desolation"] then
 
     if TryPatterns(guid,patterns.gnarlmoon_owl_blue,patterns.gnarlmoon_owl_red) then
       name = "Gnarlmoon Owl"
