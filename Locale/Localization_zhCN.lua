@@ -21,7 +21,7 @@ if GetLocale() == "zhCN" then
         ["Emerald Sanctum"] = "翡翠圣殿",
         -- locations: kara
         ["Tower of Karazhan"] = "卡拉赞",
-        ["???"] = "外域",
+        ["The Rock of Desolation"] = "荒芜巨岩",
 
         -- mobs: dm
         ["Ironbark Protector"] = "埃隆巴克保护者",

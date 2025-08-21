@@ -2551,13 +2551,13 @@ addToDefaultNpcsToMark(L["???"], "outland_patrols", {
   ["0xF13000F241276D09"] = 2,
 })
 
-addToDefaultNpcsToMark(L["???"], "pre_krull_1", {
+addToDefaultNpcsToMark(L["???"], "pre_kruul_1", {
   ["0xF13000F240276D11"] = CROSS, -- Doomguard Annihilator
   ["0xF13000F240276D10"] = SQUARE, -- Doomguard Annihilator
   ["0xF13000F243276D0F"] = SKULL, -- Warbringer Overseer
 })
 
-addToDefaultNpcsToMark(L["???"], "pre_krull_2", {
+addToDefaultNpcsToMark(L["???"], "pre_kruul_2", {
   ["0xF13000F23F276D12"] = SKULL, -- Dreadlord Doomseeker
   ["0xF13000F23F276D17"] = CROSS, -- Dreadlord Doomseeker
   ["0xF13000F23F276D14"] = SQUARE, -- Dreadlord Doomseeker
