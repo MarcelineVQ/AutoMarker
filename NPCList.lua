@@ -1359,7 +1359,7 @@ addToDefaultNpcsToMark(L["Emerald Sanctum"], "wyrmkin_pack_right_3", {
   ["0xF13000ED4627549E"] = UNMARKED, -- sanctum dreamer
   ["0xF13000ED462754A0"] = UNMARKED, -- sanctum dreamer
   ["0xF13000ED462754A1"] = UNMARKED, -- sanctum dreamer
-  ["0xF13000ED462754A2"] = UNMARKED, -- sanctum dreamer
+  --["0xF13000ED462754A2"] = UNMARKED, -- sanctum dreamer
   ["0xF13000EF1C275499"] = SKULL, -- sanctum supressor
   ["0xF13000ED4727549C"] = STAR, -- sanctum dragonkin
   ["0xF13000ED4A27549D"] = CROSS, -- sanctum scalebane
