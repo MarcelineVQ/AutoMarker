@@ -1413,12 +1413,6 @@ addToDefaultNpcsToMark(L["Molten Core"], "giants3", {
   ["0xF130002D8A00DD82"] = SKULL,
 })
 
-addToDefaultNpcsToMark(L["Molten Core"], "gehennas", {
-  ["0xF130002D8D00DDA2"] = CROSS,
-  ["0xF130002D8D00DDA3"] = SQUARE,
-  ["0xF130002FE300DDA1"] = SKULL,
-})
-
 addToDefaultNpcsToMark(L["Molten Core"], "giants4", {
   ["0xF130002D8A00DD86"] = SKULL,
   ["0xF130002D8B00DD87"] = CROSS, -- destroyer
@@ -1492,6 +1486,78 @@ addToDefaultNpcsToMark(L["Molten Core"], "sulfuron", {
   ["0xF130002D8E00DD67"] = CROSS,
   ["0xF130002F4200DD65"] = TRIANGLE,
   ["0xF130002D8E00DD6A"] = SKULL,
+})
+
+addToDefaultNpcsToMark(L["Molten Core"], "golemag_shadowforge_pack", {
+  ["0xF130002D9300DDC7"] = SKULL,
+  ["0xF130002F2C00DDAF"] = DIAMOND,
+  ["0xF130002F2C00DDC8"] = CIRCLE,
+  ["0xF130002D9200DDAE"] = CROSS,
+})
+
+addToDefaultNpcsToMark(L["Molten Core"], "twin_golems", {
+  ["0xF13000FDFC278C2C"] = CROSS,
+  ["0xF13000FDFD278C2D"] = SKULL, -- this guy starts without the debuff
+})
+
+addToDefaultNpcsToMark(L["Molten Core"], "shadowforge_left_1", {
+  ["0xF13000CBB7278CD2"] = DIAMOND, -- pat
+  ["0xF13000CBB6278CD3"] = SQUARE,
+  ["0xF13000CBB8278CD4"] = CROSS,
+  ["0xF13000CBB8278CD5"] = SKULL,
+})
+
+addToDefaultNpcsToMark(L["Molten Core"], "shadowforge_left_2", {
+  ["0xF13000CBB6278CDD"] = CROSS,
+  ["0xF13000CBB6278CDE"] = SKULL,
+})
+
+addToDefaultNpcsToMark(L["Molten Core"], "shadowforge_left_3", {
+  ["0xF13000CBB8278CDA"] = CROSS,
+  ["0xF13000CBB8278CDB"] = SKULL,
+  ["0xF13000CBB8278CDC"] = SQUARE,
+})
+
+addToDefaultNpcsToMark(L["Molten Core"], "shadowforge_left_4", {
+  ["0xF13000CBB7278CDF"] = CROSS,
+  ["0xF13000CBB6278CE0"] = SKULL,
+})
+
+addToDefaultNpcsToMark(L["Molten Core"], "shadowforge_left_5", {
+  ["0xF13000CBB8278CC4"] = SKULL,
+  ["0xF13000CBB6278CC1"] = SQUARE,
+  ["0xF13000CBB8278CC3"] = CROSS,
+  ["0xF13000CBB6278CC2"] = MOON,
+})
+
+addToDefaultNpcsToMark(L["Molten Core"], "shadowforge_right_1", {
+  ["0xF13000CBB6278CB8"] = SQUARE,
+  ["0xF13000CBB8278CB7"] = SKULL, -- blazeweaver
+  ["0xF13000CBB6278CB9"] = CROSS,
+  ["0xF13000CBB6278CB3"] = DIAMOND, -- pat
+})
+
+addToDefaultNpcsToMark(L["Molten Core"], "shadowforge_right_2", {
+  ["0xF13000CBB6278CC6"] = SKULL,
+  ["0xF13000CBB6278CC5"] = CROSS,
+})
+
+addToDefaultNpcsToMark(L["Molten Core"], "shadowforge_right_3", {
+  ["0xF13000CBB7278CE3"] = SKULL,
+  ["0xF13000CBB7278CE2"] = SQUARE,
+  ["0xF13000CBB7278CE1"] = CROSS,
+})
+
+addToDefaultNpcsToMark(L["Molten Core"], "shadowforge_right_4", {
+  ["0xF13000CBB6278CCB"] = CROSS,
+  ["0xF13000CBB6278CCC"] = SKULL,
+})
+
+addToDefaultNpcsToMark(L["Molten Core"], "shadowforge_right_5", {
+  ["0xF13000CBB6278CC0"] = MOON
+  ["0xF13000CBB6278CBF"] = SQUARE
+  ["0xF13000CBB7278CBD"] = CROSS
+  ["0xF13000CBB7278CBE"] = SKULL
 })
 
 addToDefaultNpcsToMark(L["Molten Core"], "domo", {
