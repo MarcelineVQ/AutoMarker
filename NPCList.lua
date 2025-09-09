@@ -1554,10 +1554,10 @@ addToDefaultNpcsToMark(L["Molten Core"], "shadowforge_right_4", {
 })
 
 addToDefaultNpcsToMark(L["Molten Core"], "shadowforge_right_5", {
-  ["0xF13000CBB6278CC0"] = MOON
-  ["0xF13000CBB6278CBF"] = SQUARE
-  ["0xF13000CBB7278CBD"] = CROSS
-  ["0xF13000CBB7278CBE"] = SKULL
+  ["0xF13000CBB6278CC0"] = MOON,
+  ["0xF13000CBB6278CBF"] = SQUARE,
+  ["0xF13000CBB7278CBD"] = CROSS,
+  ["0xF13000CBB7278CBE"] = SKULL,
 })
 
 addToDefaultNpcsToMark(L["Molten Core"], "domo", {
