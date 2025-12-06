@@ -1519,8 +1519,8 @@ addToDefaultNpcsToMark(L["Molten Core"], "shadowforge_left_3", {
 })
 
 addToDefaultNpcsToMark(L["Molten Core"], "shadowforge_left_4", {
-  ["0xF13000CBB7278CDF"] = CROSS,
-  ["0xF13000CBB6278CE0"] = SKULL,
+  ["0xF13000CBB7278CDF"] = SKULL,
+  ["0xF13000CBB6278CE0"] = CROSS,
 })
 
 addToDefaultNpcsToMark(L["Molten Core"], "shadowforge_left_5", {
@@ -2213,8 +2213,10 @@ addToDefaultNpcsToMark(L["Tower of Karazhan"], "kara_upper_demon_3", {
 })
 
 addToDefaultNpcsToMark(L["Tower of Karazhan"], "kara_entrance_inner_1", {
-  ["0xF13000F1F0276B4A"] = CROSS,
-  ["0xF13000F1F1276B46"] = SKULL,
+  ["0xF13000F1F0276B48"] = CROSS,
+  ["0xF13000F1F0276B4A"] = SKULL,
+  ["0xF13000F1F1276B46"] = SQUARE,
+  ["0xF13000F1EC276B44"] = MOON,
 })
 
 addToDefaultNpcsToMark(L["Tower of Karazhan"], "gnarlmoon_owls", {
@@ -2353,21 +2355,21 @@ addToDefaultNpcsToMark(L["Tower of Karazhan"], "kara_library_upper_2", {
 })
 
 addToDefaultNpcsToMark(L["Tower of Karazhan"], "kara_library_upper_3", {
-  ["0xF13000F1FC276BCE"] = STAR, -- Unstable Arcane Elemental
-  ["0xF13000F1F7276BCB"] = SKULL, -- Manascale Suppressor
-  ["0xF13000F1FB276BCC"] = MOON, -- Arcane Overflow
+  ["0xF13000F1FC276BCE"] = DIAMOND, -- Unstable Arcane Elemental
   ["0xF13000F1FB276BCF"] = SQUARE, -- Arcane Overflow
-  ["0xF13000F1FB276BCD"] = CROSS, -- Arcane Overflow
-  ["0xF13000F1FC2783E3"] = DIAMOND, -- Unstable Arcane Elemental
+  ["0xF13000F1FB276BCC"] = MOON, -- Arcane Overflow
+  ["0xF13000F1F7276BCB"] = SKULL, -- Manascale Suppressor
+  ["0xF13000F1FB276BCD"] = TRIANGLE, -- Arcane Overflow
+  ["0xF13000F1FC2783E3"] = CROSS, -- Unstable Arcane Elemental
 })
 
 addToDefaultNpcsToMark(L["Tower of Karazhan"], "kara_library_anomalus", {
+  ["0xF13000F1FC276BDC"] = CROSS, -- Unstable Arcane Elemental
+  ["0xF13000F1FB2783E2"] = TRIANGLE, -- Arcane Overflow
+  ["0xF13000F1FC276BD9"] = DIAMOND, -- Unstable Arcane Elemental
   ["0xF13000F1FD276BDA"] = SKULL, -- Disrupted Arcane Elemental
-  ["0xF13000F1FB276BD8"] = CROSS, -- Arcane Overflow
-  ["0xF13000F1FB276BDB"] = SQUARE, -- Arcane Overflow
-  ["0xF13000F1FB2783E2"] = MOON, -- Arcane Overflow
-  ["0xF13000F1FC276BDC"] = DIAMOND, -- Unstable Arcane Elemental
-  ["0xF13000F1FC276BD9"] = STAR, -- Unstable Arcane Elemental
+  ["0xF13000F1FB276BDB"] = MOON, -- Arcane Overflow
+  ["0xF13000F1FB276BD8"] = SQUARE, -- Arcane Overflow
 })
 
 addToDefaultNpcsToMark(L["Tower of Karazhan"], "kara_observatory_1", {
@@ -2415,17 +2417,17 @@ addToDefaultNpcsToMark(L["Tower of Karazhan"], "kara_observatory_6", {
 })
 
 addToDefaultNpcsToMark(L["Tower of Karazhan"], "kara_echo_pre_1", {
-  ["0xF13000F203276D2F"] = MOON, -- Lingering Arcanist
   ["0xF13000F205276D33"] = TRIANGLE, -- Lingering Arcanist
+  ["0xF13000F202276D30"] = MOON, -- Lingering Magus
+  ["0xF13000F203276D2F"] = CROSS, -- Lingering Arcanist
   ["0xF13000F204276D32"] = SKULL, -- Lingering Astrologist
-  ["0xF13000F202276D31"] = CROSS, -- Lingering Magus
-  ["0xF13000F202276D30"] = SQUARE, -- Lingering Magus
+  ["0xF13000F202276D31"] = SQUARE, -- Lingering Magus
 })
 
 addToDefaultNpcsToMark(L["Tower of Karazhan"], "kara_echo_pre_2_1", {
-  ["0xF13000F200276D62"] = SQUARE, -- Crumbling Protector
-  ["0xF13000F202276D2E"] = SKULL, -- magus
   ["0xF13000F1FE2783E6"] = CROSS, -- arcane anomaly
+  ["0xF13000F202276D2E"] = SQUARE, -- magus
+  ["0xF13000F200276D62"] = SKULL, -- Crumbling Protector
 })
 
 addToDefaultNpcsToMark(L["Tower of Karazhan"], "kara_echo_pre_2_2", {
@@ -2468,17 +2470,17 @@ addToDefaultNpcsToMark(L["Tower of Karazhan"], "kara_chess", {
 })
 
 addToDefaultNpcsToMark(L["Tower of Karazhan"], "kara_foyer_1", {
-  ["0xF13000F203276D54"] = SQUARE, -- Lingering Arcanist
+  ["0xF13000F203276D54"] = CROSS, -- Lingering Arcanist
   ["0xF13000F205276D55"] = MOON, -- Lingering Enchanter
-  ["0xF13000F202276D53"] = SKULL, -- Lingering Magus
-  ["0xF13000F204276D56"] = CROSS, -- Lingering Astrologist
+  ["0xF13000F202276D53"] = SQUARE, -- Lingering Magus
+  ["0xF13000F204276D56"] = SKULL, -- Lingering Astrologist
 })
 
 addToDefaultNpcsToMark(L["Tower of Karazhan"], "kara_foyer_2", {
-  ["0xF13000F202276D57"] = SKULL, -- Lingering Magus
+  ["0xF13000F202276D57"] = SQUARE, -- Lingering Magus
   ["0xF13000F205276D5A"] = MOON, -- Lingering Enchanter
-  ["0xF13000F203276D5B"] = SQUARE, -- Lingering Arcanist
-  ["0xF13000F204276D58"] = CROSS, -- Lingering Astrologist
+  ["0xF13000F203276D5B"] = CROSS, -- Lingering Arcanist
+  ["0xF13000F204276D58"] = SKULL, -- Lingering Astrologist
 })
 
 addToDefaultNpcsToMark(L["Tower of Karazhan"], "kara_foyer_3", {
