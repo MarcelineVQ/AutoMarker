@@ -520,15 +520,31 @@ local temporary_mobs = {
 local function UpdateTemporaryMobs()
   for mob, config in pairs(temporary_mobs) do
     if GetRealZoneText() == config.raid and tsize(config.queue) >= config.minCount then
-      -- print(config.raid)
-      -- print(config.pack)
-      -- for k,_ in defaultNpcsToMark[config.raid][config.pack] do
-        -- print(k .. " " .. UnitName(k))
-      -- end
+      -- Defensive: ensure default tables exist
+      -- This was possibly causing wierd marking issues on skeram for people will broken/odd groups
+      if not defaultNpcsToMark[config.raid] then
+        config.queue = {}
+        AutoMarkerDB.checkTemporaryMobs = false
+        return
+      end
+      local defaultPack = defaultNpcsToMark[config.raid][config.pack]
+      if not defaultPack then
+        config.queue = {}
+        AutoMarkerDB.checkTemporaryMobs = false
+        return
+      end
+
+      -- Defensive: ensure current tables exist
+      currentNpcsToMark[config.raid] = currentNpcsToMark[config.raid] or {}
+
       currentNpcsToMark[config.raid][config.pack] =
-        sortAndReplaceKeys(defaultNpcsToMark[config.raid][config.pack], config.queue, config.reverse)
+        sortAndReplaceKeys(defaultPack, config.queue, config.reverse)
+
       if config.live_mark then
-        MarkPack(currentNpcsToMark[config.raid][config.pack])
+        local updatedPack = currentNpcsToMark[config.raid][config.pack]
+        if updatedPack then
+          MarkPack(updatedPack)
+        end
       end
       config.queue = {}
       AutoMarkerDB.checkTemporaryMobs = false
