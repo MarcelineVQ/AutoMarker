@@ -1035,6 +1035,13 @@ addToDefaultNpcsToMark(L["Zul'Gurub"], "venoxis_exit_snake_2", {
   ["0xF130002C6B00BFC5"] = UNMARKED,
   ["0xF130002C6B00BFC4"] = UNMARKED,
 })
+--/////////////// Mar'li ////////////
+
+addToDefaultNpcsToMark(L["Zul'Gurub"], "spidey_pat", {
+  ["0xF130003A2000C032"] = TRIANGLE, -- pat walks all the way to Mar'li, pulls left grp
+  ["0xF130003A2000C267"] = DIAMOND,
+  ["0xF130003A2000C266"] = CIRCLE,
+})
 
 --/////////////// Mandokir //////////////
 
