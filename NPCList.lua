@@ -1536,7 +1536,7 @@ addToDefaultNpcsToMark(L["Molten Core"], "golemag_shadowforge_pack", {
 
 addToDefaultNpcsToMark(L["Molten Core"], "majordomo_patrol", {
   ["0xF130002D9900DE1F"] = CIRCLE, -- Core Hound
-  ["0xF130002F4500DE12"] = DIAMOND, -- Surger
+  ["0xF130002F4500DE12"] = STAR, -- Surger
   ["0xF130002D9900DE1D"] = MOON, -- Core Hound
   ["0xF130002D9900DE1B"] = TRIANGLE, -- Core Hound
 })
