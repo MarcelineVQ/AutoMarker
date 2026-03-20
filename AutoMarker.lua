@@ -271,11 +271,11 @@ end
 -- /// Allow marking solo as well /// --
 
 local function AM_UnitPopup_HideButtons()
-  local dropdownMenu = getglobal(UIDROPDOWNMENU_INIT_MENU);
+  local dropdownMenu = _G[UIDROPDOWNMENU_INIT_MENU];
 
-  for index, value in UnitPopupMenus[dropdownMenu.which] do
+  for index, value in ipairs(UnitPopupMenus[dropdownMenu.which]) do
     if ( strsub(value, 1, 12)  == "RAID_TARGET_" ) then
-      UnitPopupShown[index] = 1;
+      UnitPopupShown[UIDROPDOWNMENU_MENU_LEVEL][index] = 1;
     end
   end
 end
