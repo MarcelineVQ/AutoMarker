@@ -1541,6 +1541,11 @@ addToDefaultNpcsToMark(L["Molten Core"], "majordomo_patrol", {
   ["0xF130002D9900DE1B"] = TRIANGLE, -- Core Hound
 })
 
+addToDefaultNpcsToMark(L["Molten Core"], "golemag_pack_rng_01", {
+  ["0xF130002D9100DDD6"] = SKULL, -- Firelord
+  ["0xF130002D9400DDD0"] = SKULL, -- Firelord
+})
+
 addToDefaultNpcsToMark(L["Molten Core"], "golemag_pack_01", {
   ["0xF130002D9300DDDF"] = SKULL, -- Flameguard
   ["0xF130002D9200DDDD"] = CROSS, --Firewalker
