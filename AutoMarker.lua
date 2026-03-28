@@ -514,6 +514,19 @@ local temporary_mobs = {
     live_mark = true,
     queue = {},
   },
+  ["Withermaw Illuminator"] = {
+    minCount = 2,
+    pack = "chieftain_illuminators",
+    raid = L["Timbermaw Hold"],
+    queue = {},
+  },
+  ["Withermaw Shadowkeeper"] = {
+    minCount = 2,
+    pack = "chieftain_shadowkeepers",
+    raid = L["Timbermaw Hold"],
+    live_mark = true,
+    queue = {},
+  },
   ["Buru Egg"] = {
     minCount = 6,
     pack = "buru_eggs",
@@ -897,6 +910,8 @@ local patterns = {
   rupturan_exile              = "^0xF13000EA3807",
   mephistroth_doomguards      = "^0xF130016C9827",
   onyxia_hatchers             = "^0xF13000C3E027",
+  chieftain_illuminators      = "^0xF13000F5DE27",
+  chieftain_shadowkeepers     = "^0xF13000F5DF27",
   rupturan_dirt_mound         = "^0xF13000EA3427",
   naxx_plague_gargs           = "^0xF130003F2801",
   buru_eggs                   = "^0xF130003C9A27",
@@ -973,6 +988,13 @@ function autoMarker:UNIT_MODEL_CHANGED(guid,debug_id,debug_name)
     elseif not GetRaidTargetIndex(guid) and TryPatterns(guid, patterns.sanv_netherwalker) then
       self:ApplyNextMark(guid,true) -- reverse, to hopefully leave skull/x for stalkers
       return
+    end
+
+  elseif zone == L["Timbermaw Hold"] then
+    if TryPatterns(guid, patterns.chieftain_illuminators) then
+      name = "Withermaw Illuminator"
+    elseif TryPatterns(guid, patterns.chieftain_shadowkeepers) then
+      name = "Withermaw Shadowkeeper"
     end
 
   elseif zone == L["Onyxia's Lair"] then

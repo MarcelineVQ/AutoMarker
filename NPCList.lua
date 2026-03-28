@@ -2903,10 +2903,15 @@ addToDefaultNpcsToMark(L["Timbermaw Hold"], "chieftain_6", {
   ["0xF13000F5932796EF"] = UNMARKED, -- Enraged Withermaw
 })
 
-addToDefaultNpcsToMark(L["Timbermaw Hold"], "chieftain", {
-  ["0xF13000F5DE2797AE"] = SQUARE, -- Withermaw Illuminator
-  ["0xF13000F5DE2797AD"] = CROSS, -- Withermaw Illuminator
+addToDefaultNpcsToMark(L["Timbermaw Hold"], "chieftain_illuminators", {
   ["0xF13000F5DD2796C0"] = SKULL, -- Chieftain Partath
+  ["0xF13000F5DE2797AD"] = SQUARE, -- Withermaw Illuminator
+  ["0xF13000F5DE2797AE"] = MOON, -- Withermaw Illuminator
+})
+
+addToDefaultNpcsToMark(L["Timbermaw Hold"], "chieftain_shadowkeepers", {
+  ["0xF13000F5DF27ADA2"] = SKULL, -- Withermaw Shadowkeeper
+  ["0xF13000F5DF27ADA3"] = CROSS, -- Withermaw Shadowkeeper
 })
 
 addToDefaultNpcsToMark(L["Timbermaw Hold"], "chieftain_2c", {
@@ -3116,6 +3121,6 @@ addToDefaultNpcsToMark(L["Onyxia's Lair"], "trash_5", {
 })
 
 addToDefaultNpcsToMark(L["Onyxia's Lair"], "onyxia_hatchers", {
-  ["0xF13000C3E0271234"] = SKULL, -- Onyxian Hatcher, fake id
-  ["0xF13000C3E0271235"] = CROSS, -- Onyxian Hatcher, fake id
+  ["0xF13000C3E027A8B0"] = SKULL, -- Onyxian Hatcher
+  ["0xF13000C3E027A8B1"] = CROSS, -- Onyxian Hatcher
 })
