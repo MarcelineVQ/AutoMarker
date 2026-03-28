@@ -22,6 +22,10 @@ if GetLocale() == "zhCN" then
         -- locations: kara
         ["Tower of Karazhan"] = "卡拉赞",
         ["The Rock of Desolation"] = "荒芜巨岩",
+        -- locations: timbermaw
+        ["Timbermaw Hold"] = "木喉要塞",
+        -- locations: onyxia
+        ["Onyxia's Lair"] = "奥妮克希亚的巢穴",
 
         -- mobs: dm
         ["Ironbark Protector"] = "埃隆巴克保护者",

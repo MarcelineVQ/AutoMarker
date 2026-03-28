@@ -507,6 +507,13 @@ local temporary_mobs = {
     queue = {},
     -- reverse = true,
   },
+  ["Onyxian Hatcher"] = {
+    minCount = 2,
+    pack = "onyxia_hatchers",
+    raid = L["Onyxia's Lair"],
+    live_mark = true,
+    queue = {},
+  },
   ["Buru Egg"] = {
     minCount = 6,
     pack = "buru_eggs",
@@ -889,6 +896,7 @@ local patterns = {
   rupturan_fragment           = "^0xF13000EA3527",
   rupturan_exile              = "^0xF13000EA3807",
   mephistroth_doomguards      = "^0xF130016C9827",
+  onyxia_hatchers             = "^0xF13000C3E027",
   rupturan_dirt_mound         = "^0xF13000EA3427",
   naxx_plague_gargs           = "^0xF130003F2801",
   buru_eggs                   = "^0xF130003C9A27",
@@ -965,6 +973,11 @@ function autoMarker:UNIT_MODEL_CHANGED(guid,debug_id,debug_name)
     elseif not GetRaidTargetIndex(guid) and TryPatterns(guid, patterns.sanv_netherwalker) then
       self:ApplyNextMark(guid,true) -- reverse, to hopefully leave skull/x for stalkers
       return
+    end
+
+  elseif zone == L["Onyxia's Lair"] then
+    if TryPatterns(guid, patterns.onyxia_hatchers) then
+      name = "Onyxian Hatcher"
     end
 
   elseif zone == L["Naxxramas"] or zone == L["The Upper Necropolis"] then

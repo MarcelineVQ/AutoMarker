@@ -22,6 +22,10 @@ if GetLocale() == "enUS" then
         -- locations: kara
         ["Tower of Karazhan"] = "Tower of Karazhan",
         ["The Rock of Desolation"] = "The Rock of Desolation",
+        -- locations: timbermaw
+        ["Timbermaw Hold"] = "Timbermaw Hold",
+        -- locations: onyxia
+        ["Onyxia's Lair"] = "Onyxia's Lair",
 
         ["You have Corruption, get OUT of the raid!"] = "You have Corruption, get OUT of the raid!",
         ["You are targeted for Dark Subservience, go /bow to the queen!"] = "Targeted for Dark Subservience, go /bow to the queen!",
