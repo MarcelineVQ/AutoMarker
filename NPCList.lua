@@ -3087,6 +3087,12 @@ addToDefaultNpcsToMark(L["Timbermaw Hold"], "inner_1", {
   ["0xF13000F59D279DA1"] = CROSS, -- Withermaw Ursa
 })
 
+addToDefaultNpcsToMark(L["Timbermaw Hold"], "ursol_corrupters", {
+  ["0xF13000F5E3279B8E"] = UNMARKED, -- Ursol
+  ["0xF13000732827A7C5"] = SKULL, -- Withermaw Corrupter
+  ["0xF13000732827A7C6"] = CROSS, -- Withermaw Corrupter
+})
+
 --/////////////// Onyxia's Lair ///////////////
 
 addToDefaultNpcsToMark(L["Onyxia's Lair"], "trash_1", {
@@ -3118,6 +3124,12 @@ addToDefaultNpcsToMark(L["Onyxia's Lair"], "trash_5", {
   ["0xF13000BF782792F1"] = CROSS, -- Onyxian Inciter
   ["0xF13000BF782792F0"] = SQUARE, -- Onyxian Inciter
   ["0xF13000BF792792ED"] = MOON, -- Onyxian Flamespawn
+})
+
+-- ony path
+addToDefaultNpcsToMark(L["Onyxia's Lair"], "trash_5", {
+  ["0xF13000BF792792E5"] = CROSS-- Onyxian Flamespawn
+  ["0xF13000BF782792E6"] = SKULL -- Onyxian Inciter
 })
 
 addToDefaultNpcsToMark(L["Onyxia's Lair"], "onyxia_hatchers", {

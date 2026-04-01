@@ -533,6 +533,13 @@ local temporary_mobs = {
     live_mark = true,
     queue = {},
   },
+  ["Withermaw Corrupter"] = {
+    minCount = 2,
+    pack = "ursol_corrupters",
+    raid = L["Timbermaw Hold"],
+    queue = {},
+    reverse = true,
+  },
   ["Buru Egg"] = {
     minCount = 6,
     pack = "buru_eggs",
@@ -905,6 +912,7 @@ local patterns = {
   rupturan_dirt_mound         = "^0xF13000EA3427",
   naxx_plague_gargs           = "^0xF130003F2801",
   buru_eggs                   = "^0xF130003C9A27",
+  ursol_corrupters            = "^0xF13000732827",
 }
 
 -- start with skull unless reversed
@@ -1000,6 +1008,8 @@ function autoMarker:UNIT_MODEL_CHANGED(guid,debug_id,debug_name)
   elseif zone == L["Timbermaw Hold"] then
     if TryPatterns(guid, patterns.chieftain_illuminators) then
       name = "Withermaw Illuminator"
+    elseif TryPatterns(guid, patterns.ursol_corrupters) then
+      name = "Withermaw Corrupter"
     elseif TryPatterns(guid, patterns.chieftain_shadowkeepers) then
       name = "Withermaw Shadowkeeper"
     end
