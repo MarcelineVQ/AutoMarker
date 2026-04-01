@@ -3127,9 +3127,9 @@ addToDefaultNpcsToMark(L["Onyxia's Lair"], "trash_5", {
 })
 
 -- ony path
-addToDefaultNpcsToMark(L["Onyxia's Lair"], "trash_5", {
-  ["0xF13000BF792792E5"] = CROSS-- Onyxian Flamespawn
-  ["0xF13000BF782792E6"] = SKULL -- Onyxian Inciter
+addToDefaultNpcsToMark(L["Onyxia's Lair"], "trash_left", {
+  ["0xF13000BF792792E5"] = CROSS,-- Onyxian Flamespawn
+  ["0xF13000BF782792E6"] = SKULL, -- Onyxian Inciter
 })
 
 addToDefaultNpcsToMark(L["Onyxia's Lair"], "onyxia_hatchers", {
