@@ -1,4 +1,4 @@
-# AutoMarker 1.22.1
+# AutoMarker 1.22.2
 AutoMarker for [SuperWoW](https://github.com/balakethelock/SuperWoW/) or [nampower](https://gitea.com/avitasia/nampower) 2.39+ on the 1.12 client.
 
 * Default values are (so far) calibrated for Turtle WoW specifically.

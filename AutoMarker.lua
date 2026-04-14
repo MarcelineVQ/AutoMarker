@@ -32,6 +32,7 @@ if GetNampowerVersion then
 end
 local use_nampower = np_major and (np_major > 2 or (np_major == 2 and np_minor >= 39))
 local use_superwow = not use_nampower and SetAutoloot
+local has_unitxp = pcall(UnitXP, "nop", "nop")
 
 if not use_superwow and not use_nampower then
   StaticPopupDialogs["NO_SUPERWOW_AUTOLOOT"] = {
@@ -196,14 +197,14 @@ local function MarkUnit(unit,mark)
   if PlayerCanRaidMark() then
     SetRaidTarget(unit,mark)
     return true
-  else
+  elseif use_superwow then
     if InGroup() and not warned_lead then
       DEFAULT_CHAT_FRAME:AddMessage(c(L["Warning:"],color.red)..L[" a mark set while not a leader/assistant is not visible to others"])
       warned_lead = true
     end
     SetRaidTarget(unit,mark,1)
-    return false
   end
+  return false
 end
 
 local function MarkPack(pack)
@@ -274,6 +275,52 @@ function AutoMarker_MarkName(name)
   end
 end
 
+function AutoMarker_MarkGuidPattern(guidPattern)
+  local sortedCache = {}
+  local cacheSize = 0
+  for guid,name in pairs(AutoMarkerDB.unitCache) do
+    cacheSize = cacheSize + 1
+    if sfind(guid, "^" .. guidPattern) then
+      tinsert(sortedCache, { guid = guid, name = name })
+    end
+  end
+  auto_print("cache: " .. cacheSize .. " | matches: " .. getn(sortedCache) .. " | pattern: " .. guidPattern)
+
+  tsort(sortedCache, function(a, b)
+    if has_unitxp then
+      local aDist = UnitXP("distanceBetween", "player", a.guid) or 999
+      local bDist = UnitXP("distanceBetween", "player", b.guid) or 999
+      return aDist < bDist
+    else
+      local aInRange = CheckInteractDistance(a.guid, 4)
+      local bInRange = CheckInteractDistance(b.guid, 4)
+      if aInRange and not bInRange then return true end
+      return false
+    end
+  end)
+
+  local hit = false
+  for _, data in ipairs(sortedCache) do
+    if not UnitExists(data.guid) then
+      AutoMarkerDB.unitCache[data.guid] = nil
+    elseif not UnitIsDead(data.guid) then
+      hit = true
+      for i=8,1,-1 do
+        local _,m = UnitExists("mark"..i)
+        if m and UnitExists(m) and not UnitIsDead(m) then
+          -- mark is used already
+        else
+          MarkUnit(data.guid,i)
+          break
+        end
+      end
+    end
+  end
+  if not hit then
+    auto_print(guidPattern .. L[" wasn't found nearby!"])
+  end
+end
+
 -- /// Allow marking solo as well /// --
 
 local function AM_UnitPopup_HideButtons()
@@ -303,17 +350,7 @@ local function AM_UnitPopup_OnClick()
 end
 UnitPopup_OnClick = PostHookFunction(UnitPopup_OnClick,AM_UnitPopup_OnClick)
 
-function AM_SetRaidTargetIcon(unit, index)
-  if ( GetRaidTargetIndex(unit) and GetRaidTargetIndex(unit) == index ) then
-    MarkUnit(unit, 0);
-  else
-    MarkUnit(unit, index);
-  end
-end
-SetRaidTargetIcon = PostHookFunction(SetRaidTargetIcon,AM_SetRaidTargetIcon)
-
 ------------------------------
-
 
 local raidMarks = { L["Unmarked"], L["Star"], L["Circle"], L["Diamond"], L["Triangle"], L["Moon"], L["Square"], L["Cross"], L["Skull"] }
 
@@ -440,6 +477,12 @@ local temporary_mobs = {
     minCount = 4,
     pack = "military_razuvious",
     raid = L["Naxxramas"],
+    queue = {},
+  },
+  ["Kodiak"] = {
+    minCount = 1,
+    pack = "rotgrowl",
+    raid = L["Timbermaw Hold"],
     queue = {},
   },
   [L["Crypt Guard"]] = {
@@ -913,6 +956,7 @@ local patterns = {
   naxx_plague_gargs           = "^0xF130003F2801",
   buru_eggs                   = "^0xF130003C9A27",
   ursol_corrupters            = "^0xF13000732827",
+  rotgrowl_kodiak             = "^0xF13000F5D927",
 }
 
 -- start with skull unless reversed
@@ -1012,6 +1056,8 @@ function autoMarker:UNIT_MODEL_CHANGED(guid,debug_id,debug_name)
       name = "Withermaw Corrupter"
     elseif TryPatterns(guid, patterns.chieftain_shadowkeepers) then
       name = "Withermaw Shadowkeeper"
+    elseif TryPatterns(guid, patterns.rotgrowl_kodiak) then
+      name = "Kodiak"
     end
 
   elseif zone == L["Onyxia's Lair"] then
@@ -1274,7 +1320,15 @@ local function handleCommands(msg, editbox)
     AutoMarker_MarkGroup()
   elseif command == "markname" then
     if not packName then
-      auto_print(L["You must provide a name as well when using markname."])
+      -- no name given, try to mark by target's guid pattern
+      local _, guid = UnitExists("target")
+      if guid then
+        local guidPattern = ssub(guid, 1, 12)
+        auto_print("target guid: " .. guid .. " | pattern: " .. guidPattern .. " | cache size: " .. getn(AutoMarkerDB.unitCache))
+        AutoMarker_MarkGuidPattern(guidPattern)
+      else
+        auto_print(L["You must provide a name as well when using markname."])
+      end
       return
     end
     tremove(args,1)

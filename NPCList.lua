@@ -2967,8 +2967,8 @@ addToDefaultNpcsToMark(L["Timbermaw Hold"], "left_upper_5", {
 })
 
 addToDefaultNpcsToMark(L["Timbermaw Hold"], "rotgrowl", {
-  ["0xF13000F5D8279798"] = STAR, -- Rotgrowl
-  ["0xF13000F5D927A7C6"] = SKULL, -- Kodiak
+  ["0xF13000F5D927A7C6"] = STAR, -- Kodiak
+  ["0xF13000F5D8279798"] = CROSS, -- Rotgrowl
 })
 
 addToDefaultNpcsToMark(L["Timbermaw Hold"], "corruption_2", {
@@ -3035,8 +3035,8 @@ addToDefaultNpcsToMark(L["Timbermaw Hold"], "twisted_rumblers", {
   ["0xF13000F5A0279A28"] = SKULL, -- Twisted Rumbler
   ["0xF13000F5A0279A29"] = CROSS, -- Twisted Rumbler
   ["0xF13000F5A0279A2A"] = SQUARE, -- Twisted Rumbler
-  ["0xF13000F5A0279A2B"] = MOON, -- Twisted Rumbler
-  ["0xF13000F5A0279A2C"] = TRIANGLE, -- Twisted Rumbler
+  -- ["0xF13000F5A0279A2B"] = MOON, -- Twisted Rumbler -- no need to fight
+  -- ["0xF13000F5A0279A2C"] = TRIANGLE, -- Twisted Rumbler -- no need to fight
 })
 
 addToDefaultNpcsToMark(L["Timbermaw Hold"], "corruption_5", {
